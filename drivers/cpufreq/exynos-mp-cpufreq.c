@@ -65,6 +65,30 @@
 #define POWER_COEFF_7P		9 /* percore  param */
 #endif
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_SOC_EXYNOS7420
+#define CL0_MAX_VOLT		1175000
+#define CL1_MAX_VOLT		1225000
+#define CL0_MIN_VOLT		500000
+#define CL1_MIN_VOLT		500000
+#define CL_MAX_VOLT(cl)		(cl == CL_ZERO ? CL0_MAX_VOLT : CL1_MAX_VOLT)
+#define CL_MIN_VOLT(cl)		(cl == CL_ZERO ? CL0_MIN_VOLT : CL1_MIN_VOLT)
+#define CL_VOLT_STEP		6250
+#else
+#error "Please define core voltage ranges for current SoC."
+#endif
+
+#ifdef CONFIG_SOC_EXYNOS7420
+#define CL0_MIN_FREQ		400000
+#define CL0_MAX_FREQ		1500000
+#define CL1_MIN_FREQ		800000
+#define CL1_MAX_FREQ		2100000
+#else
+#error "Please define core frequency ranges for current SoC."
+#endif
+
+>>>>>>> e4a4192... A57: allow max 2400 MHz & min 500 MHz
 #define VOLT_RANGE_STEP		25000
 #define CLUSTER_ID(cl)		(cl ? ID_CL1 : ID_CL0)
 
