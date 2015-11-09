@@ -568,6 +568,7 @@ static ssize_t fsg_show_nofua(struct device *dev, struct device_attribute *attr,
 	return sprintf(buf, "%u\n", curlun->nofua);
 }
 
+<<<<<<< HEAD
 static ssize_t fsg_show_cdrom (struct device *dev, struct device_attribute *attr,
 			   char *buf)
 {
@@ -576,6 +577,8 @@ static ssize_t fsg_show_cdrom (struct device *dev, struct device_attribute *attr
 	return sprintf(buf, "%d\n", curlun->cdrom);
 }
 
+=======
+>>>>>>> G920FXXU3COI9
 static ssize_t fsg_show_file(struct device *dev, struct device_attribute *attr,
 			     char *buf)
 {
@@ -689,6 +692,7 @@ static ssize_t fsg_store_file(struct device *dev, struct device_attribute *attr,
 	up_write(filesem);
 	return (rc < 0 ? rc : count);
 }
+<<<<<<< HEAD
 
 static ssize_t fsg_store_cdrom(struct device *dev, struct device_attribute *attr,
 				  const char *buf, size_t count)
@@ -718,3 +722,5 @@ static ssize_t fsg_store_cdrom(struct device *dev, struct device_attribute *attr
 	up_read(filesem);
 	return rc;
 } 
+=======
+>>>>>>> G920FXXU3COI9

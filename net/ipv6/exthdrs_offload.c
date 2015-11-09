@@ -36,6 +36,10 @@ out:
 	return ret;
 
 out_rt:
+<<<<<<< HEAD
 	inet6_del_offload(&rthdr_offload, IPPROTO_ROUTING);
+=======
+	inet_del_offload(&rthdr_offload, IPPROTO_ROUTING);
+>>>>>>> G920FXXU3COI9
 	goto out;
 }

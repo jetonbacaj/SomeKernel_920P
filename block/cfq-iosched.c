@@ -3588,11 +3588,14 @@ retry:
 
 	blkcg = bio_blkcg(bio);
 	cfqg = cfq_lookup_create_cfqg(cfqd, blkcg);
+<<<<<<< HEAD
 	if (!cfqg) {
 		cfqq = &cfqd->oom_cfqq;
 		goto out;
 	}
 
+=======
+>>>>>>> G920FXXU3COI9
 	cfqq = cic_to_cfqq(cic, is_sync);
 
 	/*
@@ -3629,7 +3632,11 @@ retry:
 		} else
 			cfqq = &cfqd->oom_cfqq;
 	}
+<<<<<<< HEAD
 out:
+=======
+
+>>>>>>> G920FXXU3COI9
 	if (new_cfqq)
 		kmem_cache_free(cfq_pool, new_cfqq);
 
@@ -3659,17 +3666,25 @@ static struct cfq_queue *
 cfq_get_queue(struct cfq_data *cfqd, bool is_sync, struct cfq_io_cq *cic,
 	      struct bio *bio, gfp_t gfp_mask)
 {
+<<<<<<< HEAD
 	int ioprio_class = IOPRIO_PRIO_CLASS(cic->ioprio);
 	int ioprio = IOPRIO_PRIO_DATA(cic->ioprio);
+=======
+	const int ioprio_class = IOPRIO_PRIO_CLASS(cic->ioprio);
+	const int ioprio = IOPRIO_PRIO_DATA(cic->ioprio);
+>>>>>>> G920FXXU3COI9
 	struct cfq_queue **async_cfqq = NULL;
 	struct cfq_queue *cfqq = NULL;
 
 	if (!is_sync) {
+<<<<<<< HEAD
 		if (!ioprio_valid(cic->ioprio)) {
 			struct task_struct *tsk = current;
 			ioprio = task_nice_ioprio(tsk);
 			ioprio_class = task_nice_ioclass(tsk);
 		}
+=======
+>>>>>>> G920FXXU3COI9
 		async_cfqq = cfq_async_queue_prio(cfqd, ioprio_class, ioprio);
 		cfqq = *async_cfqq;
 	}
@@ -4483,6 +4498,7 @@ out_free:
 	return ret;
 }
 
+<<<<<<< HEAD
 static void cfq_registered_queue(struct request_queue *q)
 {
 	struct elevator_queue *e = q->elevator;
@@ -4495,6 +4511,8 @@ static void cfq_registered_queue(struct request_queue *q)
 		cfqd->cfq_slice_idle = 0;
 }
 
+=======
+>>>>>>> G920FXXU3COI9
 /*
  * sysfs parts below -->
  */
@@ -4616,7 +4634,10 @@ static struct elevator_type iosched_cfq = {
 		.elevator_may_queue_fn =	cfq_may_queue,
 		.elevator_init_fn =		cfq_init_queue,
 		.elevator_exit_fn =		cfq_exit_queue,
+<<<<<<< HEAD
 		.elevator_registered_fn =	cfq_registered_queue,
+=======
+>>>>>>> G920FXXU3COI9
 	},
 	.icq_size	=	sizeof(struct cfq_io_cq),
 	.icq_align	=	__alignof__(struct cfq_io_cq),

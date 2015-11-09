@@ -1902,6 +1902,7 @@ static void check_spread(struct cfs_rq *cfs_rq, struct sched_entity *se)
 #endif
 }
 
+<<<<<<< HEAD
 static unsigned int Lgentle_fair_sleepers = 1;
 static unsigned int Larch_power = 1;
 
@@ -1915,6 +1916,8 @@ void relay_ap(unsigned int ap)
 	Larch_power = ap;
 }
 
+=======
+>>>>>>> G920FXXU3COI9
 static void
 place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int initial)
 {
@@ -1937,7 +1940,11 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int initial)
 		 * Halve their sleep time's effect, to allow
 		 * for a gentler effect of sleepers:
 		 */
+<<<<<<< HEAD
 		if (Lgentle_fair_sleepers)
+=======
+		if (sched_feat(GENTLE_FAIR_SLEEPERS))
+>>>>>>> G920FXXU3COI9
 			thresh >>= 1;
 
 		vruntime -= thresh;
@@ -3013,6 +3020,16 @@ static void hrtick_start_fair(struct rq *rq, struct task_struct *p)
 			return;
 		}
 
+<<<<<<< HEAD
+=======
+		/*
+		 * Don't schedule slices shorter than 10000ns, that just
+		 * doesn't make sense. Rely on vruntime for fairness.
+		 */
+		if (rq->curr != p)
+			delta = max_t(s64, 10000LL, delta);
+
+>>>>>>> G920FXXU3COI9
 		hrtick_start(rq, delta);
 	}
 }
@@ -3208,6 +3225,7 @@ static unsigned long cpu_avg_load_per_task(int cpu)
 	return 0;
 }
 
+<<<<<<< HEAD
 static void record_wakee(struct task_struct *p)
 {
 	/*
@@ -3225,6 +3243,8 @@ static void record_wakee(struct task_struct *p)
 		current->wakee_flips++;
 	}
 }
+=======
+>>>>>>> G920FXXU3COI9
 
 static void task_waking_fair(struct task_struct *p)
 {
@@ -3245,7 +3265,10 @@ static void task_waking_fair(struct task_struct *p)
 #endif
 
 	se->vruntime -= min_vruntime;
+<<<<<<< HEAD
 	record_wakee(p);
+=======
+>>>>>>> G920FXXU3COI9
 }
 
 #ifdef CONFIG_FAIR_GROUP_SCHED
@@ -3364,6 +3387,7 @@ static inline unsigned long effective_load(struct task_group *tg, int cpu,
 
 #endif
 
+<<<<<<< HEAD
 static int wake_wide(struct task_struct *p)
 {
 	int factor = nr_cpus_node(cpu_to_node(smp_processor_id()));
@@ -3386,6 +3410,8 @@ static int wake_wide(struct task_struct *p)
 	return 0;
 }
 
+=======
+>>>>>>> G920FXXU3COI9
 static int wake_affine(struct sched_domain *sd, struct task_struct *p, int sync)
 {
 	s64 this_load, load;
@@ -3395,6 +3421,7 @@ static int wake_affine(struct sched_domain *sd, struct task_struct *p, int sync)
 	unsigned long weight;
 	int balanced;
 
+<<<<<<< HEAD
 	/*
 	 * If we wake multiple tasks be careful to not bounce
 	 * ourselves around too much.
@@ -3402,6 +3429,8 @@ static int wake_affine(struct sched_domain *sd, struct task_struct *p, int sync)
 	if (wake_wide(p))
 		return 0;
 
+=======
+>>>>>>> G920FXXU3COI9
 	idx	  = sd->wake_idx;
 	this_cpu  = smp_processor_id();
 	prev_cpu  = task_cpu(p);
@@ -5340,11 +5369,19 @@ static int tg_load_down(struct task_group *tg, void *data)
 	long cpu = (long)data;
 
 	if (!tg->parent) {
+<<<<<<< HEAD
 		load = cpu_rq(cpu)->avg.load_avg_contrib;
 	} else {
 		load = tg->parent->cfs_rq[cpu]->h_load;
 		load = div64_ul(load * tg->se[cpu]->avg.load_avg_contrib,
 				tg->parent->cfs_rq[cpu]->runnable_load_avg + 1);
+=======
+		load = cpu_rq(cpu)->load.weight;
+	} else {
+		load = tg->parent->cfs_rq[cpu]->h_load;
+		load *= tg->se[cpu]->load.weight;
+		load /= tg->parent->cfs_rq[cpu]->load.weight + 1;
+>>>>>>> G920FXXU3COI9
 	}
 
 	tg->cfs_rq[cpu]->h_load = load;
@@ -5370,9 +5407,18 @@ static void update_h_load(long cpu)
 static unsigned long task_h_load(struct task_struct *p)
 {
 	struct cfs_rq *cfs_rq = task_cfs_rq(p);
+<<<<<<< HEAD
 
 	return div64_ul(p->se.avg.load_avg_contrib * cfs_rq->h_load,
 			cfs_rq->runnable_load_avg + 1);
+=======
+	unsigned long load;
+
+	load = p->se.load.weight;
+	load = div_u64(load * cfs_rq->h_load, cfs_rq->load.weight + 1);
+
+	return load;
+>>>>>>> G920FXXU3COI9
 }
 #else
 static inline void update_blocked_averages(int cpu)
@@ -5385,7 +5431,11 @@ static inline void update_h_load(long cpu)
 
 static unsigned long task_h_load(struct task_struct *p)
 {
+<<<<<<< HEAD
 	return p->se.avg.load_avg_contrib;
+=======
+	return p->se.load.weight;
+>>>>>>> G920FXXU3COI9
 }
 #endif
 
@@ -5522,7 +5572,11 @@ static void update_cpu_power(struct sched_domain *sd, int cpu)
 	struct sched_group *sdg = sd->groups;
 
 	if ((sd->flags & SD_SHARE_CPUPOWER) && weight > 1) {
+<<<<<<< HEAD
 		if (Larch_power)
+=======
+		if (sched_feat(ARCH_POWER))
+>>>>>>> G920FXXU3COI9
 			power *= arch_scale_smt_power(sd, cpu);
 		else
 			power *= default_scale_smt_power(sd, cpu);
@@ -5532,7 +5586,11 @@ static void update_cpu_power(struct sched_domain *sd, int cpu)
 
 	sdg->sgp->power_orig = power;
 
+<<<<<<< HEAD
 	if (Larch_power)
+=======
+	if (sched_feat(ARCH_POWER))
+>>>>>>> G920FXXU3COI9
 		power *= arch_scale_freq_power(sd, cpu);
 	else
 		power *= default_scale_freq_power(sd, cpu);
@@ -6127,10 +6185,17 @@ static struct rq *find_busiest_queue(struct lb_env *env,
 				     struct sched_group *group)
 {
 	struct rq *busiest = NULL, *rq;
+<<<<<<< HEAD
 	unsigned long busiest_load = 0, busiest_power = 1;
 	int i;
 
 	for_each_cpu_and(i, sched_group_cpus(group), env->cpus) {
+=======
+	unsigned long max_load = 0;
+	int i;
+
+	for_each_cpu(i, sched_group_cpus(group)) {
+>>>>>>> G920FXXU3COI9
 		unsigned long power = power_of(i);
 		unsigned long capacity = DIV_ROUND_CLOSEST(power,
 							   SCHED_POWER_SCALE);
@@ -6139,6 +6204,12 @@ static struct rq *find_busiest_queue(struct lb_env *env,
 		if (!capacity)
 			capacity = fix_small_capacity(env->sd, group);
 
+<<<<<<< HEAD
+=======
+		if (!cpumask_test_cpu(i, env->cpus))
+			continue;
+
+>>>>>>> G920FXXU3COI9
 		rq = cpu_rq(i);
 		wl = weighted_cpuload(i);
 
@@ -6154,6 +6225,7 @@ static struct rq *find_busiest_queue(struct lb_env *env,
 		 * the weighted_cpuload() scaled with the cpu power, so that
 		 * the load can be moved away from the cpu that is potentially
 		 * running at a lower capacity.
+<<<<<<< HEAD
 		 *
 		 * Thus we're looking for max(wl_i / power_i), crosswise
 		 * multiplication to rid ourselves of the division works out
@@ -6163,6 +6235,13 @@ static struct rq *find_busiest_queue(struct lb_env *env,
 		if (wl * busiest_power > busiest_load * power) {
 			busiest_load = wl;
 			busiest_power = power;
+=======
+		 */
+		wl = (wl * SCHED_POWER_SCALE) / power;
+
+		if (wl > max_load) {
+			max_load = wl;
+>>>>>>> G920FXXU3COI9
 			busiest = rq;
 		}
 	}

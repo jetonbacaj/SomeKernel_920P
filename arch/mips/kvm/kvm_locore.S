@@ -431,7 +431,11 @@ __kvm_mips_return_to_guest:
     /* Setup status register for running guest in UM */
     .set at
     or     v1, v1, (ST0_EXL | KSU_USER | ST0_IE)
+<<<<<<< HEAD
     and     v1, v1, ~(ST0_CU0 | ST0_MX)
+=======
+    and     v1, v1, ~ST0_CU0
+>>>>>>> G920FXXU3COI9
     .set noat
     mtc0    v1, CP0_STATUS
     ehb

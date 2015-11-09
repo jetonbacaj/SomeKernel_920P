@@ -794,26 +794,41 @@ int gssx_dec_accept_sec_context(struct rpc_rqst *rqstp,
 {
 	u32 value_follows;
 	int err;
+<<<<<<< HEAD
 	struct page *scratch;
 
 	scratch = alloc_page(GFP_KERNEL);
 	if (!scratch)
 		return -ENOMEM;
 	xdr_set_scratch_buffer(xdr, page_address(scratch), PAGE_SIZE);
+=======
+>>>>>>> G920FXXU3COI9
 
 	/* res->status */
 	err = gssx_dec_status(xdr, &res->status);
 	if (err)
+<<<<<<< HEAD
 		goto out_free;
+=======
+		return err;
+>>>>>>> G920FXXU3COI9
 
 	/* res->context_handle */
 	err = gssx_dec_bool(xdr, &value_follows);
 	if (err)
+<<<<<<< HEAD
 		goto out_free;
 	if (value_follows) {
 		err = gssx_dec_ctx(xdr, res->context_handle);
 		if (err)
 			goto out_free;
+=======
+		return err;
+	if (value_follows) {
+		err = gssx_dec_ctx(xdr, res->context_handle);
+		if (err)
+			return err;
+>>>>>>> G920FXXU3COI9
 	} else {
 		res->context_handle = NULL;
 	}
@@ -821,11 +836,19 @@ int gssx_dec_accept_sec_context(struct rpc_rqst *rqstp,
 	/* res->output_token */
 	err = gssx_dec_bool(xdr, &value_follows);
 	if (err)
+<<<<<<< HEAD
 		goto out_free;
 	if (value_follows) {
 		err = gssx_dec_buffer(xdr, res->output_token);
 		if (err)
 			goto out_free;
+=======
+		return err;
+	if (value_follows) {
+		err = gssx_dec_buffer(xdr, res->output_token);
+		if (err)
+			return err;
+>>>>>>> G920FXXU3COI9
 	} else {
 		res->output_token = NULL;
 	}
@@ -833,17 +856,27 @@ int gssx_dec_accept_sec_context(struct rpc_rqst *rqstp,
 	/* res->delegated_cred_handle */
 	err = gssx_dec_bool(xdr, &value_follows);
 	if (err)
+<<<<<<< HEAD
 		goto out_free;
 	if (value_follows) {
 		/* we do not support upcall servers sending this data. */
 		err = -EINVAL;
 		goto out_free;
+=======
+		return err;
+	if (value_follows) {
+		/* we do not support upcall servers sending this data. */
+		return -EINVAL;
+>>>>>>> G920FXXU3COI9
 	}
 
 	/* res->options */
 	err = gssx_dec_option_array(xdr, &res->options);
 
+<<<<<<< HEAD
 out_free:
 	__free_page(scratch);
+=======
+>>>>>>> G920FXXU3COI9
 	return err;
 }

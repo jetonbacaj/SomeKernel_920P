@@ -405,13 +405,21 @@ static long fimg2d_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 			return -ENXIO;
 		}
 
+<<<<<<< HEAD
 		g2d_lock(&ctrl->drvlock);
+=======
+		mutex_lock(&ctrl->drvlock);
+>>>>>>> G920FXXU3COI9
 		ctx->mm = mm;
 
 		if (atomic_read(&ctrl->drvact) ||
 				atomic_read(&ctrl->suspended)) {
 			fimg2d_err("driver is unavailable, do sw fallback\n");
+<<<<<<< HEAD
 			g2d_unlock(&ctrl->drvlock);
+=======
+			mutex_unlock(&ctrl->drvlock);
+>>>>>>> G920FXXU3COI9
 			mmput(mm);
 			return -EPERM;
 		}
@@ -419,7 +427,11 @@ static long fimg2d_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 		ret = fimg2d_add_command(ctrl, ctx, (struct fimg2d_blit __user *)arg);
 		if (ret) {
 			fimg2d_err("add command not allowed.\n");
+<<<<<<< HEAD
 			g2d_unlock(&ctrl->drvlock);
+=======
+			mutex_unlock(&ctrl->drvlock);
+>>>>>>> G920FXXU3COI9
 			mmput(mm);
 			return ret;
 		}
@@ -429,7 +441,11 @@ static long fimg2d_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 		usr_dst = kzalloc(sizeof(struct fimg2d_dma), GFP_KERNEL);
 		if (!usr_dst) {
 			fimg2d_err("failed to allocate memory for fimg2d_dma\n");
+<<<<<<< HEAD
 			g2d_unlock(&ctrl->drvlock);
+=======
+			mutex_unlock(&ctrl->drvlock);
+>>>>>>> G920FXXU3COI9
 			mmput(mm);
 			return -ENOMEM;
 		}
@@ -437,7 +453,11 @@ static long fimg2d_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 		ret = store_user_dst((struct fimg2d_blit __user *)arg, usr_dst);
 		if (ret) {
 			fimg2d_err("store_user_dst() not allowed.\n");
+<<<<<<< HEAD
 			g2d_unlock(&ctrl->drvlock);
+=======
+			mutex_unlock(&ctrl->drvlock);
+>>>>>>> G920FXXU3COI9
 			kfree(usr_dst);
 			mmput(mm);
 			return ret;
@@ -447,13 +467,21 @@ static long fimg2d_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 		if (ret) {
 			fimg2d_info("request bitblit not allowed, "
 					"so passing to s/w fallback.\n");
+<<<<<<< HEAD
 			g2d_unlock(&ctrl->drvlock);
+=======
+			mutex_unlock(&ctrl->drvlock);
+>>>>>>> G920FXXU3COI9
 			kfree(usr_dst);
 			mmput(mm);
 			return -EBUSY;
 		}
 
+<<<<<<< HEAD
 		g2d_unlock(&ctrl->drvlock);
+=======
+		mutex_unlock(&ctrl->drvlock);
+>>>>>>> G920FXXU3COI9
 
 		fimg2d_debug("addr : %p, size : %zd\n",
 				(void *)usr_dst->addr, usr_dst->size);

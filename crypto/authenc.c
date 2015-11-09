@@ -709,4 +709,7 @@ module_exit(crypto_authenc_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Simple AEAD wrapper for IPsec");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("authenc");
+=======
+>>>>>>> G920FXXU3COI9

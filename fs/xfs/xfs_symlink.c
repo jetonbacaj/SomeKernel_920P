@@ -272,7 +272,11 @@ xfs_readlink_bmap(
 			cur_chunk += sizeof(struct xfs_dsymlink_hdr);
 		}
 
+<<<<<<< HEAD
 		memcpy(link + offset, cur_chunk, byte_cnt);
+=======
+		memcpy(link + offset, bp->b_addr, byte_cnt);
+>>>>>>> G920FXXU3COI9
 
 		pathlen -= byte_cnt;
 		offset += byte_cnt;

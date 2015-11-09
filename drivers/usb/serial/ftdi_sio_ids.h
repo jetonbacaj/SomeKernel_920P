@@ -38,9 +38,12 @@
 
 #define FTDI_LUMEL_PD12_PID	0x6002
 
+<<<<<<< HEAD
 /* Cyber Cortex AV by Fabulous Silicon (http://fabuloussilicon.com) */
 #define CYBER_CORTEX_AV_PID	0x8698
 
+=======
+>>>>>>> G920FXXU3COI9
 /*
  * Marvell OpenRD Base, Client
  * http://www.open-rd.org
@@ -155,7 +158,10 @@
 #define XSENS_AWINDA_STATION_PID 0x0101
 #define XSENS_AWINDA_DONGLE_PID 0x0102
 #define XSENS_MTW_PID		0x0200	/* Xsens MTw */
+<<<<<<< HEAD
 #define XSENS_MTDEVBOARD_PID	0x0300	/* Motion Tracker Development Board */
+=======
+>>>>>>> G920FXXU3COI9
 #define XSENS_CONVERTER_PID	0xD00D	/* Xsens USB-serial converter */
 
 /* Xsens devices using FTDI VID */
@@ -562,6 +568,7 @@
  */
 #define FTDI_NT_ORIONLXM_PID	0x7c90	/* OrionLXm Substation Automation Platform */
 
+<<<<<<< HEAD
 /*
  * Synapse Wireless product ids (FTDI_VID)
  * http://www.synapse-wireless.com
@@ -576,6 +583,8 @@
 #define FTDI_CUSTOMWARE_MINIPLEX2WI_PID	0xfd4a	/* MiniPlex-2Wi */
 #define FTDI_CUSTOMWARE_MINIPLEX3_PID	0xfd4b	/* MiniPlex-3 series */
 
+=======
+>>>>>>> G920FXXU3COI9
 
 /********************************/
 /** third-party VID/PID combos **/
@@ -944,8 +953,13 @@
 #define BAYER_CONTOUR_CABLE_PID        0x6001
 
 /*
+<<<<<<< HEAD
  * Matrix Orbital Intelligent USB displays.
  * http://www.matrixorbital.com
+=======
+ * The following are the values for the Matrix Orbital FTDI Range
+ * Anything in this range will use an FT232RL.
+>>>>>>> G920FXXU3COI9
  */
 #define MTXORB_VID			0x1B3D
 #define MTXORB_FTDI_RANGE_0100_PID	0x0100
@@ -1204,6 +1218,7 @@
 #define MTXORB_FTDI_RANGE_01FD_PID	0x01FD
 #define MTXORB_FTDI_RANGE_01FE_PID	0x01FE
 #define MTXORB_FTDI_RANGE_01FF_PID	0x01FF
+<<<<<<< HEAD
 #define MTXORB_FTDI_RANGE_4701_PID	0x4701
 #define MTXORB_FTDI_RANGE_9300_PID	0x9300
 #define MTXORB_FTDI_RANGE_9301_PID	0x9301
@@ -1237,6 +1252,10 @@
 #define MTXORB_FTDI_RANGE_931D_PID	0x931D
 #define MTXORB_FTDI_RANGE_931E_PID	0x931E
 #define MTXORB_FTDI_RANGE_931F_PID	0x931F
+=======
+
+
+>>>>>>> G920FXXU3COI9
 
 /*
  * The Mobility Lab (TML)

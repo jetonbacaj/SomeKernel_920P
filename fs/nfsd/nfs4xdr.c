@@ -1743,9 +1743,12 @@ static __be32 nfsd4_encode_components_esc(char sep, char *components,
 		}
 		else
 			end++;
+<<<<<<< HEAD
 		if (found_esc)
 			end = next;
 
+=======
+>>>>>>> G920FXXU3COI9
 		str = end;
 	}
 	*pp = p;

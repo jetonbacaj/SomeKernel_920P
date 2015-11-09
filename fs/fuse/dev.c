@@ -823,8 +823,13 @@ static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
 
 	newpage = buf->page;
 
+<<<<<<< HEAD
 	if (!PageUptodate(newpage))
 		SetPageUptodate(newpage);
+=======
+	if (WARN_ON(!PageUptodate(newpage)))
+		return -EIO;
+>>>>>>> G920FXXU3COI9
 
 	ClearPageMappedToDisk(newpage);
 
@@ -1729,9 +1734,12 @@ copy_finish:
 static int fuse_notify(struct fuse_conn *fc, enum fuse_notify_code code,
 		       unsigned int size, struct fuse_copy_state *cs)
 {
+<<<<<<< HEAD
 	/* Don't try to move pages (yet) */
 	cs->move_pages = 0;
 
+=======
+>>>>>>> G920FXXU3COI9
 	switch (code) {
 	case FUSE_NOTIFY_POLL:
 		return fuse_notify_poll(fc, size, cs);

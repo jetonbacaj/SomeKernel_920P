@@ -140,8 +140,12 @@ static int xhci_start(struct xhci_hcd *xhci)
 				"waited %u microseconds.\n",
 				XHCI_MAX_HALT_USEC);
 	if (!ret)
+<<<<<<< HEAD
 		xhci->xhc_state &= ~(XHCI_STATE_HALTED | XHCI_STATE_DYING);
 
+=======
+		xhci->xhc_state &= ~XHCI_STATE_HALTED;
+>>>>>>> G920FXXU3COI9
 	return ret;
 }
 
@@ -1301,11 +1305,14 @@ int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flags)
 
 	if (usb_endpoint_xfer_isoc(&urb->ep->desc))
 		size = urb->number_of_packets;
+<<<<<<< HEAD
 	else if (usb_endpoint_is_bulk_out(&urb->ep->desc) &&
 	    urb->transfer_buffer_length > 0 &&
 	    urb->transfer_flags & URB_ZERO_PACKET &&
 	    !(urb->transfer_buffer_length % usb_endpoint_maxp(&urb->ep->desc)))
 		size = 2;
+=======
+>>>>>>> G920FXXU3COI9
 	else
 		size = 1;
 
@@ -3371,9 +3378,12 @@ int xhci_discover_or_reset_device(struct usb_hcd *hcd, struct usb_device *udev)
 			return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (virt_dev->tt_info)
 		old_active_eps = virt_dev->tt_info->active_eps;
 
+=======
+>>>>>>> G920FXXU3COI9
 	if (virt_dev->udev != udev) {
 		/* If the virt_dev and the udev does not match, this virt_dev
 		 * may belong to another udev.

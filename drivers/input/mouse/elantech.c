@@ -314,7 +314,11 @@ static void elantech_report_semi_mt_data(struct input_dev *dev,
 					 unsigned int x2, unsigned int y2)
 {
 	elantech_set_slot(dev, 0, num_fingers != 0, x1, y1);
+<<<<<<< HEAD
 	elantech_set_slot(dev, 1, num_fingers >= 2, x2, y2);
+=======
+	elantech_set_slot(dev, 1, num_fingers == 2, x2, y2);
+>>>>>>> G920FXXU3COI9
 }
 
 /*
@@ -784,6 +788,7 @@ static psmouse_ret_t elantech_process_byte(struct psmouse *psmouse)
 }
 
 /*
+<<<<<<< HEAD
  * This writes the reg_07 value again to the hardware at the end of every
  * set_rate call because the register loses its value. reg_07 allows setting
  * absolute mode on v4 hardware
@@ -799,6 +804,8 @@ static void elantech_set_rate_restore_reg_07(struct psmouse *psmouse,
 }
 
 /*
+=======
+>>>>>>> G920FXXU3COI9
  * Put the touchpad into absolute mode
  */
 static int elantech_set_absolute_mode(struct psmouse *psmouse)
@@ -1000,8 +1007,11 @@ static int elantech_get_resolution_v4(struct psmouse *psmouse,
  * Asus K53SV              0x450f01        78, 15, 0c      2 hw buttons
  * Asus G46VW              0x460f02        00, 18, 0c      2 hw buttons
  * Asus G750JX             0x360f00        00, 16, 0c      2 hw buttons
+<<<<<<< HEAD
  * Asus TP500LN            0x381f17        10, 14, 0e      clickpad
  * Asus X750JN             0x381f17        10, 14, 0e      clickpad
+=======
+>>>>>>> G920FXXU3COI9
  * Asus UX31               0x361f00        20, 15, 0e      clickpad
  * Asus UX32VD             0x361f02        00, 15, 0e      clickpad
  * Avatar AVIU-145A2       0x361f00        ?               clickpad
@@ -1241,11 +1251,18 @@ static bool elantech_is_signature_valid(const unsigned char *param)
 		return true;
 
 	/*
+<<<<<<< HEAD
 	 * Some hw_version >= 4 models have a revision higher then 20. Meaning
 	 * that param[2] may be 10 or 20, skip the rates check for these.
 	 */
 	if ((param[0] & 0x0f) >= 0x06 && (param[1] & 0xaf) == 0x0f &&
 	    param[2] < 40)
+=======
+	 * Some models have a revision higher then 20. Meaning param[2] may
+	 * be 10 or 20, skip the rates check for these.
+	 */
+	if (param[0] == 0x46 && (param[1] & 0xef) == 0x0f && param[2] < 40)
+>>>>>>> G920FXXU3COI9
 		return true;
 
 	for (i = 0; i < ARRAY_SIZE(rates); i++)
@@ -1470,11 +1487,14 @@ int elantech_init(struct psmouse *psmouse)
 		goto init_fail;
 	}
 
+<<<<<<< HEAD
 	if (etd->fw_version == 0x381f17) {
 		etd->original_set_rate = psmouse->set_rate;
 		psmouse->set_rate = elantech_set_rate_restore_reg_07;
 	}
 
+=======
+>>>>>>> G920FXXU3COI9
 	if (elantech_set_input_params(psmouse)) {
 		psmouse_err(psmouse, "failed to query touchpad range.\n");
 		goto init_fail;

@@ -201,8 +201,11 @@ static ssize_t power_ro_lock_show(struct device *dev,
 
 	ret = snprintf(buf, PAGE_SIZE, "%d\n", locked);
 
+<<<<<<< HEAD
 	mmc_blk_put(md);
 
+=======
+>>>>>>> G920FXXU3COI9
 	return ret;
 }
 
@@ -258,7 +261,11 @@ static ssize_t force_ro_show(struct device *dev, struct device_attribute *attr,
 	int ret;
 	struct mmc_blk_data *md = mmc_blk_get(dev_to_disk(dev));
 
+<<<<<<< HEAD
 	ret = snprintf(buf, PAGE_SIZE, "%d\n",
+=======
+	ret = snprintf(buf, PAGE_SIZE, "%d",
+>>>>>>> G920FXXU3COI9
 		       get_disk_ro(dev_to_disk(dev)) ^
 		       md->read_only);
 	mmc_blk_put(md);
@@ -961,6 +968,7 @@ static inline void mmc_blk_reset_success(struct mmc_blk_data *md, int type)
 	md->reset_done &= ~type;
 }
 
+<<<<<<< HEAD
 int mmc_access_rpmb(struct mmc_queue *mq)
 {
 	struct mmc_blk_data *md = mq->data;
@@ -973,6 +981,8 @@ int mmc_access_rpmb(struct mmc_queue *mq)
 	return false;
 }
 
+=======
+>>>>>>> G920FXXU3COI9
 static int mmc_blk_issue_discard_rq(struct mmc_queue *mq, struct request *req)
 {
 	struct mmc_blk_data *md = mq->data;
@@ -1937,11 +1947,17 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 			break;
 		case MMC_BLK_CMD_ERR:
 			ret = mmc_blk_cmd_err(md, card, brq, req, ret);
+<<<<<<< HEAD
 			if (mmc_blk_reset(md, card->host, type))
 				goto cmd_abort;
 			if (!ret)
 				goto start_new_req;
 			break;
+=======
+			if (!mmc_blk_reset(md, card->host, type))
+				break;
+			goto cmd_abort;
+>>>>>>> G920FXXU3COI9
 		case MMC_BLK_RETRY:
 			if (retry++ < 5)
 				break;

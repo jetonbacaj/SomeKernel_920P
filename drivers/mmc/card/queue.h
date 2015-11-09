@@ -81,6 +81,9 @@ extern void mmc_packed_clean(struct mmc_queue *);
 
 extern void mmc_wait_cmdq_empty(struct mmc_host *);
 
+<<<<<<< HEAD
 extern int mmc_access_rpmb(struct mmc_queue *);
 
+=======
+>>>>>>> G920FXXU3COI9
 #endif

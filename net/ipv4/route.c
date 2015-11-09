@@ -873,10 +873,13 @@ static int ip_error(struct sk_buff *skb)
 	bool send;
 	int code;
 
+<<<<<<< HEAD
 	/* IP on this device is disabled. */
 	if (!in_dev)
 		goto out;
 
+=======
+>>>>>>> G920FXXU3COI9
 	net = dev_net(rt->dst.dev);
 	if (!IN_DEV_FORWARD(in_dev)) {
 		switch (rt->dst.error) {

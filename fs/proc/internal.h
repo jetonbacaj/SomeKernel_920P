@@ -202,7 +202,10 @@ struct pde_opener {
 	int closing;
 	struct completion *c;
 };
+<<<<<<< HEAD
 extern const struct inode_operations proc_link_inode_operations;
+=======
+>>>>>>> G920FXXU3COI9
 
 extern const struct inode_operations proc_pid_link_inode_operations;
 

@@ -16,7 +16,11 @@
 #include "conf_space.h"
 #include "conf_space_quirks.h"
 
+<<<<<<< HEAD
 bool permissive;
+=======
+static bool permissive;
+>>>>>>> G920FXXU3COI9
 module_param(permissive, bool, 0644);
 
 /* This is where xen_pcibk_read_config_byte, xen_pcibk_read_config_word,

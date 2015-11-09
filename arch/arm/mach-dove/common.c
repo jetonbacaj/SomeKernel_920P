@@ -226,7 +226,11 @@ void __init dove_init_early(void)
 	orion_time_set_base(TIMER_VIRT_BASE);
 	mvebu_mbus_init("marvell,dove-mbus",
 			BRIDGE_WINS_BASE, BRIDGE_WINS_SZ,
+<<<<<<< HEAD
 			DOVE_MC_WINS_BASE, DOVE_MC_WINS_SZ, 0);
+=======
+			DOVE_MC_WINS_BASE, DOVE_MC_WINS_SZ);
+>>>>>>> G920FXXU3COI9
 }
 
 static int __init dove_find_tclk(void)

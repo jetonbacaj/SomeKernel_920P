@@ -4080,11 +4080,16 @@ int extent_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
 		}
 		ret = fiemap_fill_next_extent(fieinfo, em_start, disko,
 					      em_len, flags);
+<<<<<<< HEAD
 		if (ret) {
 			if (ret == 1)
 				ret = 0;
 			goto out_free;
 		}
+=======
+		if (ret)
+			goto out_free;
+>>>>>>> G920FXXU3COI9
 	}
 out_free:
 	free_extent_map(em);

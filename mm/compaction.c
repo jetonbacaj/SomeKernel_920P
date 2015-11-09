@@ -881,7 +881,11 @@ static int compact_finished(struct zone *zone,
 			return COMPACT_PARTIAL;
 
 		/* Job done if allocation would set block type */
+<<<<<<< HEAD
 		if (order >= pageblock_order && area->nr_free)
+=======
+		if (cc->order >= pageblock_order && area->nr_free)
+>>>>>>> G920FXXU3COI9
 			return COMPACT_PARTIAL;
 	}
 

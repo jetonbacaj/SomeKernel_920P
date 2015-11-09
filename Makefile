@@ -1,6 +1,10 @@
 VERSION = 3
 PATCHLEVEL = 10
+<<<<<<< HEAD
 SUBLEVEL = 93
+=======
+SUBLEVEL = 61
+>>>>>>> G920FXXU3COI9
 EXTRAVERSION =
 NAME = TOSSUG Baby Fish
 
@@ -192,8 +196,15 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/x86_64/x86/ \
 # "make" in the configured kernel build directory always uses that.
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
+<<<<<<< HEAD
 ARCH		= arm64
 CROSS_COMPILE = ../toolchains/android-toolchain-eabi/bin/aarch64-linux-android-
+=======
+#ARCH		?= $(SUBARCH)
+#CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
+ARCH		= arm64
+CROSS_COMPILE = ../PLATFORM/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.8/bin/aarch64-linux-android-
+>>>>>>> G920FXXU3COI9
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -241,8 +252,13 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
+<<<<<<< HEAD
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -O3
+=======
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
+HOSTCXXFLAGS = -O2
+>>>>>>> G920FXXU3COI9
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -379,6 +395,7 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
+<<<<<<< HEAD
 #KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 #		   -fno-strict-aliasing -fno-common \
 #		   -Werror-implicit-function-declaration \
@@ -400,6 +417,14 @@ KBUILD_CFLAGS   := -DNDEBUG $(GRAPHITE) -w -Wall -Wundef -Wstrict-prototypes -Wn
 		   -std=gnu89 -Wno-discarded-array-qualifiers -Wno-logical-not-parentheses -Wno-array-bounds -Wno-switch -Wno-unused-variable \
 		   -march=armv8-a+crc -mtune=cortex-a57.cortex-a53
 
+=======
+KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+		   -fno-strict-aliasing -fno-common \
+		   -Werror-implicit-function-declaration \
+		   -Wno-format-security \
+		   -fno-delete-null-pointer-checks \
+		   -fdiagnostics-show-option -Werror
+>>>>>>> G920FXXU3COI9
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
@@ -599,6 +624,7 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
+<<<<<<< HEAD
 KBUILD_CFLAGS	+= -O2 $(call cc-disable-warning,maybe-uninitialized,)
 endif
 
@@ -606,6 +632,11 @@ endif
 KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
 
 
+=======
+KBUILD_CFLAGS	+= -O2
+endif
+
+>>>>>>> G920FXXU3COI9
 include $(srctree)/arch/$(SRCARCH)/Makefile
 
 ifdef CONFIG_READABLE_ASM

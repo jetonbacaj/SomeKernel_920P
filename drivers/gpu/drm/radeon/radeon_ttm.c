@@ -189,7 +189,11 @@ static void radeon_evict_flags(struct ttm_buffer_object *bo,
 	rbo = container_of(bo, struct radeon_bo, tbo);
 	switch (bo->mem.mem_type) {
 	case TTM_PL_VRAM:
+<<<<<<< HEAD
 		if (rbo->rdev->ring[radeon_copy_ring_index(rbo->rdev)].ready == false)
+=======
+		if (rbo->rdev->ring[RADEON_RING_TYPE_GFX_INDEX].ready == false)
+>>>>>>> G920FXXU3COI9
 			radeon_ttm_placement_from_domain(rbo, RADEON_GEM_DOMAIN_CPU);
 		else
 			radeon_ttm_placement_from_domain(rbo, RADEON_GEM_DOMAIN_GTT);

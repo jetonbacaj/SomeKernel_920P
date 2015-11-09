@@ -99,7 +99,11 @@ static void fdatawait_one_bdev(struct block_device *bdev, void *arg)
  * just write metadata (such as inodes or bitmaps) to block device page cache
  * and do not sync it on their own in ->sync_fs().
  */
+<<<<<<< HEAD
 static void do_sync(void)
+=======
+SYSCALL_DEFINE0(sync)
+>>>>>>> G920FXXU3COI9
 {
 	int nowait = 0, wait = 1;
 
@@ -111,6 +115,7 @@ static void do_sync(void)
 	iterate_bdevs(fdatawait_one_bdev, NULL);
 	if (unlikely(laptop_mode))
 		laptop_sync_completion();
+<<<<<<< HEAD
 	return;
 }
 
@@ -165,6 +170,8 @@ SYSCALL_DEFINE0(sync)
 	ACCESS_ONCE(sync_seq)++;
 	WARN_ON_ONCE((sync_seq & 0x1) != 0);
 	mutex_unlock(&sync_mutex);
+=======
+>>>>>>> G920FXXU3COI9
 	return 0;
 }
 
@@ -406,8 +413,12 @@ SYSCALL_DEFINE4(sync_file_range, int, fd, loff_t, offset, loff_t, nbytes,
 	}
 
 	if (flags & SYNC_FILE_RANGE_WRITE) {
+<<<<<<< HEAD
 		ret = __filemap_fdatawrite_range(mapping, offset, endbyte,
 						 WB_SYNC_NONE);
+=======
+		ret = filemap_fdatawrite_range(mapping, offset, endbyte);
+>>>>>>> G920FXXU3COI9
 		if (ret < 0)
 			goto out_put;
 	}

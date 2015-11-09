@@ -313,6 +313,10 @@ static void pppoe_flush_dev(struct net_device *dev)
 			if (po->pppoe_dev == dev &&
 			    sk->sk_state & (PPPOX_CONNECTED | PPPOX_BOUND | PPPOX_ZOMBIE)) {
 				pppox_unbind_sock(sk);
+<<<<<<< HEAD
+=======
+				sk->sk_state = PPPOX_ZOMBIE;
+>>>>>>> G920FXXU3COI9
 				sk->sk_state_change(sk);
 				po->pppoe_dev = NULL;
 				dev_put(dev);

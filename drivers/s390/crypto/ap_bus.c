@@ -44,7 +44,10 @@
 #include <linux/hrtimer.h>
 #include <linux/ktime.h>
 #include <asm/facility.h>
+<<<<<<< HEAD
 #include <linux/crypto.h>
+=======
+>>>>>>> G920FXXU3COI9
 
 #include "ap_bus.h"
 

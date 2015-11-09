@@ -2715,18 +2715,30 @@ continue_monitor:
 			"%s: battery->stability_test(%d), battery->eng_not_full_status(%d)\n",
 			__func__, battery->stability_test, battery->eng_not_full_status);
 #endif
+<<<<<<< HEAD
 	if (battery->store_mode && battery->cable_type != POWER_SUPPLY_TYPE_BATTERY) {
+=======
+	if (battery->store_mode && !lpcharge && (battery->cable_type != POWER_SUPPLY_TYPE_BATTERY)) {
+>>>>>>> G920FXXU3COI9
 
 		dev_info(battery->dev,
 			"%s: @battery->capacity = (%d), battery->status= (%d), battery->store_mode=(%d)\n",
 			__func__, battery->capacity, battery->status, battery->store_mode);
 
+<<<<<<< HEAD
 		if ((battery->capacity >= 35) && (battery->status == POWER_SUPPLY_STATUS_CHARGING)) {
+=======
+		if ((battery->capacity >= STORE_MODE_CHARGING_MAX) && (battery->status == POWER_SUPPLY_STATUS_CHARGING)) {
+>>>>>>> G920FXXU3COI9
 			sec_bat_set_charging_status(battery,
 					POWER_SUPPLY_STATUS_DISCHARGING);
 			sec_bat_set_charge(battery, false);
 		}
+<<<<<<< HEAD
 		if ((battery->capacity <= 30) && (battery->status == POWER_SUPPLY_STATUS_DISCHARGING)) {
+=======
+		if ((battery->capacity <= STORE_MODE_CHARGING_MIN) && (battery->status == POWER_SUPPLY_STATUS_DISCHARGING)) {
+>>>>>>> G920FXXU3COI9
 			sec_bat_set_charging_status(battery,
 					POWER_SUPPLY_STATUS_CHARGING);
 			sec_bat_set_charge(battery, true);
@@ -5706,7 +5718,15 @@ static int __devinit sec_battery_probe(struct platform_device *pdev)
 	battery->cable_type = POWER_SUPPLY_TYPE_BATTERY;
 	battery->test_mode = 0;
 	battery->factory_mode = false;
+<<<<<<< HEAD
 	battery->store_mode = false;
+=======
+#if defined(CONFIG_STORE_MODE)
+	battery->store_mode = true;
+#else
+	battery->store_mode = false;
+#endif
+>>>>>>> G920FXXU3COI9
 	battery->slate_mode = false;
 	battery->is_hc_usb = false;
 	battery->ignore_siop = false;

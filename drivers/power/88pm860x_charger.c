@@ -711,7 +711,10 @@ static int pm860x_charger_probe(struct platform_device *pdev)
 	return 0;
 
 out_irq:
+<<<<<<< HEAD
 	power_supply_unregister(&info->usb);
+=======
+>>>>>>> G920FXXU3COI9
 	while (--i >= 0)
 		free_irq(info->irq[i], info);
 out:

@@ -1294,8 +1294,15 @@ csum_copy_err:
 	}
 	unlock_sock_fast(sk, slow);
 
+<<<<<<< HEAD
 	/* starting over for a new packet, but check if we need to yield */
 	cond_resched();
+=======
+	if (noblock)
+		return -EAGAIN;
+
+	/* starting over for a new packet */
+>>>>>>> G920FXXU3COI9
 	msg->msg_flags &= ~MSG_TRUNC;
 	goto try_again;
 }

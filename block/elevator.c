@@ -826,8 +826,11 @@ int elv_register_queue(struct request_queue *q)
 		}
 		kobject_uevent(&e->kobj, KOBJ_ADD);
 		e->registered = 1;
+<<<<<<< HEAD
 		if (e->type->ops.elevator_registered_fn)
 			e->type->ops.elevator_registered_fn(q);
+=======
+>>>>>>> G920FXXU3COI9
 	}
 	return error;
 }

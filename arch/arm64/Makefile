@@ -38,6 +38,7 @@ endif
 
 comma = ,
 
+<<<<<<< HEAD
 #
 # The Scalar Replacement of Aggregates (SRA) optimization pass in GCC 4.9 and
 # later may result in code being generated that handles signed short and signed
@@ -46,6 +47,8 @@ comma = ,
 #
 KBUILD_CFLAGS	+= $(call cc-option,-fno-ipa-sra)
 
+=======
+>>>>>>> G920FXXU3COI9
 CHECKFLAGS	+= -D__aarch64__
 
 # exynos

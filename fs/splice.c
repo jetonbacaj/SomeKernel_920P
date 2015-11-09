@@ -1012,17 +1012,26 @@ generic_file_splice_write(struct pipe_inode_info *pipe, struct file *out,
 	struct address_space *mapping = out->f_mapping;
 	struct inode *inode = mapping->host;
 	struct splice_desc sd = {
+<<<<<<< HEAD
 		.flags = flags,
+=======
+		.total_len = len,
+		.flags = flags,
+		.pos = *ppos,
+>>>>>>> G920FXXU3COI9
 		.u.file = out,
 	};
 	ssize_t ret;
 
+<<<<<<< HEAD
 	ret = generic_write_checks(out, ppos, &len, S_ISBLK(inode->i_mode));
 	if (ret)
 		return ret;
 	sd.total_len = len;
 	sd.pos = *ppos;
 
+=======
+>>>>>>> G920FXXU3COI9
 	pipe_lock(pipe);
 
 	splice_from_pipe_begin(&sd);

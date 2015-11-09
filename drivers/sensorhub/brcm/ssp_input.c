@@ -520,7 +520,11 @@ void report_prox_data(struct ssp_data *data, struct sensor_value *proxdata)
 		((!proxdata->prox[0]))+1);
 	input_sync(data->prox_input_dev);
 
+<<<<<<< HEAD
 	wake_lock_timeout(&data->ssp_wake_lock, 1 * HZ);
+=======
+	wake_lock_timeout(&data->ssp_wake_lock, 3 * HZ);
+>>>>>>> G920FXXU3COI9
 }
 
 void report_prox_raw_data(struct ssp_data *data,
@@ -618,7 +622,11 @@ void report_temp_humidity_data(struct ssp_data *data,
 		data->buf[TEMPERATURE_HUMIDITY_SENSOR].y);
 	input_sync(data->temp_humi_input_dev);
 	if (data->buf[TEMPERATURE_HUMIDITY_SENSOR].z)
+<<<<<<< HEAD
 		wake_lock_timeout(&data->ssp_wake_lock, 1 * HZ);
+=======
+		wake_lock_timeout(&data->ssp_wake_lock, 2 * HZ);
+>>>>>>> G920FXXU3COI9
 }
 
 #ifdef CONFIG_SENSORS_SSP_SHTC1

@@ -155,7 +155,11 @@ axon_ram_direct_access(struct block_device *device, sector_t sector,
 	}
 
 	*kaddr = (void *)(bank->ph_addr + offset);
+<<<<<<< HEAD
 	*pfn = virt_to_phys(*kaddr) >> PAGE_SHIFT;
+=======
+	*pfn = virt_to_phys(kaddr) >> PAGE_SHIFT;
+>>>>>>> G920FXXU3COI9
 
 	return 0;
 }

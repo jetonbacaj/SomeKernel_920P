@@ -45,7 +45,10 @@ struct wb_writeback_work {
 	unsigned int for_kupdate:1;
 	unsigned int range_cyclic:1;
 	unsigned int for_background:1;
+<<<<<<< HEAD
 	unsigned int for_sync:1;	/* sync(2) WB_SYNC_ALL writeback */
+=======
+>>>>>>> G920FXXU3COI9
 	enum wb_reason reason;		/* why was writeback initiated? */
 
 	struct list_head list;		/* pending work list */
@@ -457,11 +460,17 @@ __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
 	/*
 	 * Make sure to wait on the data before writing out the metadata.
 	 * This is important for filesystems that modify metadata on data
+<<<<<<< HEAD
 	 * I/O completion. We don't do it for sync(2) writeback because it has a
 	 * separate, external IO completion path and ->sync_fs for guaranteeing
 	 * inode metadata is written back correctly.
 	 */
 	if (wbc->sync_mode == WB_SYNC_ALL && !wbc->for_sync) {
+=======
+	 * I/O completion.
+	 */
+	if (wbc->sync_mode == WB_SYNC_ALL) {
+>>>>>>> G920FXXU3COI9
 		int err = filemap_fdatawait(mapping);
 		if (ret == 0)
 			ret = err;
@@ -473,6 +482,7 @@ __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
 	 * write_inode()
 	 */
 	spin_lock(&inode->i_lock);
+<<<<<<< HEAD
 
 	dirty = inode->i_state & I_DIRTY;
 	inode->i_state &= ~I_DIRTY;
@@ -495,6 +505,14 @@ __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
 
 	spin_unlock(&inode->i_lock);
 
+=======
+	/* Clear I_DIRTY_PAGES if we've written out all dirty pages */
+	if (!mapping_tagged(mapping, PAGECACHE_TAG_DIRTY))
+		inode->i_state &= ~I_DIRTY_PAGES;
+	dirty = inode->i_state & I_DIRTY;
+	inode->i_state &= ~(I_DIRTY_SYNC | I_DIRTY_DATASYNC);
+	spin_unlock(&inode->i_lock);
+>>>>>>> G920FXXU3COI9
 	/* Don't write the inode if only I_DIRTY_PAGES was set */
 	if (dirty & (I_DIRTY_SYNC | I_DIRTY_DATASYNC)) {
 		int err = write_inode(inode, wbc);
@@ -613,7 +631,10 @@ static long writeback_sb_inodes(struct super_block *sb,
 		.tagged_writepages	= work->tagged_writepages,
 		.for_kupdate		= work->for_kupdate,
 		.for_background		= work->for_background,
+<<<<<<< HEAD
 		.for_sync		= work->for_sync,
+=======
+>>>>>>> G920FXXU3COI9
 		.range_cyclic		= work->range_cyclic,
 		.range_start		= 0,
 		.range_end		= LLONG_MAX,
@@ -1087,8 +1108,15 @@ void wakeup_flusher_threads(long nr_pages, enum wb_reason reason)
 {
 	struct backing_dev_info *bdi;
 
+<<<<<<< HEAD
 	if (!nr_pages)
 		nr_pages = get_nr_dirty_pages();
+=======
+	if (!nr_pages) {
+		nr_pages = global_page_state(NR_FILE_DIRTY) +
+				global_page_state(NR_UNSTABLE_NFS);
+	}
+>>>>>>> G920FXXU3COI9
 
 	rcu_read_lock();
 	list_for_each_entry_rcu(bdi, &bdi_list, bdi_list) {
@@ -1164,11 +1192,20 @@ void __mark_inode_dirty(struct inode *inode, int flags)
 	}
 
 	/*
+<<<<<<< HEAD
 	 * Paired with smp_mb() in __writeback_single_inode() for the
 	 * following lockless i_state test.  See there for details.
 	 */
 	smp_mb();
 
+=======
+	 * make sure that changes are seen by all cpus before we test i_state
+	 * -- mikulas
+	 */
+	smp_mb();
+
+	/* avoid the locking if we can */
+>>>>>>> G920FXXU3COI9
 	if ((inode->i_state & flags) == flags)
 		return;
 
@@ -1208,8 +1245,11 @@ void __mark_inode_dirty(struct inode *inode, int flags)
 			bool wakeup_bdi = false;
 			bdi = inode_to_bdi(inode);
 
+<<<<<<< HEAD
 			spin_unlock(&inode->i_lock);
 			spin_lock(&bdi->wb.list_lock);
+=======
+>>>>>>> G920FXXU3COI9
 			if (bdi_cap_writeback_dirty(bdi)) {
 				WARN(!test_bit(BDI_registered, &bdi->state),
 				     "bdi-%s not registered\n", bdi->name);
@@ -1224,6 +1264,11 @@ void __mark_inode_dirty(struct inode *inode, int flags)
 					wakeup_bdi = true;
 			}
 
+<<<<<<< HEAD
+=======
+			spin_unlock(&inode->i_lock);
+			spin_lock(&bdi->wb.list_lock);
+>>>>>>> G920FXXU3COI9
 			inode->dirtied_when = jiffies;
 			list_move(&inode->i_wb_list, &bdi->wb.b_dirty);
 			spin_unlock(&bdi->wb.list_lock);
@@ -1395,7 +1440,10 @@ void sync_inodes_sb(struct super_block *sb)
 		.range_cyclic	= 0,
 		.done		= &done,
 		.reason		= WB_REASON_SYNC,
+<<<<<<< HEAD
 		.for_sync	= 1,
+=======
+>>>>>>> G920FXXU3COI9
 	};
 
 	/* Nothing to do? */

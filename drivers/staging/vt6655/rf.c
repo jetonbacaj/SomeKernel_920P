@@ -966,7 +966,10 @@ bool RFbSetPower(
 		break;
 	case RATE_6M:
 	case RATE_9M:
+<<<<<<< HEAD
 	case RATE_12M:
+=======
+>>>>>>> G920FXXU3COI9
 	case RATE_18M:
 		byPwr = pDevice->abyOFDMPwrTbl[uCH];
 		if (pDevice->byRFType == RF_UW2452) {

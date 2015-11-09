@@ -1626,7 +1626,11 @@ kvm_mips_complete_mmio_load(struct kvm_vcpu *vcpu, struct kvm_run *run)
 		if (vcpu->mmio_needed == 2)
 			*gpr = *(int16_t *) run->mmio.data;
 		else
+<<<<<<< HEAD
 			*gpr = *(uint16_t *)run->mmio.data;
+=======
+			*gpr = *(int16_t *) run->mmio.data;
+>>>>>>> G920FXXU3COI9
 
 		break;
 	case 1:

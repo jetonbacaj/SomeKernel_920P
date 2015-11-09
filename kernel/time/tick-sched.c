@@ -425,7 +425,11 @@ update_ts_time_stats(int cpu, struct tick_sched *ts, ktime_t now, u64 *last_upda
 {
 	ktime_t delta;
 
+<<<<<<< HEAD
 	if (ts->idle_active && cpu_online(cpu)) {
+=======
+	if (ts->idle_active) {
+>>>>>>> G920FXXU3COI9
 		delta = ktime_sub(now, ts->idle_entrytime);
 		if (nr_iowait_cpu(cpu) > 0)
 			ts->iowait_sleeptime = ktime_add(ts->iowait_sleeptime, delta);
@@ -486,7 +490,11 @@ u64 get_cpu_idle_time_us(int cpu, u64 *last_update_time)
 		update_ts_time_stats(cpu, ts, now, last_update_time);
 		idle = ts->idle_sleeptime;
 	} else {
+<<<<<<< HEAD
 		if (ts->idle_active && !nr_iowait_cpu(cpu) && cpu_online(cpu)) {
+=======
+		if (ts->idle_active && !nr_iowait_cpu(cpu)) {
+>>>>>>> G920FXXU3COI9
 			ktime_t delta = ktime_sub(now, ts->idle_entrytime);
 
 			idle = ktime_add(ts->idle_sleeptime, delta);
@@ -527,7 +535,11 @@ u64 get_cpu_iowait_time_us(int cpu, u64 *last_update_time)
 		update_ts_time_stats(cpu, ts, now, last_update_time);
 		iowait = ts->iowait_sleeptime;
 	} else {
+<<<<<<< HEAD
 		if (ts->idle_active && nr_iowait_cpu(cpu) > 0 && cpu_online(cpu)) {
+=======
+		if (ts->idle_active && nr_iowait_cpu(cpu) > 0) {
+>>>>>>> G920FXXU3COI9
 			ktime_t delta = ktime_sub(now, ts->idle_entrytime);
 
 			iowait = ktime_add(ts->iowait_sleeptime, delta);

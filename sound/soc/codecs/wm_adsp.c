@@ -2012,7 +2012,10 @@ out_async:
 	}
 
 out_fw:
+<<<<<<< HEAD
 	regmap_async_complete(regmap);
+=======
+>>>>>>> G920FXXU3COI9
 	release_firmware(firmware);
 	wm_adsp_buf_free(&buf_list);
 out:

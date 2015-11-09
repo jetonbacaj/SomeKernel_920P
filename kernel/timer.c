@@ -869,7 +869,11 @@ unsigned long apply_slack(struct timer_list *timer, unsigned long expires)
 	if (mask == 0)
 		return expires;
 
+<<<<<<< HEAD
 	bit = __fls(mask);
+=======
+	bit = find_last_bit(&mask, BITS_PER_LONG);
+>>>>>>> G920FXXU3COI9
 
 	mask = (1UL << bit) - 1;
 

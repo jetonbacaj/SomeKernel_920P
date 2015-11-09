@@ -736,10 +736,13 @@ static int dwc3_ep0_std_request(struct dwc3 *dwc, struct usb_ctrlrequest *ctrl)
 		dev_vdbg(dwc->dev, "USB_REQ_SET_ISOCH_DELAY\n");
 		ret = dwc3_ep0_set_isoch_delay(dwc, ctrl);
 		break;
+<<<<<<< HEAD
 	case USB_REQ_SET_INTERFACE:
 		dev_vdbg(dwc->dev, "USB_REQ_SET_INTERFACE\n");
 		dwc->start_config_issued = false;
 		/* Fall through */
+=======
+>>>>>>> G920FXXU3COI9
 	default:
 		dev_vdbg(dwc->dev, "Forwarding to gadget driver\n");
 		ret = dwc3_ep0_delegate_req(dwc, ctrl);
@@ -828,11 +831,14 @@ static void dwc3_ep0_complete_data(struct dwc3 *dwc,
 		unsigned maxp = ep0->endpoint.maxpacket;
 
 		transfer_size += (maxp - (transfer_size % maxp));
+<<<<<<< HEAD
 
 		/* Maximum of DWC3_EP0_BOUNCE_SIZE can only be received */
 		if (transfer_size > DWC3_EP0_BOUNCE_SIZE)
 			transfer_size = DWC3_EP0_BOUNCE_SIZE;
 
+=======
+>>>>>>> G920FXXU3COI9
 		transferred = min_t(u32, ur->length,
 				transfer_size - length);
 		memcpy(ur->buf, dwc->ep0_bounce, transferred);
@@ -954,6 +960,7 @@ static void __dwc3_ep0_do_control_data(struct dwc3 *dwc,
 			return;
 		}
 
+<<<<<<< HEAD
 		maxpacket = dep->endpoint.maxpacket;
 		transfer_size = roundup(req->request.length, maxpacket);
 
@@ -962,6 +969,13 @@ static void __dwc3_ep0_do_control_data(struct dwc3 *dwc,
 			transfer_size = DWC3_EP0_BOUNCE_SIZE;
 		}
 
+=======
+		WARN_ON(req->request.length > DWC3_EP0_BOUNCE_SIZE);
+
+		maxpacket = dep->endpoint.maxpacket;
+		transfer_size = roundup(req->request.length, maxpacket);
+
+>>>>>>> G920FXXU3COI9
 		dwc->ep0_bounced = true;
 
 		/*

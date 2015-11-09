@@ -6,5 +6,9 @@
 #
 # Note 2! The CFLAGS definitions are in the main makefile...
 
+<<<<<<< HEAD
 obj-y			+= setup.o
 obj-$(CONFIG_XTFPGA_LCD) += lcd.o
+=======
+obj-y			= setup.o lcd.o
+>>>>>>> G920FXXU3COI9

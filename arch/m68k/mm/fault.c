@@ -153,8 +153,11 @@ good_area:
 	if (unlikely(fault & VM_FAULT_ERROR)) {
 		if (fault & VM_FAULT_OOM)
 			goto out_of_memory;
+<<<<<<< HEAD
 		else if (fault & VM_FAULT_SIGSEGV)
 			goto map_err;
+=======
+>>>>>>> G920FXXU3COI9
 		else if (fault & VM_FAULT_SIGBUS)
 			goto bus_err;
 		BUG();

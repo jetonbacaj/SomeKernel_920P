@@ -381,7 +381,11 @@ COMPAT_SYSCALL_DEFINE6(ipc, u32, call, int, first, int, second,
 			uptr = compat_ptr(ipck.msgp);
 			fifth = ipck.msgtyp;
 		}
+<<<<<<< HEAD
 		return do_msgrcv(first, uptr, second, (s32)fifth, third,
+=======
+		return do_msgrcv(first, uptr, second, fifth, third,
+>>>>>>> G920FXXU3COI9
 				 compat_do_msg_fill);
 	}
 	case MSGGET:

@@ -729,6 +729,7 @@ lookup:
 	if (tmpres) {
 		spin_unlock(&dlm->spinlock);
 		spin_lock(&tmpres->spinlock);
+<<<<<<< HEAD
 
 		/*
 		 * Right after dlm spinlock was released, dlm_thread could have
@@ -742,6 +743,8 @@ lookup:
 			goto lookup;
 		}
 
+=======
+>>>>>>> G920FXXU3COI9
 		/* Wait on the thread that is mastering the resource */
 		if (tmpres->owner == DLM_LOCK_RES_OWNER_UNKNOWN) {
 			__dlm_wait_on_lockres(tmpres);

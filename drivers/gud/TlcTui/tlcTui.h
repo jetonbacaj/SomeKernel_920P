@@ -20,5 +20,8 @@ int tlc_wait_cmd(uint32_t *cmd_id);
 int tlc_ack_cmd(struct tlc_tui_response_t *rsp_id);
 bool tlc_notify_event(uint32_t event_type);
 
+<<<<<<< HEAD
 extern atomic_t fileopened;
+=======
+>>>>>>> G920FXXU3COI9
 #endif /* TLCTUI_H_ */

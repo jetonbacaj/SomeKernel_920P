@@ -978,7 +978,11 @@ static int acpi_processor_setup_cpuidle_states(struct acpi_processor *pr)
 		return -EINVAL;
 
 	drv->safe_state_index = -1;
+<<<<<<< HEAD
 	for (i = CPUIDLE_DRIVER_STATE_START; i < CPUIDLE_STATE_MAX; i++) {
+=======
+	for (i = 0; i < CPUIDLE_STATE_MAX; i++) {
+>>>>>>> G920FXXU3COI9
 		drv->states[i].name[0] = '\0';
 		drv->states[i].desc[0] = '\0';
 	}

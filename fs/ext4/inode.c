@@ -631,7 +631,10 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
 		status = map->m_flags & EXT4_MAP_UNWRITTEN ?
 				EXTENT_STATUS_UNWRITTEN : EXTENT_STATUS_WRITTEN;
 		if (!(flags & EXT4_GET_BLOCKS_DELALLOC_RESERVE) &&
+<<<<<<< HEAD
 		    !(status & EXTENT_STATUS_WRITTEN) &&
+=======
+>>>>>>> G920FXXU3COI9
 		    ext4_find_delalloc_range(inode, map->m_lblk,
 					     map->m_lblk + map->m_len - 1))
 			status |= EXTENT_STATUS_DELAYED;
@@ -742,7 +745,10 @@ found:
 		status = map->m_flags & EXT4_MAP_UNWRITTEN ?
 				EXTENT_STATUS_UNWRITTEN : EXTENT_STATUS_WRITTEN;
 		if (!(flags & EXT4_GET_BLOCKS_DELALLOC_RESERVE) &&
+<<<<<<< HEAD
 		    !(status & EXTENT_STATUS_WRITTEN) &&
+=======
+>>>>>>> G920FXXU3COI9
 		    ext4_find_delalloc_range(inode, map->m_lblk,
 					     map->m_lblk + map->m_len - 1))
 			status |= EXTENT_STATUS_DELAYED;
@@ -1417,7 +1423,11 @@ static void ext4_da_release_space(struct inode *inode, int to_free)
 static void ext4_da_page_release_reservation(struct page *page,
 					     unsigned long offset)
 {
+<<<<<<< HEAD
 	int to_release = 0, contiguous_blks = 0;
+=======
+	int to_release = 0;
+>>>>>>> G920FXXU3COI9
 	struct buffer_head *head, *bh;
 	unsigned int curr_off = 0;
 	struct inode *inode = page->mapping->host;
@@ -1432,6 +1442,7 @@ static void ext4_da_page_release_reservation(struct page *page,
 
 		if ((offset <= curr_off) && (buffer_delay(bh))) {
 			to_release++;
+<<<<<<< HEAD
 			contiguous_blks++;
 			clear_buffer_delay(bh);
 		} else if (contiguous_blks) {
@@ -1441,14 +1452,23 @@ static void ext4_da_page_release_reservation(struct page *page,
 				contiguous_blks;
 			ext4_es_remove_extent(inode, lblk, contiguous_blks);
 			contiguous_blks = 0;
+=======
+			clear_buffer_delay(bh);
+>>>>>>> G920FXXU3COI9
 		}
 		curr_off = next_off;
 	} while ((bh = bh->b_this_page) != head);
 
+<<<<<<< HEAD
 	if (contiguous_blks) {
 		lblk = page->index << (PAGE_CACHE_SHIFT - inode->i_blkbits);
 		lblk += (curr_off >> inode->i_blkbits) - contiguous_blks;
 		ext4_es_remove_extent(inode, lblk, contiguous_blks);
+=======
+	if (to_release) {
+		lblk = page->index << (PAGE_CACHE_SHIFT - inode->i_blkbits);
+		ext4_es_remove_extent(inode, lblk, to_release);
+>>>>>>> G920FXXU3COI9
 	}
 
 	/* If we have released all the blocks belonging to a cluster, then we
@@ -2113,18 +2133,24 @@ static int __ext4_journalled_writepage(struct page *page,
 		ext4_walk_page_buffers(handle, page_bufs, 0, len,
 				       NULL, bget_one);
 	}
+<<<<<<< HEAD
 	/*
 	 * We need to release the page lock before we start the
 	 * journal, so grab a reference so the page won't disappear
 	 * out from under us.
 	 */
 	get_page(page);
+=======
+	/* As soon as we unlock the page, it can go away, but we have
+	 * references to buffers so we are safe */
+>>>>>>> G920FXXU3COI9
 	unlock_page(page);
 
 	handle = ext4_journal_start(inode, EXT4_HT_WRITE_PAGE,
 				    ext4_writepage_trans_blocks(inode));
 	if (IS_ERR(handle)) {
 		ret = PTR_ERR(handle);
+<<<<<<< HEAD
 		put_page(page);
 		goto out_no_pagelock;
 	}
@@ -2139,6 +2165,13 @@ static int __ext4_journalled_writepage(struct page *page,
 		goto out;
 	}
 
+=======
+		goto out;
+	}
+
+	BUG_ON(!ext4_handle_valid(handle));
+
+>>>>>>> G920FXXU3COI9
 	if (inline_data) {
 		ret = ext4_journal_get_write_access(handle, inode_bh);
 
@@ -2163,8 +2196,11 @@ static int __ext4_journalled_writepage(struct page *page,
 				       NULL, bput_one);
 	ext4_set_inode_state(inode, EXT4_STATE_JDATA);
 out:
+<<<<<<< HEAD
 	unlock_page(page);
 out_no_pagelock:
+=======
+>>>>>>> G920FXXU3COI9
 	brelse(inode_bh);
 	return ret;
 }
@@ -4632,12 +4668,16 @@ int ext4_write_inode(struct inode *inode, struct writeback_control *wbc)
 			return -EIO;
 		}
 
+<<<<<<< HEAD
 		/*
 		 * No need to force transaction in WB_SYNC_NONE mode. Also
 		 * ext4_sync_fs() will force the commit after everything is
 		 * written.
 		 */
 		if (wbc->sync_mode != WB_SYNC_ALL || wbc->for_sync)
+=======
+		if (wbc->sync_mode != WB_SYNC_ALL)
+>>>>>>> G920FXXU3COI9
 			return 0;
 
 		err = ext4_force_commit(inode->i_sb);
@@ -4647,11 +4687,15 @@ int ext4_write_inode(struct inode *inode, struct writeback_control *wbc)
 		err = __ext4_get_inode_loc(inode, &iloc, 0);
 		if (err)
 			return err;
+<<<<<<< HEAD
 		/*
 		 * sync(2) will flush the whole buffer cache. No need to do
 		 * it here separately for each inode.
 		 */
 		if (wbc->sync_mode == WB_SYNC_ALL && !wbc->for_sync)
+=======
+		if (wbc->sync_mode == WB_SYNC_ALL)
+>>>>>>> G920FXXU3COI9
 			sync_dirty_buffer(iloc.bh);
 		if (buffer_req(iloc.bh) && !buffer_uptodate(iloc.bh)) {
 			EXT4_ERROR_INODE_BLOCK(inode, iloc.bh->b_blocknr,

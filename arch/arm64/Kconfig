@@ -65,9 +65,12 @@ config ARM64
 	select RTC_LIB
 	select SPARSE_IRQ
 	select SYSCTL_EXCEPTION_TRACE
+<<<<<<< HEAD
 	select HAVE_EFFICIENT_UNALIGNED_ACCESS
 	select DCACHE_WORD_ACCESS
 	select HAVE_KERNEL_LZ4
+=======
+>>>>>>> G920FXXU3COI9
 	help
 	  ARM 64-bit (AArch64) Linux support.
 
@@ -89,10 +92,13 @@ config STACKTRACE_SUPPORT
 config HAVE_LATENCYTOP_SUPPORT
 	def_bool y
 
+<<<<<<< HEAD
 config ILLEGAL_POINTER_VALUE
 	hex
 	default 0xdead000000000000
 
+=======
+>>>>>>> G920FXXU3COI9
 config LOCKDEP_SUPPORT
 	def_bool y
 

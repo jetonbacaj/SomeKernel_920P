@@ -1330,7 +1330,14 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 int prepare_binprm(struct linux_binprm *bprm)
 {
 	int retval;
+<<<<<<< HEAD
 	
+=======
+
+	if (bprm->file->f_op == NULL)
+		return -EACCES;
+
+>>>>>>> G920FXXU3COI9
 	bprm_fill_uid(bprm);
 
 	/* fill in binprm security blob */

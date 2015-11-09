@@ -438,7 +438,12 @@ static int uinput_setup_device(struct uinput_device *udev,
 	return retval;
 }
 
+<<<<<<< HEAD
 static inline ssize_t uinput_inject_event(struct uinput_device *udev, const char __user *buffer, size_t count, __u8 *do_sleep)
+=======
+static ssize_t uinput_inject_event(struct uinput_device *udev,
+				   const char __user *buffer, size_t count)
+>>>>>>> G920FXXU3COI9
 {
 	struct input_event ev;
 
@@ -450,10 +455,13 @@ static inline ssize_t uinput_inject_event(struct uinput_device *udev, const char
 
 	input_event(udev->dev, ev.type, ev.code, ev.value);
 
+<<<<<<< HEAD
 	/* XXX UGLY HACK to throttle system_server orientation sensor code */
 	if (ev.type == 2 && ev.code == 2) {
 		*do_sleep = 1;
 	}
+=======
+>>>>>>> G920FXXU3COI9
 	return input_event_size();
 }
 
@@ -462,7 +470,10 @@ static ssize_t uinput_write(struct file *file, const char __user *buffer,
 {
 	struct uinput_device *udev = file->private_data;
 	int retval;
+<<<<<<< HEAD
 	__u8 do_sleep = 0;
+=======
+>>>>>>> G920FXXU3COI9
 
 	if (count == 0)
 		return 0;
@@ -472,16 +483,23 @@ static ssize_t uinput_write(struct file *file, const char __user *buffer,
 		return retval;
 
 	retval = udev->state == UIST_CREATED ?
+<<<<<<< HEAD
 			uinput_inject_event(udev, buffer, count, &do_sleep) :
+=======
+			uinput_inject_event(udev, buffer, count) :
+>>>>>>> G920FXXU3COI9
 			uinput_setup_device(udev, buffer, count);
 
 	mutex_unlock(&udev->mutex);
 
+<<<<<<< HEAD
 	/* XXX UGLY HACK to throttle system_server orientation sensor code */
 	if (do_sleep) {
 		set_current_state(TASK_INTERRUPTIBLE);
 		schedule_timeout(HZ/5);
 	}
+=======
+>>>>>>> G920FXXU3COI9
 	return retval;
 }
 

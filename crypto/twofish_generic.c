@@ -211,5 +211,9 @@ module_exit(twofish_mod_fini);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION ("Twofish Cipher Algorithm");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("twofish");
 MODULE_ALIAS_CRYPTO("twofish-generic");
+=======
+MODULE_ALIAS("twofish");
+>>>>>>> G920FXXU3COI9

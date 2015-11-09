@@ -335,8 +335,11 @@ out:
 
 out_unlock:
 	spin_unlock_irq(&pidmap_lock);
+<<<<<<< HEAD
 	put_pid_ns(ns);
 
+=======
+>>>>>>> G920FXXU3COI9
 out_free:
 	while (++i <= ns->level)
 		free_pidmap(pid->numbers + i);
