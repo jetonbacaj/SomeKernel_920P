@@ -1150,19 +1150,6 @@ static void packet_sock_destruct(struct sock *sk)
 	sk_refcnt_debug_dec(sk);
 }
 
-<<<<<<< HEAD
-=======
-static int fanout_rr_next(struct packet_fanout *f, unsigned int num)
-{
-	int x = atomic_read(&f->rr_cur) + 1;
-
-	if (x >= num)
-		x = 0;
-
-	return x;
-}
-
->>>>>>> G920FXXU3COI9
 static unsigned int fanout_demux_hash(struct packet_fanout *f,
 				      struct sk_buff *skb,
 				      unsigned int num)
@@ -1174,19 +1161,9 @@ static unsigned int fanout_demux_lb(struct packet_fanout *f,
 				    struct sk_buff *skb,
 				    unsigned int num)
 {
-<<<<<<< HEAD
 	unsigned int val = atomic_inc_return(&f->rr_cur);
 
 	return val % num;
-=======
-	int cur, old;
-
-	cur = atomic_read(&f->rr_cur);
-	while ((old = atomic_cmpxchg(&f->rr_cur, cur,
-				     fanout_rr_next(f, num))) != cur)
-		cur = old;
-	return cur;
->>>>>>> G920FXXU3COI9
 }
 
 static unsigned int fanout_demux_cpu(struct packet_fanout *f,
@@ -1226,11 +1203,7 @@ static int packet_rcv_fanout(struct sk_buff *skb, struct net_device *dev,
 			     struct packet_type *pt, struct net_device *orig_dev)
 {
 	struct packet_fanout *f = pt->af_packet_priv;
-<<<<<<< HEAD
 	unsigned int num = ACCESS_ONCE(f->num_members);
-=======
-	unsigned int num = f->num_members;
->>>>>>> G920FXXU3COI9
 	struct packet_sock *po;
 	unsigned int idx;
 

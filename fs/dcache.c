@@ -43,11 +43,7 @@
 /*
  * Usage:
  * dcache->d_inode->i_lock protects:
-<<<<<<< HEAD
  *   - i_dentry, d_u.d_alias, d_inode of aliases
-=======
- *   - i_dentry, d_alias, d_inode of aliases
->>>>>>> G920FXXU3COI9
  * dcache_hash_bucket lock protects:
  *   - the dcache hash table
  * s_anon bl list spinlock protects:
@@ -62,11 +58,7 @@
  *   - d_unhashed()
  *   - d_parent and d_subdirs
  *   - childrens' d_child and d_parent
-<<<<<<< HEAD
  *   - d_u.d_alias, d_inode
-=======
- *   - d_alias, d_inode
->>>>>>> G920FXXU3COI9
  *
  * Ordering:
  * dentry->d_inode->i_lock
@@ -223,10 +215,6 @@ static void __d_free(struct rcu_head *head)
 {
 	struct dentry *dentry = container_of(head, struct dentry, d_u.d_rcu);
 
-<<<<<<< HEAD
-=======
-	WARN_ON(!hlist_unhashed(&dentry->d_alias));
->>>>>>> G920FXXU3COI9
 	if (dname_external(dentry))
 		kfree(dentry->d_name.name);
 	kmem_cache_free(dentry_cache, dentry); 
@@ -237,10 +225,7 @@ static void __d_free(struct rcu_head *head)
  */
 static void d_free(struct dentry *dentry)
 {
-<<<<<<< HEAD
 	WARN_ON(!hlist_unhashed(&dentry->d_u.d_alias));
-=======
->>>>>>> G920FXXU3COI9
 	BUG_ON(dentry->d_count);
 	this_cpu_dec(nr_dentry);
 	if (dentry->d_op && dentry->d_op->d_release)
@@ -279,11 +264,7 @@ static void dentry_iput(struct dentry * dentry)
 	struct inode *inode = dentry->d_inode;
 	if (inode) {
 		dentry->d_inode = NULL;
-<<<<<<< HEAD
 		hlist_del_init(&dentry->d_u.d_alias);
-=======
-		hlist_del_init(&dentry->d_alias);
->>>>>>> G920FXXU3COI9
 		spin_unlock(&dentry->d_lock);
 		spin_unlock(&inode->i_lock);
 		if (!inode->i_nlink)
@@ -307,11 +288,7 @@ static void dentry_unlink_inode(struct dentry * dentry)
 {
 	struct inode *inode = dentry->d_inode;
 	dentry->d_inode = NULL;
-<<<<<<< HEAD
 	hlist_del_init(&dentry->d_u.d_alias);
-=======
-	hlist_del_init(&dentry->d_alias);
->>>>>>> G920FXXU3COI9
 	dentry_rcuwalk_barrier(dentry);
 	spin_unlock(&dentry->d_lock);
 	spin_unlock(&inode->i_lock);
@@ -387,15 +364,9 @@ static struct dentry *d_kill(struct dentry *dentry, struct dentry *parent)
 	__releases(parent->d_lock)
 	__releases(dentry->d_inode->i_lock)
 {
-<<<<<<< HEAD
 	__list_del_entry(&dentry->d_child);
 	/*
 	 * Inform ascending readers that we are no longer attached to the
-=======
-	list_del(&dentry->d_u.d_child);
-	/*
-	 * Inform try_to_ascend() that we are no longer attached to the
->>>>>>> G920FXXU3COI9
 	 * dentry tree
 	 */
 	dentry->d_flags |= DCACHE_DENTRY_KILLED;
@@ -549,12 +520,9 @@ repeat:
 		return;
 	}
 
-<<<<<<< HEAD
 	if (unlikely(dentry->d_flags & DCACHE_DISCONNECTED))
 		goto kill_it;
 
-=======
->>>>>>> G920FXXU3COI9
 	if (dentry->d_flags & DCACHE_OP_DELETE) {
 		if (dentry->d_op->d_delete(dentry))
 			goto kill_it;
@@ -695,11 +663,7 @@ static struct dentry *__d_find_alias(struct inode *inode, int want_discon)
 
 again:
 	discon_alias = NULL;
-<<<<<<< HEAD
 	hlist_for_each_entry(alias, &inode->i_dentry, d_u.d_alias) {
-=======
-	hlist_for_each_entry(alias, &inode->i_dentry, d_alias) {
->>>>>>> G920FXXU3COI9
 		spin_lock(&alias->d_lock);
  		if (S_ISDIR(inode->i_mode) || !d_unhashed(alias)) {
 			if (IS_ROOT(alias) &&
@@ -752,11 +716,7 @@ void d_prune_aliases(struct inode *inode)
 	struct dentry *dentry;
 restart:
 	spin_lock(&inode->i_lock);
-<<<<<<< HEAD
 	hlist_for_each_entry(dentry, &inode->i_dentry, d_u.d_alias) {
-=======
-	hlist_for_each_entry(dentry, &inode->i_dentry, d_alias) {
->>>>>>> G920FXXU3COI9
 		spin_lock(&dentry->d_lock);
 		if (!dentry->d_count) {
 			__dget_dlock(dentry);
@@ -936,11 +896,7 @@ static void shrink_dcache_for_umount_subtree(struct dentry *dentry)
 		/* descend to the first leaf in the current subtree */
 		while (!list_empty(&dentry->d_subdirs))
 			dentry = list_entry(dentry->d_subdirs.next,
-<<<<<<< HEAD
 					    struct dentry, d_child);
-=======
-					    struct dentry, d_u.d_child);
->>>>>>> G920FXXU3COI9
 
 		/* consume the dentries from this leaf up through its parents
 		 * until we find one with children or run out altogether */
@@ -974,29 +930,17 @@ static void shrink_dcache_for_umount_subtree(struct dentry *dentry)
 
 			if (IS_ROOT(dentry)) {
 				parent = NULL;
-<<<<<<< HEAD
 				list_del(&dentry->d_child);
 			} else {
 				parent = dentry->d_parent;
 				parent->d_count--;
 				list_del(&dentry->d_child);
-=======
-				list_del(&dentry->d_u.d_child);
-			} else {
-				parent = dentry->d_parent;
-				parent->d_count--;
-				list_del(&dentry->d_u.d_child);
->>>>>>> G920FXXU3COI9
 			}
 
 			inode = dentry->d_inode;
 			if (inode) {
 				dentry->d_inode = NULL;
-<<<<<<< HEAD
 				hlist_del_init(&dentry->d_u.d_alias);
-=======
-				hlist_del_init(&dentry->d_alias);
->>>>>>> G920FXXU3COI9
 				if (dentry->d_op && dentry->d_op->d_iput)
 					dentry->d_op->d_iput(dentry, inode);
 				else
@@ -1014,11 +958,7 @@ static void shrink_dcache_for_umount_subtree(struct dentry *dentry)
 		} while (list_empty(&dentry->d_subdirs));
 
 		dentry = list_entry(dentry->d_subdirs.next,
-<<<<<<< HEAD
 				    struct dentry, d_child);
-=======
-				    struct dentry, d_u.d_child);
->>>>>>> G920FXXU3COI9
 	}
 }
 
@@ -1051,38 +991,6 @@ void shrink_dcache_for_umount(struct super_block *sb)
 }
 
 /*
-<<<<<<< HEAD
-=======
- * This tries to ascend one level of parenthood, but
- * we can race with renaming, so we need to re-check
- * the parenthood after dropping the lock and check
- * that the sequence number still matches.
- */
-static struct dentry *try_to_ascend(struct dentry *old, int locked, unsigned seq)
-{
-	struct dentry *new = old->d_parent;
-
-	rcu_read_lock();
-	spin_unlock(&old->d_lock);
-	spin_lock(&new->d_lock);
-
-	/*
-	 * might go back up the wrong parent if we have had a rename
-	 * or deletion
-	 */
-	if (new != old->d_parent ||
-		 (old->d_flags & DCACHE_DENTRY_KILLED) ||
-		 (!locked && read_seqretry(&rename_lock, seq))) {
-		spin_unlock(&new->d_lock);
-		new = NULL;
-	}
-	rcu_read_unlock();
-	return new;
-}
-
-
-/*
->>>>>>> G920FXXU3COI9
  * Search for at least 1 mount point in the dentry's subdirs.
  * We descend to the next level whenever the d_subdirs
  * list is non-empty and continue searching.
@@ -1114,11 +1022,7 @@ repeat:
 resume:
 	while (next != &this_parent->d_subdirs) {
 		struct list_head *tmp = next;
-<<<<<<< HEAD
 		struct dentry *dentry = list_entry(tmp, struct dentry, d_child);
-=======
-		struct dentry *dentry = list_entry(tmp, struct dentry, d_u.d_child);
->>>>>>> G920FXXU3COI9
 		next = tmp->next;
 
 		spin_lock_nested(&dentry->d_lock, DENTRY_D_LOCK_NESTED);
@@ -1140,7 +1044,6 @@ resume:
 	/*
 	 * All done at this level ... ascend and resume the search.
 	 */
-<<<<<<< HEAD
 	rcu_read_lock();
 ascend:
 	if (this_parent != parent) {
@@ -1167,44 +1070,22 @@ ascend:
 		goto rename_retry;
 	spin_unlock(&this_parent->d_lock);
 	rcu_read_unlock();
-=======
-	if (this_parent != parent) {
-		struct dentry *child = this_parent;
-		this_parent = try_to_ascend(this_parent, locked, seq);
-		if (!this_parent)
-			goto rename_retry;
-		next = child->d_u.d_child.next;
-		goto resume;
-	}
-	spin_unlock(&this_parent->d_lock);
-	if (!locked && read_seqretry(&rename_lock, seq))
-		goto rename_retry;
->>>>>>> G920FXXU3COI9
 	if (locked)
 		write_sequnlock(&rename_lock);
 	return 0; /* No mount points found in tree */
 positive:
 	if (!locked && read_seqretry(&rename_lock, seq))
-<<<<<<< HEAD
 		goto rename_retry_unlocked;
-=======
-		goto rename_retry;
->>>>>>> G920FXXU3COI9
 	if (locked)
 		write_sequnlock(&rename_lock);
 	return 1;
 
 rename_retry:
-<<<<<<< HEAD
 	spin_unlock(&this_parent->d_lock);
 	rcu_read_unlock();
 	if (locked)
 		goto again;
 rename_retry_unlocked:
-=======
-	if (locked)
-		goto again;
->>>>>>> G920FXXU3COI9
 	locked = 1;
 	write_seqlock(&rename_lock);
 	goto again;
@@ -1242,11 +1123,7 @@ repeat:
 resume:
 	while (next != &this_parent->d_subdirs) {
 		struct list_head *tmp = next;
-<<<<<<< HEAD
 		struct dentry *dentry = list_entry(tmp, struct dentry, d_child);
-=======
-		struct dentry *dentry = list_entry(tmp, struct dentry, d_u.d_child);
->>>>>>> G920FXXU3COI9
 		next = tmp->next;
 
 		spin_lock_nested(&dentry->d_lock, DENTRY_D_LOCK_NESTED);
@@ -1273,10 +1150,7 @@ resume:
 		 */
 		if (found && need_resched()) {
 			spin_unlock(&dentry->d_lock);
-<<<<<<< HEAD
 			rcu_read_lock();
-=======
->>>>>>> G920FXXU3COI9
 			goto out;
 		}
 
@@ -1296,7 +1170,6 @@ resume:
 	/*
 	 * All done at this level ... ascend and resume the search.
 	 */
-<<<<<<< HEAD
 	rcu_read_lock();
 ascend:
 	if (this_parent != parent) {
@@ -1324,30 +1197,13 @@ out:
 		goto rename_retry;
 	spin_unlock(&this_parent->d_lock);
 	rcu_read_unlock();
-=======
-	if (this_parent != parent) {
-		struct dentry *child = this_parent;
-		this_parent = try_to_ascend(this_parent, locked, seq);
-		if (!this_parent)
-			goto rename_retry;
-		next = child->d_u.d_child.next;
-		goto resume;
-	}
-out:
-	spin_unlock(&this_parent->d_lock);
-	if (!locked && read_seqretry(&rename_lock, seq))
-		goto rename_retry;
->>>>>>> G920FXXU3COI9
 	if (locked)
 		write_sequnlock(&rename_lock);
 	return found;
 
 rename_retry:
-<<<<<<< HEAD
 	spin_unlock(&this_parent->d_lock);
 	rcu_read_unlock();
-=======
->>>>>>> G920FXXU3COI9
 	if (found)
 		return found;
 	if (locked)
@@ -1432,13 +1288,8 @@ struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
 	INIT_HLIST_BL_NODE(&dentry->d_hash);
 	INIT_LIST_HEAD(&dentry->d_lru);
 	INIT_LIST_HEAD(&dentry->d_subdirs);
-<<<<<<< HEAD
 	INIT_HLIST_NODE(&dentry->d_u.d_alias);
 	INIT_LIST_HEAD(&dentry->d_child);
-=======
-	INIT_HLIST_NODE(&dentry->d_alias);
-	INIT_LIST_HEAD(&dentry->d_u.d_child);
->>>>>>> G920FXXU3COI9
 	d_set_d_op(dentry, dentry->d_sb->s_d_op);
 
 	this_cpu_inc(nr_dentry);
@@ -1468,11 +1319,7 @@ struct dentry *d_alloc(struct dentry * parent, const struct qstr *name)
 	 */
 	__dget_dlock(parent);
 	dentry->d_parent = parent;
-<<<<<<< HEAD
 	list_add(&dentry->d_child, &parent->d_subdirs);
-=======
-	list_add(&dentry->d_u.d_child, &parent->d_subdirs);
->>>>>>> G920FXXU3COI9
 	spin_unlock(&parent->d_lock);
 
 	return dentry;
@@ -1532,11 +1379,7 @@ static void __d_instantiate(struct dentry *dentry, struct inode *inode)
 	if (inode) {
 		if (unlikely(IS_AUTOMOUNT(inode)))
 			dentry->d_flags |= DCACHE_NEED_AUTOMOUNT;
-<<<<<<< HEAD
 		hlist_add_head(&dentry->d_u.d_alias, &inode->i_dentry);
-=======
-		hlist_add_head(&dentry->d_alias, &inode->i_dentry);
->>>>>>> G920FXXU3COI9
 	}
 	dentry->d_inode = inode;
 	dentry_rcuwalk_barrier(dentry);
@@ -1561,11 +1404,7 @@ static void __d_instantiate(struct dentry *dentry, struct inode *inode)
  
 void d_instantiate(struct dentry *entry, struct inode * inode)
 {
-<<<<<<< HEAD
 	BUG_ON(!hlist_unhashed(&entry->d_u.d_alias));
-=======
-	BUG_ON(!hlist_unhashed(&entry->d_alias));
->>>>>>> G920FXXU3COI9
 	if (inode)
 		spin_lock(&inode->i_lock);
 	__d_instantiate(entry, inode);
@@ -1604,11 +1443,7 @@ static struct dentry *__d_instantiate_unique(struct dentry *entry,
 		return NULL;
 	}
 
-<<<<<<< HEAD
 	hlist_for_each_entry(alias, &inode->i_dentry, d_u.d_alias) {
-=======
-	hlist_for_each_entry(alias, &inode->i_dentry, d_alias) {
->>>>>>> G920FXXU3COI9
 		/*
 		 * Don't need alias->d_lock here, because aliases with
 		 * d_parent == entry->d_parent are not subject to name or
@@ -1634,11 +1469,7 @@ struct dentry *d_instantiate_unique(struct dentry *entry, struct inode *inode)
 {
 	struct dentry *result;
 
-<<<<<<< HEAD
 	BUG_ON(!hlist_unhashed(&entry->d_u.d_alias));
-=======
-	BUG_ON(!hlist_unhashed(&entry->d_alias));
->>>>>>> G920FXXU3COI9
 
 	if (inode)
 		spin_lock(&inode->i_lock);
@@ -1681,11 +1512,7 @@ static struct dentry * __d_find_any_alias(struct inode *inode)
 
 	if (hlist_empty(&inode->i_dentry))
 		return NULL;
-<<<<<<< HEAD
 	alias = hlist_entry(inode->i_dentry.first, struct dentry, d_u.d_alias);
-=======
-	alias = hlist_entry(inode->i_dentry.first, struct dentry, d_alias);
->>>>>>> G920FXXU3COI9
 	__dget(alias);
 	return alias;
 }
@@ -1759,11 +1586,7 @@ struct dentry *d_obtain_alias(struct inode *inode)
 	spin_lock(&tmp->d_lock);
 	tmp->d_inode = inode;
 	tmp->d_flags |= DCACHE_DISCONNECTED;
-<<<<<<< HEAD
 	hlist_add_head(&tmp->d_u.d_alias, &inode->i_dentry);
-=======
-	hlist_add_head(&tmp->d_alias, &inode->i_dentry);
->>>>>>> G920FXXU3COI9
 	hlist_bl_lock(&tmp->d_sb->s_anon);
 	hlist_bl_add_head(&tmp->d_hash, &tmp->d_sb->s_anon);
 	hlist_bl_unlock(&tmp->d_sb->s_anon);
@@ -2206,11 +2029,7 @@ int d_validate(struct dentry *dentry, struct dentry *dparent)
 	struct dentry *child;
 
 	spin_lock(&dparent->d_lock);
-<<<<<<< HEAD
 	list_for_each_entry(child, &dparent->d_subdirs, d_child) {
-=======
-	list_for_each_entry(child, &dparent->d_subdirs, d_u.d_child) {
->>>>>>> G920FXXU3COI9
 		if (dentry == child) {
 			spin_lock_nested(&dentry->d_lock, DENTRY_D_LOCK_NESTED);
 			__dget_dlock(dentry);
@@ -2457,13 +2276,8 @@ static void __d_move(struct dentry * dentry, struct dentry * target)
 	/* Unhash the target: dput() will then get rid of it */
 	__d_drop(target);
 
-<<<<<<< HEAD
 	list_del(&dentry->d_child);
 	list_del(&target->d_child);
-=======
-	list_del(&dentry->d_u.d_child);
-	list_del(&target->d_u.d_child);
->>>>>>> G920FXXU3COI9
 
 	/* Switch the names.. */
 	switch_names(dentry, target);
@@ -2473,26 +2287,15 @@ static void __d_move(struct dentry * dentry, struct dentry * target)
 	if (IS_ROOT(dentry)) {
 		dentry->d_parent = target->d_parent;
 		target->d_parent = target;
-<<<<<<< HEAD
 		INIT_LIST_HEAD(&target->d_child);
-=======
-		INIT_LIST_HEAD(&target->d_u.d_child);
->>>>>>> G920FXXU3COI9
 	} else {
 		swap(dentry->d_parent, target->d_parent);
 
 		/* And add them back to the (new) parent lists */
-<<<<<<< HEAD
 		list_add(&target->d_child, &target->d_parent->d_subdirs);
 	}
 
 	list_add(&dentry->d_child, &dentry->d_parent->d_subdirs);
-=======
-		list_add(&target->d_u.d_child, &target->d_parent->d_subdirs);
-	}
-
-	list_add(&dentry->d_u.d_child, &dentry->d_parent->d_subdirs);
->>>>>>> G920FXXU3COI9
 
 	write_seqcount_end(&target->d_seq);
 	write_seqcount_end(&dentry->d_seq);
@@ -2599,15 +2402,9 @@ static void __d_materialise_dentry(struct dentry *dentry, struct dentry *anon)
 	swap(dentry->d_name.hash, anon->d_name.hash);
 
 	dentry->d_parent = dentry;
-<<<<<<< HEAD
 	list_del_init(&dentry->d_child);
 	anon->d_parent = dparent;
 	list_move(&anon->d_child, &dparent->d_subdirs);
-=======
-	list_del_init(&dentry->d_u.d_child);
-	anon->d_parent = dparent;
-	list_move(&anon->d_u.d_child, &dparent->d_subdirs);
->>>>>>> G920FXXU3COI9
 
 	write_seqcount_end(&dentry->d_seq);
 	write_seqcount_end(&anon->d_seq);
@@ -2737,11 +2534,8 @@ static int prepend_path(const struct path *path,
 	struct dentry *dentry = path->dentry;
 	struct vfsmount *vfsmnt = path->mnt;
 	struct mount *mnt = real_mount(vfsmnt);
-<<<<<<< HEAD
 	char *orig_buffer = *buffer;
 	int orig_len = *buflen;
-=======
->>>>>>> G920FXXU3COI9
 	bool slash = false;
 	int error = 0;
 
@@ -2749,7 +2543,6 @@ static int prepend_path(const struct path *path,
 		struct dentry * parent;
 
 		if (dentry == vfsmnt->mnt_root || IS_ROOT(dentry)) {
-<<<<<<< HEAD
 			/* Escaped? */
 			if (dentry != vfsmnt->mnt_root) {
 				*buffer = orig_buffer;
@@ -2758,8 +2551,6 @@ static int prepend_path(const struct path *path,
 				error = 3;
 				goto global_root;
 			}
-=======
->>>>>>> G920FXXU3COI9
 			/* Global root? */
 			if (!mnt_has_parent(mnt))
 				goto global_root;
@@ -2788,18 +2579,6 @@ static int prepend_path(const struct path *path,
 	return error;
 
 global_root:
-<<<<<<< HEAD
-=======
-	/*
-	 * Filesystems needing to implement special "root names"
-	 * should do so with ->d_dname()
-	 */
-	if (IS_ROOT(dentry) &&
-	    (dentry->d_name.len != 1 || dentry->d_name.name[0] != '/')) {
-		WARN(1, "Root dentry has weird name <%.*s>\n",
-		     (int) dentry->d_name.len, dentry->d_name.name);
-	}
->>>>>>> G920FXXU3COI9
 	if (!slash)
 		error = prepend(buffer, buflen, "/", 1);
 	if (!error)
@@ -2944,11 +2723,7 @@ char *dynamic_dname(struct dentry *dentry, char *buffer, int buflen,
 			const char *fmt, ...)
 {
 	va_list args;
-<<<<<<< HEAD
 	char temp[256];
-=======
-	char temp[64];
->>>>>>> G920FXXU3COI9
 	int sz;
 
 	va_start(args, fmt);
@@ -3169,11 +2944,7 @@ repeat:
 resume:
 	while (next != &this_parent->d_subdirs) {
 		struct list_head *tmp = next;
-<<<<<<< HEAD
 		struct dentry *dentry = list_entry(tmp, struct dentry, d_child);
-=======
-		struct dentry *dentry = list_entry(tmp, struct dentry, d_u.d_child);
->>>>>>> G920FXXU3COI9
 		next = tmp->next;
 
 		spin_lock_nested(&dentry->d_lock, DENTRY_D_LOCK_NESTED);
@@ -3194,18 +2965,14 @@ resume:
 		}
 		spin_unlock(&dentry->d_lock);
 	}
-<<<<<<< HEAD
 	rcu_read_lock();
 ascend:
-=======
->>>>>>> G920FXXU3COI9
 	if (this_parent != root) {
 		struct dentry *child = this_parent;
 		if (!(this_parent->d_flags & DCACHE_GENOCIDE)) {
 			this_parent->d_flags |= DCACHE_GENOCIDE;
 			this_parent->d_count--;
 		}
-<<<<<<< HEAD
 		this_parent = child->d_parent;
 
 		spin_unlock(&child->d_lock);
@@ -3228,27 +2995,13 @@ ascend:
 		goto rename_retry;
 	spin_unlock(&this_parent->d_lock);
 	rcu_read_unlock();
-=======
-		this_parent = try_to_ascend(this_parent, locked, seq);
-		if (!this_parent)
-			goto rename_retry;
-		next = child->d_u.d_child.next;
-		goto resume;
-	}
-	spin_unlock(&this_parent->d_lock);
-	if (!locked && read_seqretry(&rename_lock, seq))
-		goto rename_retry;
->>>>>>> G920FXXU3COI9
 	if (locked)
 		write_sequnlock(&rename_lock);
 	return;
 
 rename_retry:
-<<<<<<< HEAD
 	spin_unlock(&this_parent->d_lock);
 	rcu_read_unlock();
-=======
->>>>>>> G920FXXU3COI9
 	if (locked)
 		goto again;
 	locked = 1;

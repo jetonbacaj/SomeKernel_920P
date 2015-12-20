@@ -2796,7 +2796,6 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x3c28, vtd_mask_spec_errors);
 
 static void fixup_ti816x_class(struct pci_dev *dev)
 {
-<<<<<<< HEAD
 	u32 class = dev->class;
 
 	/* TI 816x devices do not have class code set when in PCIe boot mode */
@@ -2806,14 +2805,6 @@ static void fixup_ti816x_class(struct pci_dev *dev)
 }
 DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_TI, 0xb800,
 			      PCI_CLASS_NOT_DEFINED, 0, fixup_ti816x_class);
-=======
-	/* TI 816x devices do not have class code set when in PCIe boot mode */
-	dev_info(&dev->dev, "Setting PCI class for 816x PCIe device\n");
-	dev->class = PCI_CLASS_MULTIMEDIA_VIDEO;
-}
-DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_TI, 0xb800,
-				 PCI_CLASS_NOT_DEFINED, 0, fixup_ti816x_class);
->>>>>>> G920FXXU3COI9
 
 /* Some PCIe devices do not work reliably with the claimed maximum
  * payload size supported.

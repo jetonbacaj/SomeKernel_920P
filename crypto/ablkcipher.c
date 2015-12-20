@@ -715,11 +715,7 @@ struct crypto_ablkcipher *crypto_alloc_ablkcipher(const char *alg_name,
 err:
 		if (err != -EAGAIN)
 			break;
-<<<<<<< HEAD
 		if (fatal_signal_pending(current)) {
-=======
-		if (signal_pending(current)) {
->>>>>>> G920FXXU3COI9
 			err = -EINTR;
 			break;
 		}

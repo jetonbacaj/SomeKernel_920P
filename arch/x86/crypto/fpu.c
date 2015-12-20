@@ -17,10 +17,7 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/slab.h>
-<<<<<<< HEAD
 #include <linux/crypto.h>
-=======
->>>>>>> G920FXXU3COI9
 #include <asm/i387.h>
 
 struct crypto_fpu_ctx {
@@ -163,8 +160,5 @@ void __exit crypto_fpu_exit(void)
 {
 	crypto_unregister_template(&crypto_fpu_tmpl);
 }
-<<<<<<< HEAD
 
 MODULE_ALIAS_CRYPTO("fpu");
-=======
->>>>>>> G920FXXU3COI9

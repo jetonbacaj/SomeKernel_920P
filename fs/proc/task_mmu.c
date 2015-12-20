@@ -1172,7 +1172,6 @@ out:
 	return ret;
 }
 
-<<<<<<< HEAD
 static int pagemap_open(struct inode *inode, struct file *file)
 {
 	/* do not disclose physical addresses to unprivileged
@@ -1186,11 +1185,6 @@ const struct file_operations proc_pagemap_operations = {
 	.llseek		= mem_lseek, /* borrow this */
 	.read		= pagemap_read,
 	.open		= pagemap_open,
-=======
-const struct file_operations proc_pagemap_operations = {
-	.llseek		= mem_lseek, /* borrow this */
-	.read		= pagemap_read,
->>>>>>> G920FXXU3COI9
 };
 #endif /* CONFIG_PROC_PAGE_MONITOR */
 

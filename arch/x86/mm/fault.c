@@ -812,16 +812,8 @@ do_sigbus(struct pt_regs *regs, unsigned long error_code, unsigned long address,
 	  unsigned int fault)
 {
 	struct task_struct *tsk = current;
-<<<<<<< HEAD
 	int code = BUS_ADRERR;
 
-=======
-	struct mm_struct *mm = tsk->mm;
-	int code = BUS_ADRERR;
-
-	up_read(&mm->mmap_sem);
-
->>>>>>> G920FXXU3COI9
 	/* Kernel mode? Handle exceptions or die: */
 	if (!(error_code & PF_USER)) {
 		no_context(regs, error_code, address, SIGBUS, BUS_ADRERR);
@@ -852,10 +844,6 @@ mm_fault_error(struct pt_regs *regs, unsigned long error_code,
 	       unsigned long address, unsigned int fault)
 {
 	if (fatal_signal_pending(current) && !(error_code & PF_USER)) {
-<<<<<<< HEAD
-=======
-		up_read(&current->mm->mmap_sem);
->>>>>>> G920FXXU3COI9
 		no_context(regs, error_code, address, 0, 0);
 		return;
 	}
@@ -863,20 +851,11 @@ mm_fault_error(struct pt_regs *regs, unsigned long error_code,
 	if (fault & VM_FAULT_OOM) {
 		/* Kernel mode? Handle exceptions or die: */
 		if (!(error_code & PF_USER)) {
-<<<<<<< HEAD
-=======
-			up_read(&current->mm->mmap_sem);
->>>>>>> G920FXXU3COI9
 			no_context(regs, error_code, address,
 				   SIGSEGV, SEGV_MAPERR);
 			return;
 		}
 
-<<<<<<< HEAD
-=======
-		up_read(&current->mm->mmap_sem);
-
->>>>>>> G920FXXU3COI9
 		/*
 		 * We ran out of memory, call the OOM killer, and return the
 		 * userspace (which will retry the fault, or kill us if we got
@@ -887,11 +866,8 @@ mm_fault_error(struct pt_regs *regs, unsigned long error_code,
 		if (fault & (VM_FAULT_SIGBUS|VM_FAULT_HWPOISON|
 			     VM_FAULT_HWPOISON_LARGE))
 			do_sigbus(regs, error_code, address, fault);
-<<<<<<< HEAD
 		else if (fault & VM_FAULT_SIGSEGV)
 			bad_area_nosemaphore(regs, error_code, address);
-=======
->>>>>>> G920FXXU3COI9
 		else
 			BUG();
 	}
@@ -1212,10 +1188,7 @@ good_area:
 		return;
 
 	if (unlikely(fault & VM_FAULT_ERROR)) {
-<<<<<<< HEAD
 		up_read(&mm->mmap_sem);
-=======
->>>>>>> G920FXXU3COI9
 		mm_fault_error(regs, error_code, address, fault);
 		return;
 	}

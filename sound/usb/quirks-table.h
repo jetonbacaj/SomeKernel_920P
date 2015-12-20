@@ -2773,7 +2773,6 @@ YAMAHA_DEVICE(0x7010, "UB99"),
 	}
 },
 
-<<<<<<< HEAD
 /* Steinberg devices */
 {
 	/* Steinberg MI2 */
@@ -2842,8 +2841,6 @@ YAMAHA_DEVICE(0x7010, "UB99"),
 	}
 },
 
-=======
->>>>>>> G920FXXU3COI9
 /* TerraTec devices */
 {
 	USB_DEVICE_VENDOR_SPEC(0x0ccd, 0x0012),

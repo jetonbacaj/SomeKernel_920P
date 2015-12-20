@@ -2650,11 +2650,7 @@ static DEFINE_PER_CPU(unsigned int, current_context);
 
 static __always_inline int trace_recursive_lock(void)
 {
-<<<<<<< HEAD
 	unsigned int val = __this_cpu_read(current_context);
-=======
-	unsigned int val = this_cpu_read(current_context);
->>>>>>> G920FXXU3COI9
 	int bit;
 
 	if (in_interrupt()) {
@@ -2671,29 +2667,17 @@ static __always_inline int trace_recursive_lock(void)
 		return 1;
 
 	val |= (1 << bit);
-<<<<<<< HEAD
 	__this_cpu_write(current_context, val);
-=======
-	this_cpu_write(current_context, val);
->>>>>>> G920FXXU3COI9
 
 	return 0;
 }
 
 static __always_inline void trace_recursive_unlock(void)
 {
-<<<<<<< HEAD
 	unsigned int val = __this_cpu_read(current_context);
 
 	val &= val & (val - 1);
 	__this_cpu_write(current_context, val);
-=======
-	unsigned int val = this_cpu_read(current_context);
-
-	val--;
-	val &= this_cpu_read(current_context);
-	this_cpu_write(current_context, val);
->>>>>>> G920FXXU3COI9
 }
 
 #else

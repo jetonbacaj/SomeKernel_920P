@@ -2668,12 +2668,9 @@ static int nl80211_get_key(struct sk_buff *skb, struct genl_info *info)
 	if (!rdev->ops->get_key)
 		return -EOPNOTSUPP;
 
-<<<<<<< HEAD
 	if (!pairwise && mac_addr && !(rdev->wiphy.flags & WIPHY_FLAG_IBSS_RSN))
 		return -ENOENT;
 
-=======
->>>>>>> G920FXXU3COI9
 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
 	if (!msg)
 		return -ENOMEM;
@@ -2693,13 +2690,6 @@ static int nl80211_get_key(struct sk_buff *skb, struct genl_info *info)
 	    nla_put(msg, NL80211_ATTR_MAC, ETH_ALEN, mac_addr))
 		goto nla_put_failure;
 
-<<<<<<< HEAD
-=======
-	if (pairwise && mac_addr &&
-	    !(rdev->wiphy.flags & WIPHY_FLAG_IBSS_RSN))
-		return -ENOENT;
-
->>>>>>> G920FXXU3COI9
 	err = rdev_get_key(rdev, dev, key_idx, pairwise, mac_addr, &cookie,
 			   get_key_callback);
 
@@ -2870,11 +2860,7 @@ static int nl80211_del_key(struct sk_buff *skb, struct genl_info *info)
 	wdev_lock(dev->ieee80211_ptr);
 	err = nl80211_key_allowed(dev->ieee80211_ptr);
 
-<<<<<<< HEAD
 	if (key.type == NL80211_KEYTYPE_GROUP && mac_addr &&
-=======
-	if (key.type == NL80211_KEYTYPE_PAIRWISE && mac_addr &&
->>>>>>> G920FXXU3COI9
 	    !(rdev->wiphy.flags & WIPHY_FLAG_IBSS_RSN))
 		err = -ENOENT;
 
@@ -4085,7 +4071,6 @@ static int nl80211_new_station(struct sk_buff *skb, struct genl_info *info)
 	if (parse_station_flags(info, dev->ieee80211_ptr->iftype, &params))
 		return -EINVAL;
 
-<<<<<<< HEAD
 	/* HT/VHT requires QoS, but if we don't have that just ignore HT/VHT
 	 * as userspace might just pass through the capabilities from the IEs
 	 * directly, rather than enforcing this restriction and returning an
@@ -4096,8 +4081,6 @@ static int nl80211_new_station(struct sk_buff *skb, struct genl_info *info)
 		params.vht_capa = NULL;
 	}
 
-=======
->>>>>>> G920FXXU3COI9
 	/* When you run into this, adjust the code below for the new flag */
 	BUILD_BUG_ON(NL80211_STA_FLAG_MAX != 7);
 

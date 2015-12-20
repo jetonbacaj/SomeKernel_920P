@@ -81,11 +81,8 @@ static int  whiteheat_firmware_download(struct usb_serial *serial,
 static int  whiteheat_firmware_attach(struct usb_serial *serial);
 
 /* function prototypes for the Connect Tech WhiteHEAT serial converter */
-<<<<<<< HEAD
 static int whiteheat_probe(struct usb_serial *serial,
 				const struct usb_device_id *id);
-=======
->>>>>>> G920FXXU3COI9
 static int  whiteheat_attach(struct usb_serial *serial);
 static void whiteheat_release(struct usb_serial *serial);
 static int  whiteheat_port_probe(struct usb_serial_port *port);
@@ -122,10 +119,7 @@ static struct usb_serial_driver whiteheat_device = {
 	.description =		"Connect Tech - WhiteHEAT",
 	.id_table =		id_table_std,
 	.num_ports =		4,
-<<<<<<< HEAD
 	.probe =		whiteheat_probe,
-=======
->>>>>>> G920FXXU3COI9
 	.attach =		whiteheat_attach,
 	.release =		whiteheat_release,
 	.port_probe =		whiteheat_port_probe,
@@ -227,7 +221,6 @@ static int whiteheat_firmware_attach(struct usb_serial *serial)
 /*****************************************************************************
  * Connect Tech's White Heat serial driver functions
  *****************************************************************************/
-<<<<<<< HEAD
 
 static int whiteheat_probe(struct usb_serial *serial,
 				const struct usb_device_id *id)
@@ -256,8 +249,6 @@ static int whiteheat_probe(struct usb_serial *serial,
 	return 0;
 }
 
-=======
->>>>>>> G920FXXU3COI9
 static int whiteheat_attach(struct usb_serial *serial)
 {
 	struct usb_serial_port *command_port;

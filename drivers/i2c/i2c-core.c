@@ -206,10 +206,7 @@ int i2c_generic_scl_recovery(struct i2c_adapter *adap)
 	adap->bus_recovery_info->set_scl(adap, 1);
 	return i2c_generic_recovery(adap);
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(i2c_generic_scl_recovery);
-=======
->>>>>>> G920FXXU3COI9
 
 int i2c_generic_gpio_recovery(struct i2c_adapter *adap)
 {
@@ -224,10 +221,7 @@ int i2c_generic_gpio_recovery(struct i2c_adapter *adap)
 
 	return ret;
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(i2c_generic_gpio_recovery);
-=======
->>>>>>> G920FXXU3COI9
 
 int i2c_recover_bus(struct i2c_adapter *adap)
 {
@@ -237,10 +231,7 @@ int i2c_recover_bus(struct i2c_adapter *adap)
 	dev_dbg(&adap->dev, "Trying i2c bus recovery\n");
 	return adap->bus_recovery_info->recover_bus(adap);
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(i2c_recover_bus);
-=======
->>>>>>> G920FXXU3COI9
 
 static int i2c_device_probe(struct device *dev)
 {

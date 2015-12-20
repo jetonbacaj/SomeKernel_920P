@@ -25,7 +25,6 @@
 #include <linux/poll.h>
 #include "inv_mpu_iio.h"
 
-<<<<<<< HEAD
 static void inv_clear_kfifo(struct inv_mpu6050_state *st)
 {
 	unsigned long flags;
@@ -36,8 +35,6 @@ static void inv_clear_kfifo(struct inv_mpu6050_state *st)
 	spin_unlock_irqrestore(&st->time_stamp_lock, flags);
 }
 
-=======
->>>>>>> G920FXXU3COI9
 int inv_reset_fifo(struct iio_dev *indio_dev)
 {
 	int result;
@@ -64,13 +61,10 @@ int inv_reset_fifo(struct iio_dev *indio_dev)
 					INV_MPU6050_BIT_FIFO_RST);
 	if (result)
 		goto reset_fifo_fail;
-<<<<<<< HEAD
 
 	/* clear timestamps fifo */
 	inv_clear_kfifo(st);
 
-=======
->>>>>>> G920FXXU3COI9
 	/* enable interrupt */
 	if (st->chip_config.accl_fifo_enable ||
 	    st->chip_config.gyro_fifo_enable) {
@@ -104,19 +98,6 @@ reset_fifo_fail:
 	return result;
 }
 
-<<<<<<< HEAD
-=======
-static void inv_clear_kfifo(struct inv_mpu6050_state *st)
-{
-	unsigned long flags;
-
-	/* take the spin lock sem to avoid interrupt kick in */
-	spin_lock_irqsave(&st->time_stamp_lock, flags);
-	kfifo_reset(&st->timestamps);
-	spin_unlock_irqrestore(&st->time_stamp_lock, flags);
-}
-
->>>>>>> G920FXXU3COI9
 /**
  * inv_mpu6050_irq_handler() - Cache a timestamp at each data ready interrupt.
  */
@@ -210,10 +191,6 @@ end_session:
 flush_fifo:
 	/* Flush HW and SW FIFOs. */
 	inv_reset_fifo(indio_dev);
-<<<<<<< HEAD
-=======
-	inv_clear_kfifo(st);
->>>>>>> G920FXXU3COI9
 	mutex_unlock(&indio_dev->mlock);
 	iio_trigger_notify_done(indio_dev->trig);
 

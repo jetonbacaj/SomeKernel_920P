@@ -1789,10 +1789,7 @@ refind_writable:
 			cifsFileInfo_put(inv_file);
 			spin_lock(&cifs_file_list_lock);
 			++refind;
-<<<<<<< HEAD
 			inv_file = NULL;
-=======
->>>>>>> G920FXXU3COI9
 			goto refind_writable;
 		}
 	}

@@ -317,12 +317,9 @@ static const struct hid_device_id hid_battery_quirks[] = {
 			       USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_ANSI),
 	  HID_BATTERY_QUIRK_PERCENT | HID_BATTERY_QUIRK_FEATURE },
 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
-<<<<<<< HEAD
 			       USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_ISO),
 	  HID_BATTERY_QUIRK_PERCENT | HID_BATTERY_QUIRK_FEATURE },
 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
-=======
->>>>>>> G920FXXU3COI9
 		USB_DEVICE_ID_APPLE_ALU_WIRELESS_ANSI),
 	  HID_BATTERY_QUIRK_PERCENT | HID_BATTERY_QUIRK_FEATURE },
 	{}
@@ -1097,7 +1094,6 @@ void hidinput_hid_event(struct hid_device *hid, struct hid_field *field, struct 
 		return;
 	}
 
-<<<<<<< HEAD
 	/*
 	 * Ignore reports for absolute data if the data didn't change. This is
 	 * not only an optimization but also fixes 'dead' key reports. Some
@@ -1115,8 +1111,6 @@ void hidinput_hid_event(struct hid_device *hid, struct hid_field *field, struct 
 	    value == field->value[usage->usage_index])
 		return;
 
-=======
->>>>>>> G920FXXU3COI9
 	/* report the usage code as scancode if the key status has changed */
 	if (usage->type == EV_KEY && !!test_bit(usage->code, input->key) != value)
 		input_event(input, EV_MSC, MSC_SCAN, usage->hid);

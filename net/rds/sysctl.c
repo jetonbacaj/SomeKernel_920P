@@ -71,22 +71,14 @@ static ctl_table rds_sysctl_rds_table[] = {
 	{
 		.procname	= "max_unacked_packets",
 		.data		= &rds_sysctl_max_unacked_packets,
-<<<<<<< HEAD
 		.maxlen         = sizeof(int),
-=======
-		.maxlen         = sizeof(unsigned long),
->>>>>>> G920FXXU3COI9
 		.mode           = 0644,
 		.proc_handler   = proc_dointvec,
 	},
 	{
 		.procname	= "max_unacked_bytes",
 		.data		= &rds_sysctl_max_unacked_bytes,
-<<<<<<< HEAD
 		.maxlen         = sizeof(int),
-=======
-		.maxlen         = sizeof(unsigned long),
->>>>>>> G920FXXU3COI9
 		.mode           = 0644,
 		.proc_handler   = proc_dointvec,
 	},

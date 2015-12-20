@@ -487,10 +487,7 @@ static int omap_dma_terminate_all(struct omap_chan *c)
 	 * c->desc is NULL and exit.)
 	 */
 	if (c->desc) {
-<<<<<<< HEAD
 		omap_dma_desc_free(&c->desc->vd);
-=======
->>>>>>> G920FXXU3COI9
 		c->desc = NULL;
 		/* Avoid stopping the dma twice */
 		if (!c->paused)

@@ -376,33 +376,20 @@ static int ieee802154fake_probe(struct platform_device *pdev)
 
 	err = wpan_phy_register(phy);
 	if (err)
-<<<<<<< HEAD
 		goto err_phy_reg;
 
 	err = register_netdev(dev);
 	if (err)
 		goto err_netdev_reg;
-=======
-		goto out;
-
-	err = register_netdev(dev);
-	if (err < 0)
-		goto out;
->>>>>>> G920FXXU3COI9
 
 	dev_info(&pdev->dev, "Added ieee802154 HardMAC hardware\n");
 	return 0;
 
-<<<<<<< HEAD
 err_netdev_reg:
 	wpan_phy_unregister(phy);
 err_phy_reg:
 	free_netdev(dev);
 	wpan_phy_free(phy);
-=======
-out:
-	unregister_netdev(dev);
->>>>>>> G920FXXU3COI9
 	return err;
 }
 

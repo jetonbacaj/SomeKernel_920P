@@ -119,11 +119,7 @@ static int _usbctrl_vendorreq_sync_read(struct usb_device *udev, u8 request,
 
 	do {
 		status = usb_control_msg(udev, pipe, request, reqtype, value,
-<<<<<<< HEAD
 					 index, pdata, len, 1000);
-=======
-					 index, pdata, len, 0); /*max. timeout*/
->>>>>>> G920FXXU3COI9
 		if (status < 0) {
 			/* firmware download is checksumed, don't retry */
 			if ((value >= FW_8192C_START_ADDRESS &&

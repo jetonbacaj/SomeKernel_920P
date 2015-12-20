@@ -473,7 +473,6 @@ void path_put(const struct path *path)
 }
 EXPORT_SYMBOL(path_put);
 
-<<<<<<< HEAD
 /**
  * path_connected - Verify that a path->dentry is below path->mnt.mnt_root
  * @path: nameidate to verify
@@ -492,8 +491,6 @@ static bool path_connected(const struct path *path)
 	return is_subdir(path->dentry, mnt->mnt_root);
 }
 
-=======
->>>>>>> G920FXXU3COI9
 /*
  * Path walking has 2 modes, rcu-walk and ref-walk (see
  * Documentation/filesystems/path-lookup.txt).  In situations when we can't
@@ -1169,11 +1166,8 @@ static int follow_dotdot_rcu(struct nameidata *nd)
 				goto failed;
 			nd->path.dentry = parent;
 			nd->seq = seq;
-<<<<<<< HEAD
 			if (unlikely(!path_connected(&nd->path)))
 				goto failed;
-=======
->>>>>>> G920FXXU3COI9
 			break;
 		}
 		if (!follow_up_rcu(&nd->path))
@@ -1257,11 +1251,7 @@ static void follow_mount(struct path *path)
 	}
 }
 
-<<<<<<< HEAD
 static int follow_dotdot(struct nameidata *nd)
-=======
-static void follow_dotdot(struct nameidata *nd)
->>>>>>> G920FXXU3COI9
 {
 	set_root(nd);
 
@@ -1276,13 +1266,10 @@ static void follow_dotdot(struct nameidata *nd)
 			/* rare case of legitimate dget_parent()... */
 			nd->path.dentry = dget_parent(nd->path.dentry);
 			dput(old);
-<<<<<<< HEAD
 			if (unlikely(!path_connected(&nd->path))) {
 				path_put(&nd->path);
 				return -ENOENT;
 			}
-=======
->>>>>>> G920FXXU3COI9
 			break;
 		}
 		if (!follow_up(&nd->path))
@@ -1290,10 +1277,7 @@ static void follow_dotdot(struct nameidata *nd)
 	}
 	follow_mount(&nd->path);
 	nd->inode = nd->path.dentry->d_inode;
-<<<<<<< HEAD
 	return 0;
-=======
->>>>>>> G920FXXU3COI9
 }
 
 /*
@@ -1517,11 +1501,7 @@ static inline int handle_dots(struct nameidata *nd, int type)
 			if (follow_dotdot_rcu(nd))
 				return -ECHILD;
 		} else
-<<<<<<< HEAD
 			return follow_dotdot(nd);
-=======
-			follow_dotdot(nd);
->>>>>>> G920FXXU3COI9
 	}
 	return 0;
 }
@@ -1587,12 +1567,8 @@ static inline int walk_component(struct nameidata *nd, struct path *path,
 
 	if (should_follow_link(inode, follow)) {
 		if (nd->flags & LOOKUP_RCU) {
-<<<<<<< HEAD
 			if (unlikely(nd->path.mnt != path->mnt ||
 				     unlazy_walk(nd, path->dentry))) {
-=======
-			if (unlikely(unlazy_walk(nd, path->dentry))) {
->>>>>>> G920FXXU3COI9
 				err = -ECHILD;
 				goto out_err;
 			}
@@ -2874,12 +2850,8 @@ finish_lookup:
 
 	if (should_follow_link(inode, !symlink_ok)) {
 		if (nd->flags & LOOKUP_RCU) {
-<<<<<<< HEAD
 			if (unlikely(nd->path.mnt != path->mnt ||
 				     unlazy_walk(nd, path->dentry))) {
-=======
-			if (unlikely(unlazy_walk(nd, path->dentry))) {
->>>>>>> G920FXXU3COI9
 				error = -ECHILD;
 				goto out;
 			}

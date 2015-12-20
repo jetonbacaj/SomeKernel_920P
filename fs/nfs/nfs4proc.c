@@ -2043,11 +2043,7 @@ static int _nfs4_do_open(struct inode *dir,
 	if (status != 0)
 		goto err_opendata_put;
 
-<<<<<<< HEAD
 	if ((opendata->o_arg.open_flags & (O_CREAT|O_EXCL)) == (O_CREAT|O_EXCL) &&
-=======
-	if ((opendata->o_arg.open_flags & O_EXCL) &&
->>>>>>> G920FXXU3COI9
 	    (opendata->o_arg.createmode != NFS4_CREATE_GUARDED)) {
 		nfs4_exclusive_attrset(opendata, sattr);
 
@@ -6422,12 +6418,9 @@ nfs4_proc_layoutget(struct nfs4_layoutget *lgp, gfp_t gfp_flags)
 
 	dprintk("--> %s\n", __func__);
 
-<<<<<<< HEAD
 	/* nfs4_layoutget_release calls pnfs_put_layout_hdr */
 	pnfs_get_layout_hdr(NFS_I(inode)->layout);
 
-=======
->>>>>>> G920FXXU3COI9
 	lgp->args.layout.pages = nfs4_alloc_pages(max_pages, gfp_flags);
 	if (!lgp->args.layout.pages) {
 		nfs4_layoutget_release(lgp);
@@ -6440,12 +6433,6 @@ nfs4_proc_layoutget(struct nfs4_layoutget *lgp, gfp_t gfp_flags)
 	lgp->res.seq_res.sr_slot = NULL;
 	nfs41_init_sequence(&lgp->args.seq_args, &lgp->res.seq_res, 0);
 
-<<<<<<< HEAD
-=======
-	/* nfs4_layoutget_release calls pnfs_put_layout_hdr */
-	pnfs_get_layout_hdr(NFS_I(inode)->layout);
-
->>>>>>> G920FXXU3COI9
 	task = rpc_run_task(&task_setup_data);
 	if (IS_ERR(task))
 		return ERR_CAST(task);

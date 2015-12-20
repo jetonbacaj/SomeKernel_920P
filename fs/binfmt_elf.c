@@ -140,7 +140,6 @@ static int padzero(unsigned long elf_bss)
 #define ELF_BASE_PLATFORM NULL
 #endif
 
-<<<<<<< HEAD
 /*
  * Use get_random_int() to implement AT_RANDOM while avoiding depletion
  * of the entropy pool.
@@ -160,8 +159,6 @@ static void get_atrandom_bytes(unsigned char *buf, size_t nbytes)
 	}
 }
 
-=======
->>>>>>> G920FXXU3COI9
 static int
 create_elf_tables(struct linux_binprm *bprm, struct elfhdr *exec,
 		unsigned long load_addr, unsigned long interp_load_addr)
@@ -223,11 +220,7 @@ create_elf_tables(struct linux_binprm *bprm, struct elfhdr *exec,
 	/*
 	 * Generate 16 random bytes for userspace PRNG seeding.
 	 */
-<<<<<<< HEAD
 	get_atrandom_bytes(k_rand_bytes, sizeof(k_rand_bytes));
-=======
-	get_random_bytes(k_rand_bytes, sizeof(k_rand_bytes));
->>>>>>> G920FXXU3COI9
 	u_rand_bytes = (elf_addr_t __user *)
 		       STACK_ALLOC(p, sizeof(k_rand_bytes));
 	if (__copy_to_user(u_rand_bytes, k_rand_bytes, sizeof(k_rand_bytes)))
@@ -578,20 +571,12 @@ out:
 
 static unsigned long randomize_stack_top(unsigned long stack_top)
 {
-<<<<<<< HEAD
 	unsigned long random_variable = 0;
 
 	if ((current->flags & PF_RANDOMIZE) &&
 		!(current->personality & ADDR_NO_RANDOMIZE)) {
 		random_variable = (unsigned long) get_random_int();
 		random_variable &= STACK_RND_MASK;
-=======
-	unsigned int random_variable = 0;
-
-	if ((current->flags & PF_RANDOMIZE) &&
-		!(current->personality & ADDR_NO_RANDOMIZE)) {
-		random_variable = get_random_int() & STACK_RND_MASK;
->>>>>>> G920FXXU3COI9
 		random_variable <<= PAGE_SHIFT;
 	}
 #ifdef CONFIG_STACK_GROWSUP
@@ -790,10 +775,7 @@ static int load_elf_binary(struct linux_binprm *bprm)
 	    i < loc->elf_ex.e_phnum; i++, elf_ppnt++) {
 		int elf_prot = 0, elf_flags;
 		unsigned long k, vaddr;
-<<<<<<< HEAD
 		unsigned long total_size = 0;
-=======
->>>>>>> G920FXXU3COI9
 
 		if (elf_ppnt->p_type != PT_LOAD)
 			continue;
@@ -858,7 +840,6 @@ static int load_elf_binary(struct linux_binprm *bprm)
 #else
 			load_bias = ELF_PAGESTART(ELF_ET_DYN_BASE - vaddr);
 #endif
-<<<<<<< HEAD
 			total_size = total_mapping_size(elf_phdata,
 							loc->elf_ex.e_phnum);
 			if (!total_size) {
@@ -869,12 +850,6 @@ static int load_elf_binary(struct linux_binprm *bprm)
 
 		error = elf_map(bprm->file, load_bias + vaddr, elf_ppnt,
 				elf_prot, elf_flags, total_size);
-=======
-		}
-
-		error = elf_map(bprm->file, load_bias + vaddr, elf_ppnt,
-				elf_prot, elf_flags, 0);
->>>>>>> G920FXXU3COI9
 		if (BAD_ADDR(error)) {
 			send_sig(SIGKILL, current, 0);
 			retval = IS_ERR((void *)error) ?

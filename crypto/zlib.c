@@ -378,7 +378,4 @@ module_exit(zlib_mod_fini);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Zlib Compression Algorithm");
 MODULE_AUTHOR("Sony Corporation");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("zlib");
-=======
->>>>>>> G920FXXU3COI9

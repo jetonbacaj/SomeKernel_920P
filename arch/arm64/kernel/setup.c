@@ -41,10 +41,7 @@
 #include <linux/memblock.h>
 #include <linux/of_fdt.h>
 #include <linux/of_platform.h>
-<<<<<<< HEAD
 #include <linux/personality.h>
-=======
->>>>>>> G920FXXU3COI9
 
 #include <asm/fixmap.h>
 #include <asm/cputype.h>
@@ -203,7 +200,6 @@ static void __init smp_build_mpidr_hash(void)
 }
 #endif
 
-<<<<<<< HEAD
 struct cpuinfo_arm64 {
 	struct cpu	cpu;
 	u32		reg_midr;
@@ -217,8 +213,6 @@ void cpuinfo_store_cpu(void)
 	info->reg_midr = read_cpuid_id();
 }
 
-=======
->>>>>>> G920FXXU3COI9
 static void __init setup_processor(void)
 {
 	struct cpu_info *cpu_info;
@@ -310,11 +304,8 @@ struct machine_desc * __init setup_machine_fdt(phys_addr_t dt_phys)
 	struct machine_desc *mdesc, *mdesc_best = NULL;
 	unsigned int score, mdesc_score = ~1;
 
-<<<<<<< HEAD
 	cpuinfo_store_cpu();
 
-=======
->>>>>>> G920FXXU3COI9
 	/* Check we have a non-NULL DT pointer */
 	if (!dt_phys) {
 		early_print("\n"
@@ -508,21 +499,12 @@ static int __init arm64_device_init(void)
 }
 arch_initcall_sync(arm64_device_init);
 
-<<<<<<< HEAD
-=======
-static DEFINE_PER_CPU(struct cpu, cpu_data);
-
->>>>>>> G920FXXU3COI9
 static int __init topology_init(void)
 {
 	int i;
 
 	for_each_possible_cpu(i) {
-<<<<<<< HEAD
 		struct cpu *cpu = &per_cpu(cpu_data.cpu, i);
-=======
-		struct cpu *cpu = &per_cpu(cpu_data, i);
->>>>>>> G920FXXU3COI9
 		cpu->hotpluggable = 1;
 		register_cpu(cpu, i);
 	}
@@ -547,15 +529,8 @@ static int c_show(struct seq_file *m, void *v)
 {
 	int i;
 
-<<<<<<< HEAD
 	for_each_online_cpu(i) {
 
-=======
-	seq_printf(m, "Processor\t: %s rev %d (%s)\n",
-		   cpu_name, read_cpuid_id() & 15, ELF_PLATFORM);
-
-	for_each_online_cpu(i) {
->>>>>>> G920FXXU3COI9
 		/*
 		 * glibc reads /proc/cpuinfo to determine the number of
 		 * online processors, looking for lines beginning with
@@ -567,11 +542,7 @@ static int c_show(struct seq_file *m, void *v)
 	}
 
 	/* dump out the processor features */
-<<<<<<< HEAD
 		seq_puts(m, "Features\t:");
-=======
-	seq_puts(m, "Features\t: ");
->>>>>>> G920FXXU3COI9
 
 	for (i = 0; hwcap_str[i]; i++)
 		if (elf_hwcap & (1 << i))
@@ -581,11 +552,7 @@ static int c_show(struct seq_file *m, void *v)
 		/* Print out the non-optional ARMv8 HW capabilities */
 		seq_printf(m, "wp half thumb fastmult vfp edsp neon vfpv3 tlsi ");
 		seq_printf(m, "vfpv4 idiva idivt ");
-<<<<<<< HEAD
 		}
-=======
-	}
->>>>>>> G920FXXU3COI9
 #endif
 
 	seq_printf(m, "\nCPU implementer\t: 0x%02x\n", read_cpuid_id() >> 24);
@@ -598,11 +565,7 @@ static int c_show(struct seq_file *m, void *v)
 	seq_printf(m, "CPU part\t: 0x%03x\n", (read_cpuid_id() >> 4) & 0xfff);
 	seq_printf(m, "CPU revision\t: %d\n", read_cpuid_id() & 15);
 
-<<<<<<< HEAD
 		seq_puts(m, "\n");
-=======
-	seq_puts(m, "\n");
->>>>>>> G920FXXU3COI9
 
 	seq_printf(m, "Hardware\t: %s\n", machine_name);
 

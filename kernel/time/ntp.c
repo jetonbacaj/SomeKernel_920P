@@ -631,7 +631,6 @@ int ntp_validate_timex(struct timex *txc)
 	if ((txc->modes & ADJ_SETOFFSET) && (!capable(CAP_SYS_TIME)))
 		return -EPERM;
 
-<<<<<<< HEAD
 	/*
 	 * Check for potential multiplication overflows that can
 	 * only happen on 64-bit systems:
@@ -643,8 +642,6 @@ int ntp_validate_timex(struct timex *txc)
 			return -EINVAL;
 	}
 
-=======
->>>>>>> G920FXXU3COI9
 	return 0;
 }
 

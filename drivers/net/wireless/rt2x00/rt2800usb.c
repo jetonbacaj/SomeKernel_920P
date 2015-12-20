@@ -1020,10 +1020,7 @@ static struct usb_device_id rt2800usb_device_table[] = {
 	{ USB_DEVICE(0x07d1, 0x3c16) },
 	{ USB_DEVICE(0x07d1, 0x3c17) },
 	{ USB_DEVICE(0x2001, 0x3c1b) },
-<<<<<<< HEAD
 	{ USB_DEVICE(0x2001, 0x3c25) },
-=======
->>>>>>> G920FXXU3COI9
 	/* Draytek */
 	{ USB_DEVICE(0x07fa, 0x7712) },
 	/* DVICO */

@@ -76,11 +76,7 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
 
 static bool radeon_read_bios(struct radeon_device *rdev)
 {
-<<<<<<< HEAD
 	uint8_t __iomem *bios, val1, val2;
-=======
-	uint8_t __iomem *bios;
->>>>>>> G920FXXU3COI9
 	size_t size;
 
 	rdev->bios = NULL;
@@ -90,7 +86,6 @@ static bool radeon_read_bios(struct radeon_device *rdev)
 		return false;
 	}
 
-<<<<<<< HEAD
 	val1 = readb(&bios[0]);
 	val2 = readb(&bios[1]);
 
@@ -99,21 +94,11 @@ static bool radeon_read_bios(struct radeon_device *rdev)
 		return false;
 	}
 	rdev->bios = kzalloc(size, GFP_KERNEL);
-=======
-	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
-		pci_unmap_rom(rdev->pdev, bios);
-		return false;
-	}
-	rdev->bios = kmemdup(bios, size, GFP_KERNEL);
->>>>>>> G920FXXU3COI9
 	if (rdev->bios == NULL) {
 		pci_unmap_rom(rdev->pdev, bios);
 		return false;
 	}
-<<<<<<< HEAD
 	memcpy_fromio(rdev->bios, bios, size);
-=======
->>>>>>> G920FXXU3COI9
 	pci_unmap_rom(rdev->pdev, bios);
 	return true;
 }

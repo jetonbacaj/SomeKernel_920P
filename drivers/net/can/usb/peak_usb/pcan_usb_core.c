@@ -727,11 +727,7 @@ static int peak_usb_create_dev(struct peak_usb_adapter *peak_usb_adapter,
 	dev->cmd_buf = kmalloc(PCAN_USB_MAX_CMD_LEN, GFP_KERNEL);
 	if (!dev->cmd_buf) {
 		err = -ENOMEM;
-<<<<<<< HEAD
 		goto lbl_free_candev;
-=======
-		goto lbl_set_intf_data;
->>>>>>> G920FXXU3COI9
 	}
 
 	dev->udev = usb_dev;
@@ -770,11 +766,7 @@ static int peak_usb_create_dev(struct peak_usb_adapter *peak_usb_adapter,
 	err = register_candev(netdev);
 	if (err) {
 		dev_err(&intf->dev, "couldn't register CAN device: %d\n", err);
-<<<<<<< HEAD
 		goto lbl_restore_intf_data;
-=======
-		goto lbl_free_cmd_buf;
->>>>>>> G920FXXU3COI9
 	}
 
 	if (dev->prev_siblings)
@@ -787,22 +779,14 @@ static int peak_usb_create_dev(struct peak_usb_adapter *peak_usb_adapter,
 	if (dev->adapter->dev_init) {
 		err = dev->adapter->dev_init(dev);
 		if (err)
-<<<<<<< HEAD
 			goto lbl_unregister_candev;
-=======
-			goto lbl_free_cmd_buf;
->>>>>>> G920FXXU3COI9
 	}
 
 	/* set bus off */
 	if (dev->adapter->dev_set_bus) {
 		err = dev->adapter->dev_set_bus(dev, 0);
 		if (err)
-<<<<<<< HEAD
 			goto lbl_unregister_candev;
-=======
-			goto lbl_free_cmd_buf;
->>>>>>> G920FXXU3COI9
 	}
 
 	/* get device number early */
@@ -814,7 +798,6 @@ static int peak_usb_create_dev(struct peak_usb_adapter *peak_usb_adapter,
 
 	return 0;
 
-<<<<<<< HEAD
 lbl_unregister_candev:
 	unregister_candev(netdev);
 
@@ -823,13 +806,6 @@ lbl_restore_intf_data:
 	kfree(dev->cmd_buf);
 
 lbl_free_candev:
-=======
-lbl_free_cmd_buf:
-	kfree(dev->cmd_buf);
-
-lbl_set_intf_data:
-	usb_set_intfdata(intf, dev->prev_siblings);
->>>>>>> G920FXXU3COI9
 	free_candev(netdev);
 
 	return err;

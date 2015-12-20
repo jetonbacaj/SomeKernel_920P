@@ -1849,7 +1849,6 @@ int scsi_error_handler(void *data)
 	 * We never actually get interrupted because kthread_run
 	 * disables signal delivery for the created thread.
 	 */
-<<<<<<< HEAD
 	while (true) {
 		/*
 		 * The sequence in kthread_stop() sets the stop flag first
@@ -1861,10 +1860,6 @@ int scsi_error_handler(void *data)
 		if (kthread_should_stop())
 			break;
 
-=======
-	while (!kthread_should_stop()) {
-		set_current_state(TASK_INTERRUPTIBLE);
->>>>>>> G920FXXU3COI9
 		if ((shost->host_failed == 0 && shost->host_eh_scheduled == 0) ||
 		    shost->host_failed != shost->host_busy) {
 			SCSI_LOG_ERROR_RECOVERY(1,

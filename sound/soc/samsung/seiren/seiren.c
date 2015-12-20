@@ -813,15 +813,6 @@ static ssize_t esa_write(struct file *file, const char *buffer,
 		esa_debug("%s: use ibuf1\n", __func__);
 	}
 
-<<<<<<< HEAD
-=======
-	if (size > rtd->ibuf_size) {
-		esa_err("%s: copy size is bigger than buffer size\n",
-				__func__);
-		goto err;
-	}
-
->>>>>>> G920FXXU3COI9
 	/* receive stream data from user */
 	if (copy_from_user(ibuf, buffer, size)) {
 		esa_err("%s: failed to copy_from_user\n", __func__);
@@ -1559,15 +1550,6 @@ static ssize_t esa_write(struct file *file, const char *buffer,
 		goto out;
 	}
 
-<<<<<<< HEAD
-=======
-	if (size > FX_BUF_SIZE) {
-		esa_err("%s: copy size is bigger than buffer size\n",
-				__func__);
-		goto out;
-	}
-
->>>>>>> G920FXXU3COI9
 	if (copy_from_user(si.fx_work_buf, buffer, size)) {
 		esa_err("%s: failed to copy_from_user\n", __func__);
 		ret = -EFAULT;

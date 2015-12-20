@@ -35,11 +35,8 @@ static struct class *pyra_class;
 static void profile_activated(struct pyra_device *pyra,
 		unsigned int new_profile)
 {
-<<<<<<< HEAD
 	if (new_profile >= ARRAY_SIZE(pyra->profile_settings))
 		return;
-=======
->>>>>>> G920FXXU3COI9
 	pyra->actual_profile = new_profile;
 	pyra->actual_cpi = pyra->profile_settings[pyra->actual_profile].y_cpi;
 }
@@ -241,19 +238,12 @@ static ssize_t pyra_sysfs_write_settings(struct file *fp,
 	if (off != 0 || count != PYRA_SIZE_SETTINGS)
 		return -EINVAL;
 
-<<<<<<< HEAD
 	settings = (struct pyra_settings const *)buf;
 	if (settings->startup_profile >= ARRAY_SIZE(pyra->profile_settings))
 		return -EINVAL;
 
 	mutex_lock(&pyra->pyra_lock);
 
-=======
-	mutex_lock(&pyra->pyra_lock);
-
-	settings = (struct pyra_settings const *)buf;
-
->>>>>>> G920FXXU3COI9
 	retval = pyra_set_settings(usb_dev, settings);
 	if (retval) {
 		mutex_unlock(&pyra->pyra_lock);

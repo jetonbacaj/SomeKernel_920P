@@ -119,7 +119,6 @@ static ssize_t (*uverbs_cmd_table[])(struct ib_uverbs_file *file,
 static void ib_uverbs_add_one(struct ib_device *device);
 static void ib_uverbs_remove_one(struct ib_device *device);
 
-<<<<<<< HEAD
 static void ib_uverbs_release_dev(struct kobject *kobj)
 {
 	struct ib_uverbs_device *dev =
@@ -132,16 +131,6 @@ static struct kobj_type ib_uverbs_dev_ktype = {
 	.release = ib_uverbs_release_dev,
 };
 
-=======
-static void ib_uverbs_release_dev(struct kref *ref)
-{
-	struct ib_uverbs_device *dev =
-		container_of(ref, struct ib_uverbs_device, ref);
-
-	complete(&dev->comp);
-}
-
->>>>>>> G920FXXU3COI9
 static void ib_uverbs_release_event_file(struct kref *ref)
 {
 	struct ib_uverbs_event_file *file =
@@ -297,26 +286,19 @@ static int ib_uverbs_cleanup_ucontext(struct ib_uverbs_file *file,
 	return context->device->dealloc_ucontext(context);
 }
 
-<<<<<<< HEAD
 static void ib_uverbs_comp_dev(struct ib_uverbs_device *dev)
 {
 	complete(&dev->comp);
 }
 
-=======
->>>>>>> G920FXXU3COI9
 static void ib_uverbs_release_file(struct kref *ref)
 {
 	struct ib_uverbs_file *file =
 		container_of(ref, struct ib_uverbs_file, ref);
 
 	module_put(file->device->ib_dev->owner);
-<<<<<<< HEAD
 	if (atomic_dec_and_test(&file->device->refcount))
 		ib_uverbs_comp_dev(file->device);
-=======
-	kref_put(&file->device->ref, ib_uverbs_release_dev);
->>>>>>> G920FXXU3COI9
 
 	kfree(file);
 }
@@ -488,10 +470,7 @@ static void ib_uverbs_async_handler(struct ib_uverbs_file *file,
 
 	entry->desc.async.element    = element;
 	entry->desc.async.event_type = event;
-<<<<<<< HEAD
 	entry->desc.async.reserved   = 0;
-=======
->>>>>>> G920FXXU3COI9
 	entry->counter               = counter;
 
 	list_add_tail(&entry->list, &file->async_file->event_list);
@@ -660,13 +639,7 @@ static int ib_uverbs_open(struct inode *inode, struct file *filp)
 	int ret;
 
 	dev = container_of(inode->i_cdev, struct ib_uverbs_device, cdev);
-<<<<<<< HEAD
 	if (!atomic_inc_not_zero(&dev->refcount))
-=======
-	if (dev)
-		kref_get(&dev->ref);
-	else
->>>>>>> G920FXXU3COI9
 		return -ENXIO;
 
 	if (!try_module_get(dev->ib_dev->owner)) {
@@ -687,10 +660,7 @@ static int ib_uverbs_open(struct inode *inode, struct file *filp)
 	mutex_init(&file->mutex);
 
 	filp->private_data = file;
-<<<<<<< HEAD
 	kobject_get(&dev->kobj);
-=======
->>>>>>> G920FXXU3COI9
 
 	return nonseekable_open(inode, filp);
 
@@ -698,23 +668,16 @@ err_module:
 	module_put(dev->ib_dev->owner);
 
 err:
-<<<<<<< HEAD
 	if (atomic_dec_and_test(&dev->refcount))
 		ib_uverbs_comp_dev(dev);
 
-=======
-	kref_put(&dev->ref, ib_uverbs_release_dev);
->>>>>>> G920FXXU3COI9
 	return ret;
 }
 
 static int ib_uverbs_close(struct inode *inode, struct file *filp)
 {
 	struct ib_uverbs_file *file = filp->private_data;
-<<<<<<< HEAD
 	struct ib_uverbs_device *dev = file->device;
-=======
->>>>>>> G920FXXU3COI9
 
 	ib_uverbs_cleanup_ucontext(file, file->ucontext);
 
@@ -722,10 +685,7 @@ static int ib_uverbs_close(struct inode *inode, struct file *filp)
 		kref_put(&file->async_file->ref, ib_uverbs_release_event_file);
 
 	kref_put(&file->ref, ib_uverbs_release_file);
-<<<<<<< HEAD
 	kobject_put(&dev->kobj);
-=======
->>>>>>> G920FXXU3COI9
 
 	return 0;
 }
@@ -821,18 +781,11 @@ static void ib_uverbs_add_one(struct ib_device *device)
 	if (!uverbs_dev)
 		return;
 
-<<<<<<< HEAD
 	atomic_set(&uverbs_dev->refcount, 1);
 	init_completion(&uverbs_dev->comp);
 	uverbs_dev->xrcd_tree = RB_ROOT;
 	mutex_init(&uverbs_dev->xrcd_tree_mutex);
 	kobject_init(&uverbs_dev->kobj, &ib_uverbs_dev_ktype);
-=======
-	kref_init(&uverbs_dev->ref);
-	init_completion(&uverbs_dev->comp);
-	uverbs_dev->xrcd_tree = RB_ROOT;
-	mutex_init(&uverbs_dev->xrcd_tree_mutex);
->>>>>>> G920FXXU3COI9
 
 	spin_lock(&map_lock);
 	devnum = find_first_zero_bit(dev_map, IB_UVERBS_MAX_DEVICES);
@@ -859,10 +812,7 @@ static void ib_uverbs_add_one(struct ib_device *device)
 	cdev_init(&uverbs_dev->cdev, NULL);
 	uverbs_dev->cdev.owner = THIS_MODULE;
 	uverbs_dev->cdev.ops = device->mmap ? &uverbs_mmap_fops : &uverbs_fops;
-<<<<<<< HEAD
 	uverbs_dev->cdev.kobj.parent = &uverbs_dev->kobj;
-=======
->>>>>>> G920FXXU3COI9
 	kobject_set_name(&uverbs_dev->cdev.kobj, "uverbs%d", uverbs_dev->devnum);
 	if (cdev_add(&uverbs_dev->cdev, base, 1))
 		goto err_cdev;
@@ -893,16 +843,10 @@ err_cdev:
 		clear_bit(devnum, overflow_map);
 
 err:
-<<<<<<< HEAD
 	if (atomic_dec_and_test(&uverbs_dev->refcount))
 		ib_uverbs_comp_dev(uverbs_dev);
 	wait_for_completion(&uverbs_dev->comp);
 	kobject_put(&uverbs_dev->kobj);
-=======
-	kref_put(&uverbs_dev->ref, ib_uverbs_release_dev);
-	wait_for_completion(&uverbs_dev->comp);
-	kfree(uverbs_dev);
->>>>>>> G920FXXU3COI9
 	return;
 }
 
@@ -922,16 +866,10 @@ static void ib_uverbs_remove_one(struct ib_device *device)
 	else
 		clear_bit(uverbs_dev->devnum - IB_UVERBS_MAX_DEVICES, overflow_map);
 
-<<<<<<< HEAD
 	if (atomic_dec_and_test(&uverbs_dev->refcount))
 		ib_uverbs_comp_dev(uverbs_dev);
 	wait_for_completion(&uverbs_dev->comp);
 	kobject_put(&uverbs_dev->kobj);
-=======
-	kref_put(&uverbs_dev->ref, ib_uverbs_release_dev);
-	wait_for_completion(&uverbs_dev->comp);
-	kfree(uverbs_dev);
->>>>>>> G920FXXU3COI9
 }
 
 static char *uverbs_devnode(struct device *dev, umode_t *mode)

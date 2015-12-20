@@ -1890,13 +1890,10 @@ static long unix_stream_data_wait(struct sock *sk, long timeo,
 		unix_state_unlock(sk);
 		timeo = freezable_schedule_timeout(timeo);
 		unix_state_lock(sk);
-<<<<<<< HEAD
 
 		if (sock_flag(sk, SOCK_DEAD))
 			break;
 
-=======
->>>>>>> G920FXXU3COI9
 		clear_bit(SOCK_ASYNC_WAITDATA, &sk->sk_socket->flags);
 	}
 
@@ -1961,13 +1958,10 @@ static int unix_stream_recvmsg(struct kiocb *iocb, struct socket *sock,
 		struct sk_buff *skb, *last;
 
 		unix_state_lock(sk);
-<<<<<<< HEAD
 		if (sock_flag(sk, SOCK_DEAD)) {
 			err = -ECONNRESET;
 			goto unlock;
 		}
-=======
->>>>>>> G920FXXU3COI9
 		last = skb = skb_peek(&sk->sk_receive_queue);
 again:
 		if (skb == NULL) {
@@ -2067,7 +2061,6 @@ again:
 			if (UNIXCB(skb).fp)
 				siocb->scm->fp = scm_fp_dup(UNIXCB(skb).fp);
 
-<<<<<<< HEAD
 			if (skip) {
 				sk_peek_offset_fwd(sk, chunk);
 				skip -= chunk;
@@ -2082,10 +2075,6 @@ again:
 			if (skb)
 				goto again;
 			unix_state_unlock(sk);
-=======
-			sk_peek_offset_fwd(sk, chunk);
-
->>>>>>> G920FXXU3COI9
 			break;
 		}
 	} while (size);

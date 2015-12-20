@@ -2647,7 +2647,6 @@ static const struct file_operations proc_projid_map_operations = {
 	.llseek		= seq_lseek,
 	.release	= proc_id_map_release,
 };
-<<<<<<< HEAD
 
 static int proc_setgroups_open(struct inode *inode, struct file *file)
 {
@@ -2699,8 +2698,6 @@ static const struct file_operations proc_setgroups_operations = {
 	.llseek		= seq_lseek,
 	.release	= proc_setgroups_release,
 };
-=======
->>>>>>> G920FXXU3COI9
 #endif /* CONFIG_USER_NS */
 
 static int proc_pid_personality(struct seq_file *m, struct pid_namespace *ns,
@@ -2809,10 +2806,7 @@ static const struct pid_entry tgid_base_stuff[] = {
 	REG("uid_map",    S_IRUGO|S_IWUSR, proc_uid_map_operations),
 	REG("gid_map",    S_IRUGO|S_IWUSR, proc_gid_map_operations),
 	REG("projid_map", S_IRUGO|S_IWUSR, proc_projid_map_operations),
-<<<<<<< HEAD
 	REG("setgroups",  S_IRUGO|S_IWUSR, proc_setgroups_operations),
-=======
->>>>>>> G920FXXU3COI9
 #endif
 #ifdef CONFIG_CHECKPOINT_RESTORE
 	REG("timers",	  S_IRUGO, proc_timers_operations),
@@ -3166,10 +3160,7 @@ static const struct pid_entry tid_base_stuff[] = {
 	REG("uid_map",    S_IRUGO|S_IWUSR, proc_uid_map_operations),
 	REG("gid_map",    S_IRUGO|S_IWUSR, proc_gid_map_operations),
 	REG("projid_map", S_IRUGO|S_IWUSR, proc_projid_map_operations),
-<<<<<<< HEAD
 	REG("setgroups",  S_IRUGO|S_IWUSR, proc_setgroups_operations),
-=======
->>>>>>> G920FXXU3COI9
 #endif
 };
 

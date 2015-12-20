@@ -522,11 +522,7 @@ static ssize_t
 sg_new_read(Sg_fd * sfp, char __user *buf, size_t count, Sg_request * srp)
 {
 	sg_io_hdr_t *hp = &srp->header;
-<<<<<<< HEAD
 	int err = 0, err2;
-=======
-	int err = 0;
->>>>>>> G920FXXU3COI9
 	int len;
 
 	if (count < SZ_SG_IO_HDR) {
@@ -555,13 +551,8 @@ sg_new_read(Sg_fd * sfp, char __user *buf, size_t count, Sg_request * srp)
 		goto err_out;
 	}
 err_out:
-<<<<<<< HEAD
 	err2 = sg_finish_rem_req(srp);
 	return err ? : err2 ? : count;
-=======
-	err = sg_finish_rem_req(srp);
-	return (0 == err) ? count : err;
->>>>>>> G920FXXU3COI9
 }
 
 static ssize_t
@@ -1703,12 +1694,9 @@ static int sg_start_req(Sg_request *srp, unsigned char *cmd)
 			md->from_user = 0;
 	}
 
-<<<<<<< HEAD
 	if (unlikely(iov_count > UIO_MAXIOV))
 		return -EINVAL;
 
-=======
->>>>>>> G920FXXU3COI9
 	if (iov_count) {
 		int len, size = sizeof(struct sg_iovec) * iov_count;
 		struct iovec *iov;

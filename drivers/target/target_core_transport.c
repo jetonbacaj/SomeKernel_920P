@@ -2128,11 +2128,7 @@ transport_generic_new_cmd(struct se_cmd *cmd)
 	 * and let it call back once the write buffers are ready.
 	 */
 	target_add_to_state_list(cmd);
-<<<<<<< HEAD
 	if (cmd->data_direction != DMA_TO_DEVICE || cmd->data_length == 0) {
-=======
-	if (cmd->data_direction != DMA_TO_DEVICE) {
->>>>>>> G920FXXU3COI9
 		target_execute_cmd(cmd);
 		return 0;
 	}
@@ -2226,13 +2222,10 @@ int target_get_sess_cmd(struct se_session *se_sess, struct se_cmd *se_cmd,
 
 out:
 	spin_unlock_irqrestore(&se_sess->sess_cmd_lock, flags);
-<<<<<<< HEAD
 
 	if (ret && ack_kref)
 		target_put_sess_cmd(se_sess, se_cmd);
 
-=======
->>>>>>> G920FXXU3COI9
 	return ret;
 }
 EXPORT_SYMBOL(target_get_sess_cmd);

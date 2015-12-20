@@ -491,17 +491,10 @@ void do_coredump(siginfo_t *siginfo)
 	const struct cred *old_cred;
 	struct cred *cred;
 	int retval = 0;
-<<<<<<< HEAD
 	int ispipe;
 	struct files_struct *displaced;
 	/* require nonrelative corefile path and be extra careful */
 	bool need_suid_safe = false;
-=======
-	int flag = 0;
-	int ispipe;
-	struct files_struct *displaced;
-	bool need_nonrelative = false;
->>>>>>> G920FXXU3COI9
 	bool core_dumped = false;
 	static atomic_t core_dump_count = ATOMIC_INIT(0);
 	struct coredump_params cprm = {
@@ -535,14 +528,8 @@ void do_coredump(siginfo_t *siginfo)
 	 */
 	if (__get_dumpable(cprm.mm_flags) == SUID_DUMP_ROOT) {
 		/* Setuid core dump mode */
-<<<<<<< HEAD
 		cred->fsuid = GLOBAL_ROOT_UID;	/* Dump root private */
 		need_suid_safe = true;
-=======
-		flag = O_EXCL;		/* Stop rewrite attacks */
-		cred->fsuid = GLOBAL_ROOT_UID;	/* Dump root private */
-		need_nonrelative = true;
->>>>>>> G920FXXU3COI9
 	}
 
 	retval = coredump_wait(siginfo->si_signo, &core_state);
@@ -623,11 +610,7 @@ void do_coredump(siginfo_t *siginfo)
 		if (cprm.limit < binfmt->min_coredump)
 			goto fail_unlock;
 
-<<<<<<< HEAD
 		if (need_suid_safe && cn.corename[0] != '/') {
-=======
-		if (need_nonrelative && cn.corename[0] != '/') {
->>>>>>> G920FXXU3COI9
 			printk(KERN_WARNING "Pid %d(%s) can only dump core "\
 				"to fully qualified path!\n",
 				task_tgid_vnr(current), current->comm);
@@ -635,7 +618,6 @@ void do_coredump(siginfo_t *siginfo)
 			goto fail_unlock;
 		}
 
-<<<<<<< HEAD
 		/*
 		 * Unlink the file if it exists unless this is a SUID
 		 * binary - in that case, we're running around with root
@@ -665,10 +647,6 @@ void do_coredump(siginfo_t *siginfo)
 		cprm.file = filp_open(cn.corename,
 				 O_CREAT | 2 | O_NOFOLLOW |
 				 O_LARGEFILE | O_EXCL,
-=======
-		cprm.file = filp_open(cn.corename,
-				 O_CREAT | 2 | O_NOFOLLOW | O_LARGEFILE | flag,
->>>>>>> G920FXXU3COI9
 				 0600);
 		if (IS_ERR(cprm.file))
 			goto fail_unlock;

@@ -58,11 +58,7 @@ static int nfs_superblock_set_dummy_root(struct super_block *sb, struct inode *i
 		 */
 		spin_lock(&sb->s_root->d_inode->i_lock);
 		spin_lock(&sb->s_root->d_lock);
-<<<<<<< HEAD
 		hlist_del_init(&sb->s_root->d_u.d_alias);
-=======
-		hlist_del_init(&sb->s_root->d_alias);
->>>>>>> G920FXXU3COI9
 		spin_unlock(&sb->s_root->d_lock);
 		spin_unlock(&sb->s_root->d_inode->i_lock);
 	}

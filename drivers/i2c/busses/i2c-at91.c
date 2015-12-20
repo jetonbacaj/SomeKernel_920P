@@ -63,12 +63,9 @@
 #define	AT91_TWI_UNRE		0x0080	/* Underrun Error */
 #define	AT91_TWI_NACK		0x0100	/* Not Acknowledged */
 
-<<<<<<< HEAD
 #define	AT91_TWI_INT_MASK \
 	(AT91_TWI_TXCOMP | AT91_TWI_RXRDY | AT91_TWI_TXRDY | AT91_TWI_NACK)
 
-=======
->>>>>>> G920FXXU3COI9
 #define	AT91_TWI_IER		0x0024	/* Interrupt Enable Register */
 #define	AT91_TWI_IDR		0x0028	/* Interrupt Disable Register */
 #define	AT91_TWI_IMR		0x002c	/* Interrupt Mask Register */
@@ -124,21 +121,12 @@ static void at91_twi_write(struct at91_twi_dev *dev, unsigned reg, unsigned val)
 
 static void at91_disable_twi_interrupts(struct at91_twi_dev *dev)
 {
-<<<<<<< HEAD
 	at91_twi_write(dev, AT91_TWI_IDR, AT91_TWI_INT_MASK);
-=======
-	at91_twi_write(dev, AT91_TWI_IDR,
-		       AT91_TWI_TXCOMP | AT91_TWI_RXRDY | AT91_TWI_TXRDY);
->>>>>>> G920FXXU3COI9
 }
 
 static void at91_twi_irq_save(struct at91_twi_dev *dev)
 {
-<<<<<<< HEAD
 	dev->imr = at91_twi_read(dev, AT91_TWI_IMR) & AT91_TWI_INT_MASK;
-=======
-	dev->imr = at91_twi_read(dev, AT91_TWI_IMR) & 0x7;
->>>>>>> G920FXXU3COI9
 	at91_disable_twi_interrupts(dev);
 }
 
@@ -228,7 +216,6 @@ static void at91_twi_write_data_dma_callback(void *data)
 	dma_unmap_single(dev->dev, sg_dma_address(&dev->dma.sg),
 			 dev->buf_len, DMA_TO_DEVICE);
 
-<<<<<<< HEAD
 	/*
 	 * When this callback is called, THR/TX FIFO is likely not to be empty
 	 * yet. So we have to wait for TXCOMP or NACK bits to be set into the
@@ -237,8 +224,6 @@ static void at91_twi_write_data_dma_callback(void *data)
 	 * we just have to enable TXCOMP one.
 	 */
 	at91_twi_write(dev, AT91_TWI_IER, AT91_TWI_TXCOMP);
-=======
->>>>>>> G920FXXU3COI9
 	at91_twi_write(dev, AT91_TWI_CR, AT91_TWI_STOP);
 }
 
@@ -333,11 +318,7 @@ static void at91_twi_read_data_dma_callback(void *data)
 	/* The last two bytes have to be read without using dma */
 	dev->buf += dev->buf_len - 2;
 	dev->buf_len = 2;
-<<<<<<< HEAD
 	at91_twi_write(dev, AT91_TWI_IER, AT91_TWI_RXRDY | AT91_TWI_TXCOMP);
-=======
-	at91_twi_write(dev, AT91_TWI_IER, AT91_TWI_RXRDY);
->>>>>>> G920FXXU3COI9
 }
 
 static void at91_twi_read_data_dma(struct at91_twi_dev *dev)
@@ -398,11 +379,7 @@ static irqreturn_t atmel_twi_interrupt(int irq, void *dev_id)
 	/* catch error flags */
 	dev->transfer_status |= status;
 
-<<<<<<< HEAD
 	if (irqstatus & (AT91_TWI_TXCOMP | AT91_TWI_NACK)) {
-=======
-	if (irqstatus & AT91_TWI_TXCOMP) {
->>>>>>> G920FXXU3COI9
 		at91_disable_twi_interrupts(dev);
 		complete(&dev->cmd_complete);
 	}
@@ -415,7 +392,6 @@ static int at91_do_twi_transfer(struct at91_twi_dev *dev)
 	int ret;
 	bool has_unre_flag = dev->pdata->has_unre_flag;
 
-<<<<<<< HEAD
 	/*
 	 * WARNING: the TXCOMP bit in the Status Register is NOT a clear on
 	 * read flag but shows the state of the transmission at the time the
@@ -444,8 +420,6 @@ static int at91_do_twi_transfer(struct at91_twi_dev *dev)
 	 * Control Register.
 	 */
 
-=======
->>>>>>> G920FXXU3COI9
 	dev_dbg(dev->dev, "transfer: %s %d bytes.\n",
 		(dev->msg->flags & I2C_M_RD) ? "read" : "write", dev->buf_len);
 
@@ -476,7 +450,6 @@ static int at91_do_twi_transfer(struct at91_twi_dev *dev)
 		 * seems to be the best solution.
 		 */
 		if (dev->use_dma && (dev->buf_len > AT91_I2C_DMA_THRESHOLD)) {
-<<<<<<< HEAD
 			at91_twi_write(dev, AT91_TWI_IER, AT91_TWI_NACK);
 			at91_twi_read_data_dma(dev);
 		} else {
@@ -495,28 +468,6 @@ static int at91_do_twi_transfer(struct at91_twi_dev *dev)
 				       AT91_TWI_TXCOMP |
 				       AT91_TWI_NACK |
 				       AT91_TWI_TXRDY);
-=======
-			at91_twi_read_data_dma(dev);
-			/*
-			 * It is important to enable TXCOMP irq here because
-			 * doing it only when transferring the last two bytes
-			 * will mask NACK errors since TXCOMP is set when a
-			 * NACK occurs.
-			 */
-			at91_twi_write(dev, AT91_TWI_IER,
-			       AT91_TWI_TXCOMP);
-		} else
-			at91_twi_write(dev, AT91_TWI_IER,
-			       AT91_TWI_TXCOMP | AT91_TWI_RXRDY);
-	} else {
-		if (dev->use_dma && (dev->buf_len > AT91_I2C_DMA_THRESHOLD)) {
-			at91_twi_write_data_dma(dev);
-			at91_twi_write(dev, AT91_TWI_IER, AT91_TWI_TXCOMP);
-		} else {
-			at91_twi_write_next_byte(dev);
-			at91_twi_write(dev, AT91_TWI_IER,
-				AT91_TWI_TXCOMP | AT91_TWI_TXRDY);
->>>>>>> G920FXXU3COI9
 		}
 	}
 

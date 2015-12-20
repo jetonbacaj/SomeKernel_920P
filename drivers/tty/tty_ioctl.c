@@ -217,7 +217,6 @@ void tty_wait_until_sent(struct tty_struct *tty, long timeout)
 #endif
 	if (!timeout)
 		timeout = MAX_SCHEDULE_TIMEOUT;
-<<<<<<< HEAD
 
 	if (wait_event_interruptible_timeout(tty->write_wait,
 			!tty_chars_in_buffer(tty), timeout) < 0) {
@@ -229,13 +228,6 @@ void tty_wait_until_sent(struct tty_struct *tty, long timeout)
 
 	if (tty->ops->wait_until_sent)
 		tty->ops->wait_until_sent(tty, timeout);
-=======
-	if (wait_event_interruptible_timeout(tty->write_wait,
-			!tty_chars_in_buffer(tty), timeout) >= 0) {
-		if (tty->ops->wait_until_sent)
-			tty->ops->wait_until_sent(tty, timeout);
-	}
->>>>>>> G920FXXU3COI9
 }
 EXPORT_SYMBOL(tty_wait_until_sent);
 

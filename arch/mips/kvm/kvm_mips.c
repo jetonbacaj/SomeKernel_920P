@@ -15,10 +15,7 @@
 #include <linux/vmalloc.h>
 #include <linux/fs.h>
 #include <linux/bootmem.h>
-<<<<<<< HEAD
 #include <asm/fpu.h>
-=======
->>>>>>> G920FXXU3COI9
 #include <asm/page.h>
 #include <asm/cacheflush.h>
 #include <asm/mmu_context.h>
@@ -417,20 +414,13 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu, struct kvm_run *run)
 		vcpu->mmio_needed = 0;
 	}
 
-<<<<<<< HEAD
 	lose_fpu(1);
 
 	local_irq_disable();
-=======
->>>>>>> G920FXXU3COI9
 	/* Check if we have any exceptions/interrupts pending */
 	kvm_mips_deliver_interrupts(vcpu,
 				    kvm_read_c0_guest_cause(vcpu->arch.cop0));
 
-<<<<<<< HEAD
-=======
-	local_irq_disable();
->>>>>>> G920FXXU3COI9
 	kvm_guest_enter();
 
 	r = __kvm_mips_vcpu_run(run, vcpu);
@@ -1030,12 +1020,6 @@ void kvm_mips_set_c0_status(void)
 {
 	uint32_t status = read_c0_status();
 
-<<<<<<< HEAD
-=======
-	if (cpu_has_fpu)
-		status |= (ST0_CU1);
-
->>>>>>> G920FXXU3COI9
 	if (cpu_has_dsp)
 		status |= (ST0_MX);
 

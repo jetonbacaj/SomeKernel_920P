@@ -1152,10 +1152,6 @@ long do_io_submit(aio_context_t ctx_id, long nr,
 	struct kioctx *ctx;
 	long ret = 0;
 	int i = 0;
-<<<<<<< HEAD
-=======
-	struct blk_plug plug;
->>>>>>> G920FXXU3COI9
 
 	if (unlikely(nr < 0))
 		return -EINVAL;
@@ -1172,11 +1168,6 @@ long do_io_submit(aio_context_t ctx_id, long nr,
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
-=======
-	blk_start_plug(&plug);
-
->>>>>>> G920FXXU3COI9
 	/*
 	 * AKPM: should this return a partial result if some of the IOs were
 	 * successfully submitted?
@@ -1199,10 +1190,6 @@ long do_io_submit(aio_context_t ctx_id, long nr,
 		if (ret)
 			break;
 	}
-<<<<<<< HEAD
-=======
-	blk_finish_plug(&plug);
->>>>>>> G920FXXU3COI9
 
 	put_ioctx(ctx);
 	return i ? i : ret;

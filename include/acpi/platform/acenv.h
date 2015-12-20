@@ -76,10 +76,7 @@
 #define ACPI_LARGE_NAMESPACE_NODE
 #define ACPI_DATA_TABLE_DISASSEMBLY
 #define ACPI_SINGLE_THREADED
-<<<<<<< HEAD
 #define ACPI_32BIT_PHYSICAL_ADDRESS
-=======
->>>>>>> G920FXXU3COI9
 #endif
 
 /* acpi_exec configuration. Multithreaded with full AML debugger */

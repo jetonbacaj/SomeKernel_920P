@@ -1128,7 +1128,6 @@ static void exynos_ufs_post_hibern8(struct ufs_hba *hba, u8 enter)
 static int exynos_ufs_link_startup_notify(struct ufs_hba *hba, bool notify)
 {
 	int ret = 0;
-<<<<<<< HEAD
 	int notify2 ;
 
 	if (notify)
@@ -1137,10 +1136,6 @@ static int exynos_ufs_link_startup_notify(struct ufs_hba *hba, bool notify)
 	  notify2 = 0;
 	  
 	switch (notify2) {
-=======
-
-	switch (notify) {
->>>>>>> G920FXXU3COI9
 	case PRE_CHANGE:
 		exynos_ufs_dev_hw_reset(hba);
 		ret = exynos_ufs_pre_link(hba);
@@ -1160,7 +1155,6 @@ static int exynos_ufs_pwr_change_notify(struct ufs_hba *hba, bool notify,
 					struct ufs_pa_layer_attr *pwr_req)
 {
 	int ret = 0;
-<<<<<<< HEAD
 	int notify2 ;
 
 	if (notify)
@@ -1169,10 +1163,6 @@ static int exynos_ufs_pwr_change_notify(struct ufs_hba *hba, bool notify,
 	  notify2 = 0;
 	  
 	switch (notify2) {
-=======
-
-	switch (notify) {
->>>>>>> G920FXXU3COI9
 	case PRE_CHANGE:
 		ret = exynos_ufs_pre_prep_pmc(hba, pwr_max, pwr_req);
 		break;
@@ -1189,7 +1179,6 @@ static int exynos_ufs_pwr_change_notify(struct ufs_hba *hba, bool notify,
 static void exynos_ufs_hibern8_notify(struct ufs_hba *hba,
 				u8 enter, bool notify)
 {
-<<<<<<< HEAD
 	int notify2 ;
 
 	if (notify)
@@ -1198,9 +1187,6 @@ static void exynos_ufs_hibern8_notify(struct ufs_hba *hba,
 	  notify2 = 0;
 	  
 	switch (notify2) {
-=======
-	switch (notify) {
->>>>>>> G920FXXU3COI9
 	case PRE_CHANGE:
 		exynos_ufs_pre_hibern8(hba, enter);
 		break;

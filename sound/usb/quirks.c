@@ -914,7 +914,6 @@ void snd_usb_ctl_msg_quirk(struct usb_device *dev, unsigned int pipe,
 	if ((le16_to_cpu(dev->descriptor.idVendor) == 0x23ba) &&
 	    (requesttype & USB_TYPE_MASK) == USB_TYPE_CLASS)
 		mdelay(20);
-<<<<<<< HEAD
 
 	/* Marantz/Denon devices with USB DAC functionality need a delay
 	 * after each class compliant request
@@ -929,8 +928,6 @@ void snd_usb_ctl_msg_quirk(struct usb_device *dev, unsigned int pipe,
 			break;
 		}
 	}
-=======
->>>>>>> G920FXXU3COI9
 }
 
 /*

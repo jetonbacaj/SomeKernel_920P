@@ -3459,12 +3459,9 @@ int r600_init(struct radeon_device *rdev)
 		rdev->accel_working = false;
 	}
 
-<<<<<<< HEAD
 	/* posting read */
 	RREG32(R_000E50_SRBM_STATUS);
 
-=======
->>>>>>> G920FXXU3COI9
 	return 0;
 }
 

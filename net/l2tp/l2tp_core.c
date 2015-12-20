@@ -1381,11 +1381,7 @@ static void l2tp_tunnel_del_work(struct work_struct *work)
 	tunnel = container_of(work, struct l2tp_tunnel, del_work);
 	sk = l2tp_tunnel_sock_lookup(tunnel);
 	if (!sk)
-<<<<<<< HEAD
 		goto out;
-=======
-		return;
->>>>>>> G920FXXU3COI9
 
 	sock = sk->sk_socket;
 
@@ -1406,11 +1402,8 @@ static void l2tp_tunnel_del_work(struct work_struct *work)
 	}
 
 	l2tp_tunnel_sock_put(sk);
-<<<<<<< HEAD
 out:
 	l2tp_tunnel_dec_refcount(tunnel);
-=======
->>>>>>> G920FXXU3COI9
 }
 
 /* Create a socket for the tunnel, if one isn't set up by
@@ -1740,7 +1733,6 @@ EXPORT_SYMBOL_GPL(l2tp_tunnel_create);
  */
 int l2tp_tunnel_delete(struct l2tp_tunnel *tunnel)
 {
-<<<<<<< HEAD
 	l2tp_tunnel_inc_refcount(tunnel);
 	l2tp_tunnel_closeall(tunnel);
 	if (false == queue_work(l2tp_wq, &tunnel->del_work)) {
@@ -1748,10 +1740,6 @@ int l2tp_tunnel_delete(struct l2tp_tunnel *tunnel)
 		return 1;
 	}
 	return 0;
-=======
-	l2tp_tunnel_closeall(tunnel);
-	return (false == queue_work(l2tp_wq, &tunnel->del_work));
->>>>>>> G920FXXU3COI9
 }
 EXPORT_SYMBOL_GPL(l2tp_tunnel_delete);
 

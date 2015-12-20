@@ -143,10 +143,6 @@ static int msg_insert(struct msg_msg *msg, struct mqueue_inode_info *info)
 		if (!leaf)
 			return -ENOMEM;
 		INIT_LIST_HEAD(&leaf->msg_list);
-<<<<<<< HEAD
-=======
-		info->qsize += sizeof(*leaf);
->>>>>>> G920FXXU3COI9
 	}
 	leaf->priority = msg->m_type;
 	rb_link_node(&leaf->rb_node, parent, p);
@@ -191,10 +187,6 @@ try_again:
 			     "lazy leaf delete!\n");
 		rb_erase(&leaf->rb_node, &info->msg_tree);
 		if (info->node_cache) {
-<<<<<<< HEAD
-=======
-			info->qsize -= sizeof(*leaf);
->>>>>>> G920FXXU3COI9
 			kfree(leaf);
 		} else {
 			info->node_cache = leaf;
@@ -207,10 +199,6 @@ try_again:
 		if (list_empty(&leaf->msg_list)) {
 			rb_erase(&leaf->rb_node, &info->msg_tree);
 			if (info->node_cache) {
-<<<<<<< HEAD
-=======
-				info->qsize -= sizeof(*leaf);
->>>>>>> G920FXXU3COI9
 				kfree(leaf);
 			} else {
 				info->node_cache = leaf;
@@ -1035,10 +1023,6 @@ SYSCALL_DEFINE5(mq_timedsend, mqd_t, mqdes, const char __user *, u_msg_ptr,
 		/* Save our speculative allocation into the cache */
 		INIT_LIST_HEAD(&new_leaf->msg_list);
 		info->node_cache = new_leaf;
-<<<<<<< HEAD
-=======
-		info->qsize += sizeof(*new_leaf);
->>>>>>> G920FXXU3COI9
 		new_leaf = NULL;
 	} else {
 		kfree(new_leaf);
@@ -1145,10 +1129,6 @@ SYSCALL_DEFINE5(mq_timedreceive, mqd_t, mqdes, char __user *, u_msg_ptr,
 		/* Save our speculative allocation into the cache */
 		INIT_LIST_HEAD(&new_leaf->msg_list);
 		info->node_cache = new_leaf;
-<<<<<<< HEAD
-=======
-		info->qsize += sizeof(*new_leaf);
->>>>>>> G920FXXU3COI9
 	} else {
 		kfree(new_leaf);
 	}

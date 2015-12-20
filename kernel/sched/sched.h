@@ -273,11 +273,7 @@ struct cfs_rq {
 	 * This allows for the description of both thread and group usage (in
 	 * the FAIR_GROUP_SCHED case).
 	 */
-<<<<<<< HEAD
 	unsigned long runnable_load_avg, blocked_load_avg;
-=======
-	u64 runnable_load_avg, blocked_load_avg;
->>>>>>> G920FXXU3COI9
 	atomic64_t decay_counter, removed_load;
 	u64 last_decay;
 #endif /* CONFIG_FAIR_GROUP_SCHED */

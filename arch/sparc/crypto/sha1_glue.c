@@ -180,10 +180,6 @@ module_exit(sha1_sparc64_mod_fini);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("SHA1 Secure Hash Algorithm, sparc64 sha1 opcode accelerated");
 
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("sha1");
-=======
-MODULE_ALIAS("sha1");
->>>>>>> G920FXXU3COI9
 
 #include "crop_devid.c"

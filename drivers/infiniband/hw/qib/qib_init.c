@@ -892,10 +892,6 @@ static void qib_shutdown_device(struct qib_devdata *dd)
 		}
 	}
 
-<<<<<<< HEAD
-=======
-	qib_update_eeprom_log(dd);
->>>>>>> G920FXXU3COI9
 }
 
 /**

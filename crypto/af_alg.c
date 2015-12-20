@@ -449,12 +449,9 @@ void af_alg_complete(struct crypto_async_request *req, int err)
 {
 	struct af_alg_completion *completion = req->data;
 
-<<<<<<< HEAD
 	if (err == -EINPROGRESS)
 		return;
 
-=======
->>>>>>> G920FXXU3COI9
 	completion->err = err;
 	complete(&completion->completion);
 }

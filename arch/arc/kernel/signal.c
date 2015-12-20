@@ -131,7 +131,6 @@ SYSCALL_DEFINE0(rt_sigreturn)
 	/* Don't restart from sigreturn */
 	syscall_wont_restart(regs);
 
-<<<<<<< HEAD
 	/*
 	 * Ensure that sigreturn always returns to user mode (in case the
 	 * regs saved on user stack got fudged between save and sigreturn)
@@ -141,8 +140,6 @@ SYSCALL_DEFINE0(rt_sigreturn)
 	 */
 	regs->status32 |= STATUS_U_MASK;
 
-=======
->>>>>>> G920FXXU3COI9
 	return regs->r0;
 
 badframe:
@@ -246,16 +243,11 @@ setup_rt_frame(int signo, struct k_sigaction *ka, siginfo_t *info,
 
 	/*
 	 * handler returns using sigreturn stub provided already by userpsace
-<<<<<<< HEAD
 	 * If not, nuke the process right away
 	 */
 	if(!(ka->sa.sa_flags & SA_RESTORER))
 		return 1;
 
-=======
-	 */
-	BUG_ON(!(ka->sa.sa_flags & SA_RESTORER));
->>>>>>> G920FXXU3COI9
 	regs->blink = (unsigned long)ka->sa.sa_restorer;
 
 	/* User Stack for signal handler will be above the frame just carved */
@@ -322,21 +314,12 @@ handle_signal(unsigned long sig, struct k_sigaction *ka, siginfo_t *info,
 	      struct pt_regs *regs)
 {
 	sigset_t *oldset = sigmask_to_save();
-<<<<<<< HEAD
 	int failed;
 
 	/* Set up the stack frame */
 	failed = setup_rt_frame(sig, ka, info, oldset, regs);
 
 	if (failed)
-=======
-	int ret;
-
-	/* Set up the stack frame */
-	ret = setup_rt_frame(sig, ka, info, oldset, regs);
-
-	if (ret)
->>>>>>> G920FXXU3COI9
 		force_sigsegv(sig, current);
 	else
 		signal_delivered(sig, info, ka, regs, 0);

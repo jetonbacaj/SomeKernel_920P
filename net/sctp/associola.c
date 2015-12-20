@@ -1297,10 +1297,6 @@ void sctp_assoc_update(struct sctp_association *asoc,
 	asoc->peer.peer_hmacs = new->peer.peer_hmacs;
 	new->peer.peer_hmacs = NULL;
 
-<<<<<<< HEAD
-=======
-	sctp_auth_key_put(asoc->asoc_shared_key);
->>>>>>> G920FXXU3COI9
 	sctp_auth_asoc_init_active_key(asoc, GFP_ATOMIC);
 }
 

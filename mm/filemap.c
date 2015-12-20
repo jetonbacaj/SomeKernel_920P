@@ -2381,14 +2381,11 @@ again:
 			break;
 		}
 
-<<<<<<< HEAD
 		if (fatal_signal_pending(current)) {
 			status = -EINTR;
 			break;
 		}
 
-=======
->>>>>>> G920FXXU3COI9
 		status = a_ops->write_begin(file, mapping, pos, bytes, flags,
 						&page, &fsdata);
 		if (unlikely(status))
@@ -2429,13 +2426,6 @@ again:
 		written += copied;
 
 		balance_dirty_pages_ratelimited(mapping);
-<<<<<<< HEAD
-=======
-		if (fatal_signal_pending(current)) {
-			status = -EINTR;
-			break;
-		}
->>>>>>> G920FXXU3COI9
 	} while (iov_iter_count(i));
 
 	return written ? written : status;

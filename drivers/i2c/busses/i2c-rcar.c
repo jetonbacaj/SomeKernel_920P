@@ -673,7 +673,6 @@ static int rcar_i2c_probe(struct platform_device *pdev)
 		return ret;
 	}
 
-<<<<<<< HEAD
 	pm_runtime_enable(dev);
 	platform_set_drvdata(pdev, priv);
 
@@ -684,17 +683,6 @@ static int rcar_i2c_probe(struct platform_device *pdev)
 		return ret;
 	}
 
-=======
-	ret = i2c_add_numbered_adapter(adap);
-	if (ret < 0) {
-		dev_err(dev, "reg adap failed: %d\n", ret);
-		return ret;
-	}
-
-	pm_runtime_enable(dev);
-	platform_set_drvdata(pdev, priv);
-
->>>>>>> G920FXXU3COI9
 	dev_info(dev, "probed\n");
 
 	return 0;

@@ -359,7 +359,4 @@ module_exit(chainiv_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Chain IV Generator");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("chainiv");
-=======
->>>>>>> G920FXXU3COI9

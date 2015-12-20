@@ -853,10 +853,7 @@ static void ext4_put_super(struct super_block *sb)
 		dump_orphan_list(sb, sbi);
 	J_ASSERT(list_empty(&sbi->s_orphan));
 
-<<<<<<< HEAD
 	sync_blockdev(sb->s_bdev);
-=======
->>>>>>> G920FXXU3COI9
 	invalidate_bdev(sb->s_bdev);
 	if (sbi->journal_bdev && sbi->journal_bdev != sb->s_bdev) {
 		/*

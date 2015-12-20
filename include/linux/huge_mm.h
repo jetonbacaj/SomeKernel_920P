@@ -159,7 +159,6 @@ static inline int hpage_nr_pages(struct page *page)
 		return HPAGE_PMD_NR;
 	return 1;
 }
-<<<<<<< HEAD
 static inline struct page *compound_trans_head(struct page *page)
 {
 	if (PageTail(page)) {
@@ -177,8 +176,6 @@ static inline struct page *compound_trans_head(struct page *page)
 	}
 	return page;
 }
-=======
->>>>>>> G920FXXU3COI9
 
 extern int do_huge_pmd_numa_page(struct mm_struct *mm, struct vm_area_struct *vma,
 				unsigned long addr, pmd_t pmd, pmd_t *pmdp);
@@ -208,10 +205,7 @@ static inline int split_huge_page(struct page *page)
 	do { } while (0)
 #define split_huge_page_pmd_mm(__mm, __address, __pmd)	\
 	do { } while (0)
-<<<<<<< HEAD
 #define compound_trans_head(page) compound_head(page)
-=======
->>>>>>> G920FXXU3COI9
 static inline int hugepage_madvise(struct vm_area_struct *vma,
 				   unsigned long *vm_flags, int advice)
 {

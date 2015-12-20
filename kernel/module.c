@@ -1106,7 +1106,6 @@ void symbol_put_addr(void *addr)
 	if (core_kernel_text(a))
 		return;
 
-<<<<<<< HEAD
 	/*
 	 * Even though we hold a reference on the module; we still need to
 	 * disable preemption in order to safely traverse the data structure.
@@ -1116,13 +1115,6 @@ void symbol_put_addr(void *addr)
 	BUG_ON(!modaddr);
 	module_put(modaddr);
 	preempt_enable();
-=======
-	/* module_text_address is safe here: we're supposed to have reference
-	 * to module from symbol_get, so it can't go away. */
-	modaddr = __module_text_address(a);
-	BUG_ON(!modaddr);
-	module_put(modaddr);
->>>>>>> G920FXXU3COI9
 }
 EXPORT_SYMBOL_GPL(symbol_put_addr);
 

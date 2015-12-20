@@ -543,15 +543,8 @@ static void fw_dev_release(struct device *dev)
 	module_put(THIS_MODULE);
 }
 
-<<<<<<< HEAD
 static int do_firmware_uevent(struct firmware_priv *fw_priv, struct kobj_uevent_env *env)
 {
-=======
-static int firmware_uevent(struct device *dev, struct kobj_uevent_env *env)
-{
-	struct firmware_priv *fw_priv = to_firmware_priv(dev);
-
->>>>>>> G920FXXU3COI9
 	if (add_uevent_var(env, "FIRMWARE=%s", fw_priv->buf->fw_id))
 		return -ENOMEM;
 	if (add_uevent_var(env, "TIMEOUT=%i", loading_timeout))
@@ -562,7 +555,6 @@ static int firmware_uevent(struct device *dev, struct kobj_uevent_env *env)
 	return 0;
 }
 
-<<<<<<< HEAD
 static int firmware_uevent(struct device *dev, struct kobj_uevent_env *env)
 {
 	struct firmware_priv *fw_priv = to_firmware_priv(dev);
@@ -575,8 +567,6 @@ static int firmware_uevent(struct device *dev, struct kobj_uevent_env *env)
 	return err;
 }
 
-=======
->>>>>>> G920FXXU3COI9
 static struct class firmware_class = {
 	.name		= "firmware",
 	.class_attrs	= firmware_class_attrs,

@@ -85,10 +85,7 @@ config EXYNOS_ATAGS
 
 config EXYNOS5_DYNAMIC_CPU_HOTPLUG
 	bool "Dynamic CPU Hotplug support"
-<<<<<<< HEAD
 	depends on !SOC_EXYNOS7580
-=======
->>>>>>> G920FXXU3COI9
 	depends on CPU_FREQ
 	help
 		Enable Dynamic CPU Hotplug
@@ -103,7 +100,6 @@ config EXYNOS5_DYNAMIC_CPU_HOTPLUG_SLEEP_PREPARE
           This config set the number of activate cores.
           defaut value is "4" to activate all cores in cluster0.
 
-<<<<<<< HEAD
 config EXYNOS7580_DYNAMIC_CLUSTER_HOTPLUG
 	bool "Dynamic CLUSTER Hotplug support"
 	depends on SOC_EXYNOS7580
@@ -119,8 +115,6 @@ config HOTPLUG_THREAD_STOP
 	  the dynamic hotplug not used during LCD on. This config
 	  enables hotplug thread stop feature.
 
-=======
->>>>>>> G920FXXU3COI9
 config EXYNOS_CONTENT_PATH_PROTECTION
 	bool "Exynos Content Path Protection"
 	depends on ARM_TRUSTZONE
@@ -258,10 +252,6 @@ config MACH_UNIVERSAL7420
 	help
 	  Machine support for Samsung EXYNOS7420 machine with device tree enabled.
 	  Select this if a fdt blob is available for the EXYNOS7420 SoC based board.
-<<<<<<< HEAD
-=======
-
->>>>>>> G920FXXU3COI9
 endmenu
 
 # Reset IPs during LPA/DSTOP

@@ -1333,7 +1333,6 @@ void ata_sff_flush_pio_task(struct ata_port *ap)
 	DPRINTK("ENTER\n");
 
 	cancel_delayed_work_sync(&ap->sff_pio_task);
-<<<<<<< HEAD
 
 	/*
 	 * We wanna reset the HSM state to IDLE.  If we do so without
@@ -1347,9 +1346,6 @@ void ata_sff_flush_pio_task(struct ata_port *ap)
 	ap->hsm_task_state = HSM_ST_IDLE;
 	spin_unlock_irq(ap->lock);
 
-=======
-	ap->hsm_task_state = HSM_ST_IDLE;
->>>>>>> G920FXXU3COI9
 	ap->sff_pio_task_link = NULL;
 
 	if (ata_msg_ctl(ap))

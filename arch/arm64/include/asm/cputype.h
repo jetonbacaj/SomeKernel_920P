@@ -81,11 +81,8 @@ static inline u32 __attribute_const__ read_cpuid_cachetype(void)
 	return read_cpuid(CTR_EL0);
 }
 
-<<<<<<< HEAD
 void cpuinfo_store_cpu(void);
 
-=======
->>>>>>> G920FXXU3COI9
 #endif /* __ASSEMBLY__ */
 
 #endif

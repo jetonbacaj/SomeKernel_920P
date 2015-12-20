@@ -244,15 +244,12 @@ static noinline void do_fault_error(struct pt_regs *regs, int fault)
 				do_no_context(regs);
 			else
 				pagefault_out_of_memory();
-<<<<<<< HEAD
 		} else if (fault & VM_FAULT_SIGSEGV) {
 			/* Kernel mode? Handle exceptions or die */
 			if (!user_mode(regs))
 				do_no_context(regs);
 			else
 				do_sigsegv(regs, SEGV_MAPERR);
-=======
->>>>>>> G920FXXU3COI9
 		} else if (fault & VM_FAULT_SIGBUS) {
 			/* Kernel mode? Handle exceptions or die */
 			if (!user_mode(regs))

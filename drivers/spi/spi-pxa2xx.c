@@ -393,13 +393,8 @@ static void giveback(struct driver_data *drv_data)
 			cs_deassert(drv_data);
 	}
 
-<<<<<<< HEAD
 	drv_data->cur_chip = NULL;
 	spi_finalize_current_message(drv_data->master);
-=======
-	spi_finalize_current_message(drv_data->master);
-	drv_data->cur_chip = NULL;
->>>>>>> G920FXXU3COI9
 }
 
 static void reset_sccr1(struct driver_data *drv_data)
@@ -551,13 +546,10 @@ static irqreturn_t ssp_int(int irq, void *dev_id)
 	if (!(sccr1_reg & SSCR1_TIE))
 		mask &= ~SSSR_TFS;
 
-<<<<<<< HEAD
 	/* Ignore RX timeout interrupt if it is disabled */
 	if (!(sccr1_reg & SSCR1_TINTE))
 		mask &= ~SSSR_TINT;
 
-=======
->>>>>>> G920FXXU3COI9
 	if (!(status & mask))
 		return IRQ_NONE;
 

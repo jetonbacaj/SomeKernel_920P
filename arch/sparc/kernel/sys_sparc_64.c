@@ -336,11 +336,7 @@ SYSCALL_DEFINE6(sparc_ipc, unsigned int, call, int, first, unsigned long, second
 	long err;
 
 	/* No need for backward compatibility. We can start fresh... */
-<<<<<<< HEAD
 	if (call <= SEMTIMEDOP) {
-=======
-	if (call <= SEMCTL) {
->>>>>>> G920FXXU3COI9
 		switch (call) {
 		case SEMOP:
 			err = sys_semtimedop(first, ptr,

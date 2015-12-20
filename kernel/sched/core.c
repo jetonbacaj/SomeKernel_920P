@@ -428,7 +428,6 @@ static void __hrtick_start(void *arg)
 void hrtick_start(struct rq *rq, u64 delay)
 {
 	struct hrtimer *timer = &rq->hrtick_timer;
-<<<<<<< HEAD
 	ktime_t time;
 	s64 delta;
 
@@ -438,9 +437,6 @@ void hrtick_start(struct rq *rq, u64 delay)
 	 */
 	delta = max_t(s64, delay, 10000LL);
 	time = ktime_add_ns(timer->base->get_time(), delta);
-=======
-	ktime_t time = ktime_add_ns(timer->base->get_time(), delay);
->>>>>>> G920FXXU3COI9
 
 	hrtimer_set_expires(timer, time);
 
@@ -1358,18 +1354,11 @@ ttwu_do_wakeup(struct rq *rq, struct task_struct *p, int wake_flags)
 		u64 delta = rq->clock - rq->idle_stamp;
 		u64 max = 2*sysctl_sched_migration_cost;
 
-<<<<<<< HEAD
 		update_avg(&rq->avg_idle, delta);
 
 		if (rq->avg_idle > max)
 			rq->avg_idle = max;
 		
-=======
-		if (delta > max)
-			rq->avg_idle = max;
-		else
-			update_avg(&rq->avg_idle, delta);
->>>>>>> G920FXXU3COI9
 		rq->idle_stamp = 0;
 	}
 #endif
@@ -2775,13 +2764,8 @@ void scheduler_tick(void)
 
 	raw_spin_lock(&rq->lock);
 	update_rq_clock(rq);
-<<<<<<< HEAD
 	curr->sched_class->task_tick(rq, curr, 0);
 	update_cpu_load_active(rq);
-=======
-	update_cpu_load_active(rq);
-	curr->sched_class->task_tick(rq, curr, 0);
->>>>>>> G920FXXU3COI9
 	raw_spin_unlock(&rq->lock);
 
 	perf_event_task_tick();

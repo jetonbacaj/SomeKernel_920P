@@ -1346,12 +1346,9 @@ SYSCALL_DEFINE2(umount, char __user *, name, int, flags)
 		goto dput_and_out;
 	if (!check_mnt(mnt))
 		goto dput_and_out;
-<<<<<<< HEAD
 	retval = -EPERM;
 	if (flags & MNT_FORCE && !capable(CAP_SYS_ADMIN))
 		goto dput_and_out;
-=======
->>>>>>> G920FXXU3COI9
 
 	retval = do_umount(mnt, flags);
 dput_and_out:
@@ -1826,7 +1823,6 @@ static int do_remount(struct path *path, int flags, int mnt_flags,
 	}
 	if ((mnt->mnt.mnt_flags & MNT_LOCK_NODEV) &&
 	    !(mnt_flags & MNT_NODEV)) {
-<<<<<<< HEAD
 		/* Was the nodev implicitly added in mount? */
 		if ((mnt->mnt_ns->user_ns != &init_user_ns) &&
 		    !(sb->s_type->fs_flags & FS_USERNS_DEV_MOUNT)) {
@@ -1834,9 +1830,6 @@ static int do_remount(struct path *path, int flags, int mnt_flags,
 		} else {
 			return -EPERM;
 		}
-=======
-		return -EPERM;
->>>>>>> G920FXXU3COI9
 	}
 	if ((mnt->mnt.mnt_flags & MNT_LOCK_NOSUID) &&
 	    !(mnt_flags & MNT_NOSUID)) {

@@ -74,11 +74,8 @@ int ubi_check_volume(struct ubi_device *ubi, int vol_id)
 	for (i = 0; i < vol->used_ebs; i++) {
 		int size;
 
-<<<<<<< HEAD
 		cond_resched();
 
-=======
->>>>>>> G920FXXU3COI9
 		if (i == vol->used_ebs - 1)
 			size = vol->last_eb_bytes;
 		else

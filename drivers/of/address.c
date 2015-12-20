@@ -401,7 +401,6 @@ static struct of_bus *of_match_bus(struct device_node *np)
 	return NULL;
 }
 
-<<<<<<< HEAD
 static int of_empty_ranges_quirk(void)
 {
 	if (IS_ENABLED(CONFIG_PPC)) {
@@ -417,8 +416,6 @@ static int of_empty_ranges_quirk(void)
 	return false;
 }
 
-=======
->>>>>>> G920FXXU3COI9
 static int of_translate_one(struct device_node *parent, struct of_bus *bus,
 			    struct of_bus *pbus, __be32 *addr,
 			    int na, int ns, int pna, const char *rprop)
@@ -444,19 +441,10 @@ static int of_translate_one(struct device_node *parent, struct of_bus *bus,
 	 * This code is only enabled on powerpc. --gcl
 	 */
 	ranges = of_get_property(parent, rprop, &rlen);
-<<<<<<< HEAD
 	if (ranges == NULL && !of_empty_ranges_quirk()) {
 		pr_err("OF: no ranges; cannot translate\n");
 		return 1;
 	}
-=======
-#if !defined(CONFIG_PPC)
-	if (ranges == NULL) {
-		pr_err("OF: no ranges; cannot translate\n");
-		return 1;
-	}
-#endif /* !defined(CONFIG_PPC) */
->>>>>>> G920FXXU3COI9
 	if (ranges == NULL || rlen == 0) {
 		offset = of_read_number(addr, na);
 		memset(addr, 0, pna * 4);
@@ -708,17 +696,10 @@ struct device_node *of_find_matching_node_by_address(struct device_node *from,
 	struct resource res;
 
 	while (dn) {
-<<<<<<< HEAD
 		if (!of_address_to_resource(dn, 0, &res) &&
 		    res.start == base_address)
 			return dn;
 
-=======
-		if (of_address_to_resource(dn, 0, &res))
-			continue;
-		if (res.start == base_address)
-			return dn;
->>>>>>> G920FXXU3COI9
 		dn = of_find_matching_node(dn, matches);
 	}
 

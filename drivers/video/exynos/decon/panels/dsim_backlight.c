@@ -471,10 +471,6 @@ int dsim_panel_set_brightness(struct dsim_device *dsim, int force)
 	int acutal_br = 0;
 	int real_br = 0;
 	int prev_index = panel->br_index;
-<<<<<<< HEAD
-=======
-	int m_force = force;
->>>>>>> G920FXXU3COI9
 	bool bIsHbm = (LEVEL_IS_HBM(panel->auto_brightness) && (p_br == panel->bd->props.max_brightness));
 #ifdef CONFIG_LCD_HMT
 	if(panel->hmt_on == HMT_ON) {
@@ -497,14 +493,7 @@ int dsim_panel_set_brightness(struct dsim_device *dsim, int force)
 	panel->br_index = get_acutal_br_index(dsim, acutal_br);
 	real_br = get_actual_br_value(dsim, panel->br_index);
 	panel->caps_enable = CAPS_IS_ON(real_br);
-<<<<<<< HEAD
 	panel->acl_enable = ACL_IS_ON(real_br);
-=======
-	if(panel->acl_enable != ACL_IS_ON(p_br)) {
-		m_force = 1;
-	}
-	panel->acl_enable = ACL_IS_ON(p_br);
->>>>>>> G920FXXU3COI9
 
 	if(bIsHbm) {
 		panel->br_index = panel->hbm_index;
@@ -532,11 +521,7 @@ int dsim_panel_set_brightness(struct dsim_device *dsim, int force)
 	dsim_info("%s : platform : %d, : mapping : %d, real : %d, index : %d, interpolation : %d\n",
 		__func__, p_br, acutal_br, real_br, panel->br_index, panel->interpolation);
 
-<<<<<<< HEAD
 	if (!force && panel->br_index == prev_index)
-=======
-	if (!m_force && panel->br_index == prev_index)
->>>>>>> G920FXXU3COI9
 		goto set_br_exit;
 
 	if ((acutal_br == 0) || (real_br == 0))
@@ -544,11 +529,7 @@ int dsim_panel_set_brightness(struct dsim_device *dsim, int force)
 
 	mutex_lock(&panel->lock);
 
-<<<<<<< HEAD
 	ret = low_level_set_brightness(dsim, force);
-=======
-	ret = low_level_set_brightness(dsim, m_force);
->>>>>>> G920FXXU3COI9
 	if (ret) {
 		dsim_err("%s failed to set brightness : %d\n", __func__, acutal_br);
 	}

@@ -295,7 +295,4 @@ module_exit(crypto_pcbc_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("PCBC block cipher algorithm");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("pcbc");
-=======
->>>>>>> G920FXXU3COI9

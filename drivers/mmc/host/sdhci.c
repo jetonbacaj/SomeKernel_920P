@@ -1316,11 +1316,8 @@ static void sdhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
 
 	sdhci_runtime_pm_get(host);
 
-<<<<<<< HEAD
 	present = mmc_gpio_get_cd(host->mmc);
 
-=======
->>>>>>> G920FXXU3COI9
 	spin_lock_irqsave(&host->lock, flags);
 
 	WARN_ON(host->mrq != NULL);
@@ -1349,10 +1346,6 @@ static void sdhci_request(struct mmc_host *mmc, struct mmc_request *mrq)
 	 *     zero: cd-gpio is used, and card is removed
 	 *     one: cd-gpio is used, and card is present
 	 */
-<<<<<<< HEAD
-=======
-	present = mmc_gpio_get_cd(host->mmc);
->>>>>>> G920FXXU3COI9
 	if (present < 0) {
 		/* If polling, assume that the card is always present. */
 		if (host->quirks & SDHCI_QUIRK_BROKEN_CARD_DETECTION)

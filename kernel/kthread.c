@@ -554,11 +554,7 @@ static void insert_kthread_work(struct kthread_worker *worker,
 
 	list_add_tail(&work->node, pos);
 	work->worker = worker;
-<<<<<<< HEAD
 	if (!worker->current_work && likely(worker->task))
-=======
-	if (likely(worker->task))
->>>>>>> G920FXXU3COI9
 		wake_up_process(worker->task);
 }
 

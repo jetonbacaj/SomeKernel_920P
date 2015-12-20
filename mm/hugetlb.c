@@ -2451,16 +2451,10 @@ again:
 			continue;
 
 		/*
-<<<<<<< HEAD
 		 * Migrating hugepage or HWPoisoned hugepage is already
 		 * unmapped and its refcount is dropped, so just clear pte here.
 		 */
 		if (unlikely(!pte_present(pte))) {
-=======
-		 * HWPoisoned hugepage is already unmapped and dropped reference
-		 */
-		if (unlikely(is_hugetlb_entry_hwpoisoned(pte))) {
->>>>>>> G920FXXU3COI9
 			huge_pte_clear(mm, address, ptep);
 			continue;
 		}
@@ -2579,7 +2573,6 @@ static int unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
 			continue;
 
 		/*
-<<<<<<< HEAD
 		 * Shared VMAs have their own reserves and do not affect
 		 * MAP_PRIVATE accounting but it is possible that a shared
 		 * VMA is using the same page so check and skip such VMAs.
@@ -2588,8 +2581,6 @@ static int unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
 			continue;
 
 		/*
-=======
->>>>>>> G920FXXU3COI9
 		 * Unmap the page from other VMAs without their own reserves.
 		 * They get marked to be SIGKILLed if they fault in these
 		 * areas. This is because a future no-page fault on this VMA

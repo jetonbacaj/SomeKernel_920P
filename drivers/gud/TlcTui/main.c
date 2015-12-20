@@ -126,7 +126,6 @@ static long tui_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 	return ret;
 }
 
-<<<<<<< HEAD
 atomic_t fileopened;
 static int tui_open(struct inode *inode, struct file *file)
 {
@@ -142,17 +141,12 @@ static int tui_release(struct inode *inode, struct file *file)
 	return 0;
 }
 
-=======
->>>>>>> G920FXXU3COI9
 static const struct file_operations tui_fops = {
 	.owner = THIS_MODULE,
 	/*.unlocked_ioctl = tui_ioctl,*/
 	.compat_ioctl = tui_ioctl,
-<<<<<<< HEAD
 	.open = tui_open,
 	.release = tui_release,
-=======
->>>>>>> G920FXXU3COI9
 };
 
 /*--------------------------------------------------------------------------- */
@@ -166,11 +160,8 @@ static int __init tlc_tui_init(void)
 	int err;
 	static struct class *tui_class;
 
-<<<<<<< HEAD
 	atomic_set(&fileopened, 0);
 
-=======
->>>>>>> G920FXXU3COI9
 	err = alloc_chrdev_region(&devno, 0, 1, TUI_DEV_NAME);
 	if (err) {
 		pr_debug(KERN_ERR "Unable to allocate Trusted UI device number\n");

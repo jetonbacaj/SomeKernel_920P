@@ -544,15 +544,6 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
 	if (IS_ERR(file))
 		goto no_file;
 
-<<<<<<< HEAD
-=======
-	id = ipc_addid(&shm_ids(ns), &shp->shm_perm, ns->shm_ctlmni);
-	if (id < 0) {
-		error = id;
-		goto no_id;
-	}
-
->>>>>>> G920FXXU3COI9
 	shp->shm_cprid = task_tgid_vnr(current);
 	shp->shm_lprid = 0;
 	shp->shm_atim = shp->shm_dtim = 0;
@@ -562,15 +553,12 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
 	shp->shm_file = file;
 	shp->shm_creator = current;
 
-<<<<<<< HEAD
 	id = ipc_addid(&shm_ids(ns), &shp->shm_perm, ns->shm_ctlmni);
 	if (id < 0) {
 		error = id;
 		goto no_id;
 	}
 
-=======
->>>>>>> G920FXXU3COI9
 	/*
 	 * shmid gets reported as "inode#" in /proc/pid/maps.
 	 * proc-ps tools use this. Changing this will break them.

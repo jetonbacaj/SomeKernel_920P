@@ -1345,7 +1345,6 @@ static struct task_struct *_pick_next_task_rt(struct rq *rq)
 		rt_rq = group_rt_rq(rt_se);
 	} while (rt_rq);
 
-<<<<<<< HEAD
 	/*
 	 * Force update of rq->clock_task in case we failed to do so in
 	 * put_prev_task. A stale value can cause us to over-charge execution
@@ -1356,8 +1355,6 @@ static struct task_struct *_pick_next_task_rt(struct rq *rq)
 		update_rq_clock(rq);
 	}
 
-=======
->>>>>>> G920FXXU3COI9
 	p = rt_task_of(rt_se);
 	p->se.exec_start = rq->clock_task;
 

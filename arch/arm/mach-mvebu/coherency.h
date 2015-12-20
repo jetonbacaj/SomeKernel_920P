@@ -19,10 +19,7 @@ int coherency_get_cpu_count(void);
 #endif
 
 int set_cpu_coherent(int cpu_id, int smp_group_id);
-<<<<<<< HEAD
 int coherency_available(void);
-=======
->>>>>>> G920FXXU3COI9
 int coherency_init(void);
 
 #endif	/* __MACH_370_XP_COHERENCY_H */

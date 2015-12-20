@@ -144,11 +144,8 @@ EXPORT_PER_CPU_SYMBOL_GPL(gdt_page);
 
 static int __init x86_xsave_setup(char *s)
 {
-<<<<<<< HEAD
 	if (strlen(s))
 		return 0;
-=======
->>>>>>> G920FXXU3COI9
 	setup_clear_cpu_cap(X86_FEATURE_XSAVE);
 	setup_clear_cpu_cap(X86_FEATURE_XSAVEOPT);
 	setup_clear_cpu_cap(X86_FEATURE_AVX);

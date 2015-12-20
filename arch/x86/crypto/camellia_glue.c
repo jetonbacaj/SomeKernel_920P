@@ -1725,10 +1725,5 @@ module_exit(fini);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Camellia Cipher Algorithm, asm optimized");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("camellia");
 MODULE_ALIAS_CRYPTO("camellia-asm");
-=======
-MODULE_ALIAS("camellia");
-MODULE_ALIAS("camellia-asm");
->>>>>>> G920FXXU3COI9

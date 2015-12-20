@@ -210,11 +210,7 @@
 /* Various constants */
 
 /* Coalescing */
-<<<<<<< HEAD
 #define MVNETA_TXDONE_COAL_PKTS		1
-=======
-#define MVNETA_TXDONE_COAL_PKTS		16
->>>>>>> G920FXXU3COI9
 #define MVNETA_RX_COAL_PKTS		32
 #define MVNETA_RX_COAL_USEC		100
 

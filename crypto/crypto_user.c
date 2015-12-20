@@ -361,11 +361,7 @@ static struct crypto_alg *crypto_user_aead_alg(const char *name, u32 type,
 		err = PTR_ERR(alg);
 		if (err != -EAGAIN)
 			break;
-<<<<<<< HEAD
 		if (fatal_signal_pending(current)) {
-=======
-		if (signal_pending(current)) {
->>>>>>> G920FXXU3COI9
 			err = -EINTR;
 			break;
 		}

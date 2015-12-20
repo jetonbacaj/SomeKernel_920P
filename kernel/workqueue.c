@@ -1464,7 +1464,6 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
 	timer_stats_timer_set_start_info(&dwork->timer);
 
 	dwork->wq = wq;
-<<<<<<< HEAD
 	/* timer isn't guaranteed to run in this cpu, record earlier */
 	if (cpu == WORK_CPU_UNBOUND)
 		cpu = raw_smp_processor_id();
@@ -1472,15 +1471,6 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
 	timer->expires = jiffies + delay;
 
 	add_timer_on(timer, cpu);
-=======
-	dwork->cpu = cpu;
-	timer->expires = jiffies + delay;
-
-	if (unlikely(cpu != WORK_CPU_UNBOUND))
-		add_timer_on(timer, cpu);
-	else
-		add_timer(timer);
->>>>>>> G920FXXU3COI9
 }
 
 /**
@@ -1958,26 +1948,13 @@ static void pool_mayday_timeout(unsigned long __pool)
  * spin_lock_irq(pool->lock) which may be released and regrabbed
  * multiple times.  Does GFP_KERNEL allocations.  Called only from
  * manager.
-<<<<<<< HEAD
  */
 static void maybe_create_worker(struct worker_pool *pool)
-=======
- *
- * RETURNS:
- * %false if no action was taken and pool->lock stayed locked, %true
- * otherwise.
- */
-static bool maybe_create_worker(struct worker_pool *pool)
->>>>>>> G920FXXU3COI9
 __releases(&pool->lock)
 __acquires(&pool->lock)
 {
 	if (!need_to_create_worker(pool))
-<<<<<<< HEAD
 		return;
-=======
-		return false;
->>>>>>> G920FXXU3COI9
 restart:
 	spin_unlock_irq(&pool->lock);
 
@@ -1994,11 +1971,7 @@ restart:
 			start_worker(worker);
 			if (WARN_ON_ONCE(need_to_create_worker(pool)))
 				goto restart;
-<<<<<<< HEAD
 			return;
-=======
-			return true;
->>>>>>> G920FXXU3COI9
 		}
 
 		if (!need_to_create_worker(pool))
@@ -2015,11 +1988,7 @@ restart:
 	spin_lock_irq(&pool->lock);
 	if (need_to_create_worker(pool))
 		goto restart;
-<<<<<<< HEAD
 	return;
-=======
-	return true;
->>>>>>> G920FXXU3COI9
 }
 
 /**
@@ -2032,21 +2001,9 @@ restart:
  * LOCKING:
  * spin_lock_irq(pool->lock) which may be released and regrabbed
  * multiple times.  Called only from manager.
-<<<<<<< HEAD
  */
 static void maybe_destroy_workers(struct worker_pool *pool)
 {
-=======
- *
- * RETURNS:
- * %false if no action was taken and pool->lock stayed locked, %true
- * otherwise.
- */
-static bool maybe_destroy_workers(struct worker_pool *pool)
-{
-	bool ret = false;
-
->>>>>>> G920FXXU3COI9
 	while (too_many_workers(pool)) {
 		struct worker *worker;
 		unsigned long expires;
@@ -2060,14 +2017,7 @@ static bool maybe_destroy_workers(struct worker_pool *pool)
 		}
 
 		destroy_worker(worker);
-<<<<<<< HEAD
 	}
-=======
-		ret = true;
-	}
-
-	return ret;
->>>>>>> G920FXXU3COI9
 }
 
 /**
@@ -2087,23 +2037,14 @@ static bool maybe_destroy_workers(struct worker_pool *pool)
  * multiple times.  Does GFP_KERNEL allocations.
  *
  * RETURNS:
-<<<<<<< HEAD
  * %false if the pool doesn't need management and the caller can safely
  * start processing works, %true if management function was performed and
  * the conditions that the caller verified before calling the function may
  * no longer be true.
-=======
- * spin_lock_irq(pool->lock) which may be released and regrabbed
- * multiple times.  Does GFP_KERNEL allocations.
->>>>>>> G920FXXU3COI9
  */
 static bool manage_workers(struct worker *worker)
 {
 	struct worker_pool *pool = worker->pool;
-<<<<<<< HEAD
-=======
-	bool ret = false;
->>>>>>> G920FXXU3COI9
 
 	/*
 	 * Managership is governed by two mutexes - manager_arb and
@@ -2127,11 +2068,7 @@ static bool manage_workers(struct worker *worker)
 	 * manager_mutex.
 	 */
 	if (!mutex_trylock(&pool->manager_arb))
-<<<<<<< HEAD
 		return false;
-=======
-		return ret;
->>>>>>> G920FXXU3COI9
 
 	/*
 	 * With manager arbitration won, manager_mutex would be free in
@@ -2141,10 +2078,6 @@ static bool manage_workers(struct worker *worker)
 		spin_unlock_irq(&pool->lock);
 		mutex_lock(&pool->manager_mutex);
 		spin_lock_irq(&pool->lock);
-<<<<<<< HEAD
-=======
-		ret = true;
->>>>>>> G920FXXU3COI9
 	}
 
 	pool->flags &= ~POOL_MANAGE_WORKERS;
@@ -2153,21 +2086,12 @@ static bool manage_workers(struct worker *worker)
 	 * Destroy and then create so that may_start_working() is true
 	 * on return.
 	 */
-<<<<<<< HEAD
 	maybe_destroy_workers(pool);
 	maybe_create_worker(pool);
 
 	mutex_unlock(&pool->manager_mutex);
 	mutex_unlock(&pool->manager_arb);
 	return true;
-=======
-	ret |= maybe_destroy_workers(pool);
-	ret |= maybe_create_worker(pool);
-
-	mutex_unlock(&pool->manager_mutex);
-	mutex_unlock(&pool->manager_arb);
-	return ret;
->>>>>>> G920FXXU3COI9
 }
 
 /**
@@ -2490,7 +2414,6 @@ repeat:
 			if (get_work_pwq(work) == pwq)
 				move_linked_works(work, scheduled, &n);
 
-<<<<<<< HEAD
 		if (!list_empty(scheduled)) {
 			process_scheduled_works(rescuer);
 
@@ -2510,9 +2433,6 @@ repeat:
 				spin_unlock(&wq_mayday_lock);
 			}
 		}
-=======
-		process_scheduled_works(rescuer);
->>>>>>> G920FXXU3COI9
 
 		/*
 		 * Put the reference grabbed by send_mayday().  @pool won't
@@ -2975,7 +2895,6 @@ bool flush_work(struct work_struct *work)
 }
 EXPORT_SYMBOL_GPL(flush_work);
 
-<<<<<<< HEAD
 struct cwt_wait {
 	wait_queue_t		wait;
 	struct work_struct	*work;
@@ -2993,17 +2912,12 @@ static int cwt_wakefn(wait_queue_t *wait, unsigned mode, int sync, void *key)
 static bool __cancel_work_timer(struct work_struct *work, bool is_dwork)
 {
 	static DECLARE_WAIT_QUEUE_HEAD(cancel_waitq);
-=======
-static bool __cancel_work_timer(struct work_struct *work, bool is_dwork)
-{
->>>>>>> G920FXXU3COI9
 	unsigned long flags;
 	int ret;
 
 	do {
 		ret = try_to_grab_pending(work, is_dwork, &flags);
 		/*
-<<<<<<< HEAD
 		 * If someone else is already canceling, wait for it to
 		 * finish.  flush_work() doesn't work for PREEMPT_NONE
 		 * because we may get scheduled between @work's completion
@@ -3032,13 +2946,6 @@ static bool __cancel_work_timer(struct work_struct *work, bool is_dwork)
 				schedule();
 			finish_wait(&cancel_waitq, &cwait.wait);
 		}
-=======
-		 * If someone else is canceling, wait for the same event it
-		 * would be waiting for before retrying.
-		 */
-		if (unlikely(ret == -ENOENT))
-			flush_work(work);
->>>>>>> G920FXXU3COI9
 	} while (unlikely(ret < 0));
 
 	/* tell other tasks trying to grab @work to back off */
@@ -3047,7 +2954,6 @@ static bool __cancel_work_timer(struct work_struct *work, bool is_dwork)
 
 	flush_work(work);
 	clear_work_data(work);
-<<<<<<< HEAD
 
 	/*
 	 * Paired with prepare_to_wait() above so that either
@@ -3058,8 +2964,6 @@ static bool __cancel_work_timer(struct work_struct *work, bool is_dwork)
 	if (waitqueue_active(&cancel_waitq))
 		__wake_up(&cancel_waitq, TASK_NORMAL, 1, work);
 
-=======
->>>>>>> G920FXXU3COI9
 	return ret;
 }
 

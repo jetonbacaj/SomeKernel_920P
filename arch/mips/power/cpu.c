@@ -7,11 +7,7 @@
  * Author: Hu Hongbing <huhb@lemote.com>
  *	   Wu Zhangjin <wuzhangjin@gmail.com>
  */
-<<<<<<< HEAD
 #include <asm/sections.h>
-=======
-#include <asm/suspend.h>
->>>>>>> G920FXXU3COI9
 #include <asm/fpu.h>
 #include <asm/dsp.h>
 

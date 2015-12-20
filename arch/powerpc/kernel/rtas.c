@@ -584,7 +584,6 @@ int rtas_get_sensor(int sensor, int index, int *state)
 }
 EXPORT_SYMBOL(rtas_get_sensor);
 
-<<<<<<< HEAD
 int rtas_get_sensor_fast(int sensor, int index, int *state)
 {
 	int token = rtas_token("get-sensor-state");
@@ -602,8 +601,6 @@ int rtas_get_sensor_fast(int sensor, int index, int *state)
 	return rc;
 }
 
-=======
->>>>>>> G920FXXU3COI9
 bool rtas_indicator_present(int token, int *maxindex)
 {
 	int proplen, count, i;
@@ -1044,12 +1041,9 @@ asmlinkage int ppc_rtas(struct rtas_args __user *uargs)
 	if (!capable(CAP_SYS_ADMIN))
 		return -EPERM;
 
-<<<<<<< HEAD
 	if (!rtas.entry)
 		return -EINVAL;
 
-=======
->>>>>>> G920FXXU3COI9
 	if (copy_from_user(&args, uargs, 3 * sizeof(u32)) != 0)
 		return -EFAULT;
 
