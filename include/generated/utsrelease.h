@@ -1,1 +1,0 @@
-#define UTS_RELEASE "3.10.93-Googy-Max-S6-vTW_1.3-beta5"
