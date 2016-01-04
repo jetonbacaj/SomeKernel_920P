@@ -245,14 +245,20 @@ HOSTCXX      = g++
 =======
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
+<<<<<<< HEAD
 
 GRAPHITE   = -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-flatten -floop-nest-optimize
 
+=======
+>>>>>>> 6e193c8... Makefile: add optimization levels
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -O2
 endif
 ifdef CONFIG_CC_OPTIMIZE_DEFAULT
+<<<<<<< HEAD
+>>>>>>> 6e193c8... Makefile: add optimization levels
+=======
 >>>>>>> 6e193c8... Makefile: add optimization levels
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -O2
@@ -265,11 +271,14 @@ ifdef CONFIG_CC_OPTIMIZE_FAST
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -Ofast
 endif
+<<<<<<< HEAD
 
 ifdef CONFIG_CC_GRAPHITE_OPTIMIZATION
 HOSTCFLAGS   = $(GRAPHITE)
 HOSTCXXFLAGS = $(GRAPHITE)
 endif
+=======
+>>>>>>> 6e193c8... Makefile: add optimization levels
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -621,9 +630,12 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 <<<<<<< HEAD
+<<<<<<< HEAD
 else
 KBUILD_CFLAGS	+= -O2 $(call cc-disable-warning,maybe-uninitialized,)
 =======
+=======
+>>>>>>> 6e193c8... Makefile: add optimization levels
 endif
 ifdef CONFIG_CC_OPTIMIZE_DEFAULT
 KBUILD_CFLAGS	+= -O2
@@ -638,6 +650,14 @@ endif
 ifdef CONFIG_CC_GRAPHITE_OPTIMIZATION
 KBUILD_CFLAGS	+= $(GRAPHITE)
 endif
+<<<<<<< HEAD
+=======
+ifdef CONFIG_CC_OPTIMIZE_FAST
+KBUILD_CFLAGS	+= -Ofast
+endif
+
+include $(srctree)/arch/$(SRCARCH)/Makefile
+>>>>>>> 6e193c8... Makefile: add optimization levels
 
 # Tell gcc to never replace conditional load with a non-conditional one
 KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
