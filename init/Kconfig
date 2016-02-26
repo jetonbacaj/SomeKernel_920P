@@ -1244,6 +1244,9 @@ config CC_OPTIMIZE_FAST
 endchoice
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b6d00e7... Makefile: add graphite optimizations
 config CC_GRAPHITE_OPTIMIZATION
 	bool "Enable graphite optimizations"
 	help
@@ -1251,8 +1254,11 @@ config CC_GRAPHITE_OPTIMIZATION
 
 	  If unsure, say N.
 
+<<<<<<< HEAD
 =======
 >>>>>>> 6e193c8... Makefile: add optimization levels
+=======
+>>>>>>> b6d00e7... Makefile: add graphite optimizations
 config SYSCTL
 	bool
 

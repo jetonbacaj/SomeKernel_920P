@@ -246,11 +246,17 @@ HOSTCXX      = g++
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 GRAPHITE   = -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-flatten -floop-nest-optimize
 
 =======
 >>>>>>> 6e193c8... Makefile: add optimization levels
+=======
+
+GRAPHITE   = -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-flatten -floop-nest-optimize
+
+>>>>>>> b6d00e7... Makefile: add graphite optimizations
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -O2
@@ -279,6 +285,11 @@ HOSTCXXFLAGS = $(GRAPHITE)
 endif
 =======
 >>>>>>> 6e193c8... Makefile: add optimization levels
+
+ifdef CONFIG_CC_GRAPHITE_OPTIMIZATION
+HOSTCFLAGS   = $(GRAPHITE)
+HOSTCXXFLAGS = $(GRAPHITE)
+endif
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -654,6 +665,9 @@ endif
 =======
 ifdef CONFIG_CC_OPTIMIZE_FAST
 KBUILD_CFLAGS	+= -Ofast
+endif
+ifdef CONFIG_CC_GRAPHITE_OPTIMIZATION
+KBUILD_CFLAGS	+= $(GRAPHITE)
 endif
 
 include $(srctree)/arch/$(SRCARCH)/Makefile
