@@ -491,6 +491,9 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 	int hotplug_out_limit = 0;
 #endif
 
+	if (ktoonservative_is_active && ktoonservative_hp_active)
+		return 0;
+
 	if (exynos_dm_hotplug_disabled())
 		return 0;
 
