@@ -139,7 +139,7 @@ void prandom_seed(u32 entropy)
 	 * No locking on the CPUs, but then somewhat random results are, well,
 	 * expected.
 	 */
-	for_each_possible_cpu (i) {
+	for_each_possible_cpu(i) {
 		struct rnd_state *state = &per_cpu(net_rand_state, i);
 		state->s1 = __seed(state->s1 ^ entropy, 2);
 	}
@@ -155,7 +155,12 @@ static int __init prandom_init(void)
 	int i;
 
 	for_each_possible_cpu(i) {
+<<<<<<< HEAD
 		struct rnd_state *state = &per_cpu(net_rand_state,i);
+=======
+		struct rnd_state *state = &per_cpu(net_rand_state, i);
+		u32 weak_seed = (i + jiffies) ^ random_get_entropy();
+>>>>>>> a7d8cb1... random: fully switch to Chacha20
 
 #define LCG(x)	((x) * 69069)	/* super-duper LCG */
 		state->s1 = __seed(LCG(i + jiffies), 2);
@@ -174,12 +179,60 @@ static int __init prandom_init(void)
 }
 core_initcall(prandom_init);
 
+<<<<<<< HEAD
+=======
+static void __prandom_timer(unsigned long dontcare);
+
+static DEFINE_TIMER(seed_timer, __prandom_timer, 0, 0);
+
+static void __prandom_timer(unsigned long dontcare)
+{
+	u32 entropy;
+	unsigned long expires;
+
+	get_random_bytes(&entropy, sizeof(entropy));
+	prandom_seed(entropy);
+
+	/* reseed every ~60 seconds, in [40 .. 80) interval with slack */
+	expires = 40 + prandom_u32_max(40);
+	seed_timer.expires = jiffies + msecs_to_jiffies(expires * MSEC_PER_SEC);
+
+	add_timer(&seed_timer);
+}
+
+static void __init __prandom_start_seed_timer(void)
+{
+	seed_timer.expires = jiffies + msecs_to_jiffies(40 * MSEC_PER_SEC);
+	add_timer(&seed_timer);
+}
+
+void prandom_seed_full_state(struct rnd_state __percpu *pcpu_state)
+{
+	int i;
+
+	for_each_possible_cpu(i) {
+		struct rnd_state *state = per_cpu_ptr(pcpu_state, i);
+		u32 seeds[4];
+
+		get_random_bytes(&seeds, sizeof(seeds));
+		state->s1 = __seed(seeds[0],   2U);
+		state->s2 = __seed(seeds[1],   8U);
+		state->s3 = __seed(seeds[2],  16U);
+		state->s4 = __seed(seeds[3], 128U);
+
+		prandom_warmup(state);
+	}
+}
+EXPORT_SYMBOL(prandom_seed_full_state);
+
+>>>>>>> a7d8cb1... random: fully switch to Chacha20
 /*
  *	Generate better values after random number generator
  *	is fully initialized.
  */
 static int __init prandom_reseed(void)
 {
+<<<<<<< HEAD
 	int i;
 
 	for_each_possible_cpu(i) {
@@ -194,6 +247,43 @@ static int __init prandom_reseed(void)
 		/* mix it in */
 		prandom_u32_state(state);
 	}
+=======
+	unsigned long flags;
+	static bool latch = false;
+	static DEFINE_SPINLOCK(lock);
+
+	/* Asking for random bytes might result in bytes getting
+	 * moved into the nonblocking pool and thus marking it
+	 * as initialized. In this case we would double back into
+	 * this function and attempt to do a late reseed.
+	 * Ignore the pointless attempt to reseed again if we're
+	 * already waiting for bytes when the nonblocking pool
+	 * got initialized.
+	 */
+
+	/* only allow initial seeding (late == false) once */
+	if (!spin_trylock_irqsave(&lock, flags))
+		return;
+
+	if (latch && !late)
+		goto out;
+
+	latch = true;
+	prandom_seed_full_state(&net_rand_state);
+out:
+	spin_unlock_irqrestore(&lock, flags);
+}
+
+void prandom_reseed_late(void)
+{
+	__prandom_reseed(true);
+}
+
+static int __init prandom_reseed(void)
+{
+	__prandom_reseed(false);
+	__prandom_start_seed_timer();
+>>>>>>> a7d8cb1... random: fully switch to Chacha20
 	return 0;
 }
 late_initcall(prandom_reseed);
